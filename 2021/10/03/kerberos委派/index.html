@@ -87,8 +87,8 @@
 <meta property="og:description" content="0x01委派委派：当用户A基于kerberos验证去请求B服务，B服务使用A的身份去请求服务C。   域内用户jack以Kerberos方式认证后访问Web服务器； Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请； KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT； websvc收到jack用户TGT后，使用该票据向KDC">
 <meta property="og:locale">
 <meta property="og:image" content="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png">
-<meta property="og:image" content="https://i0.hdslb.com/bfs/album/046165a912020139ef3627d3712e81356486aa64.png">
-<meta property="og:image" content="https://i0.hdslb.com/bfs/album/e698c913d416928b7803875cd9d75675cbd745ac.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/04/wXId46.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/04/wXiyKM.png">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6jr7.png">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6FzF.png">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6Rir.png">
@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wXIGaM.png">
 <meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wXIHEt.png">
 <meta property="article:published_time" content="2021-10-03T13:33:37.000Z">
-<meta property="article:modified_time" content="2021-10-03T16:37:22.570Z">
+<meta property="article:modified_time" content="2021-10-03T16:43:45.673Z">
 <meta property="article:author" content="1">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png">
@@ -329,7 +329,7 @@
 <p><strong>机器账号</strong>就是AD活动目录中 Computers 中的计算机(一个普通域用户默认最多可以创建十个主机账号)。</p>
 <p><strong>服务账号</strong>（Service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQL Server 在安装时，会在域内自动注册服务账号 SQLServiceAccount。也可以将域用户通过注册SPN变为服务账号。</p>
 <p>当用户被设置为不允许被委派，那么就不能委派。</p>
-<p><img src="https://i0.hdslb.com/bfs/album/046165a912020139ef3627d3712e81356486aa64.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXId46.png" alt="wXId46.png"></p>
 <p>委派可以分为：</p>
 <p><strong>非约束性委派</strong></p>
 <p><strong>约束性委派</strong></p>
@@ -348,7 +348,7 @@
 <p>从网络攻击的角度来看，如果攻击者控制了机器B的机器账号，并且机器B配置了非约束性委派。则攻击者可以诱骗管理员来访问机器B，然后攻击者可以获取管理员的TGT，从而模拟管理员访问任意服务，即获得了管理员权限。</p>
 <p>在非约束行委派中，服务账号可以获取被委派用户的TGT，然后把TGT存储在LSASS进程中，从而服务账号可以使用这个TGT去模拟用户访问任何服务。</p>
 <p>当服务账号或者主机被设置为非约束性委派时，其<code>userAccountControl</code>属性会包含<code>WORKSTATION_TRUSTED_FOR_DELEGATION</code>。我们设置MSSQL这个机器。</p>
-<p><img src="https://i0.hdslb.com/bfs/album/e698c913d416928b7803875cd9d75675cbd745ac.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXiyKM.png" alt="wXiyKM.png"></p>
 <p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6jr7.png" alt="wX6jr7.png"></p>
 <p>当我们控制了机器账号MSSQL，然后诱导管理员来访问机器，就可以获得管理员的TGT，从而访问任何服务。</p>
 <h3 id="2-1-筛选非约束性委派的账号"><a href="#2-1-筛选非约束性委派的账号" class="headerlink" title="2.1 筛选非约束性委派的账号"></a>2.1 筛选非约束性委派的账号</h3><p>域控主机账户是默认开启非约束性委派</p>

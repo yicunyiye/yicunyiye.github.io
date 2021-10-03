@@ -316,7 +316,7 @@
 <p><strong>机器账号</strong>就是AD活动目录中 Computers 中的计算机(一个普通域用户默认最多可以创建十个主机账号)。</p>
 <p><strong>服务账号</strong>（Service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQL Server 在安装时，会在域内自动注册服务账号 SQLServiceAccount。也可以将域用户通过注册SPN变为服务账号。</p>
 <p>当用户被设置为不允许被委派，那么就不能委派。</p>
-<p><img src="https://i0.hdslb.com/bfs/album/046165a912020139ef3627d3712e81356486aa64.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXId46.png" alt="wXId46.png"></p>
 <p>委派可以分为：</p>
 <p><strong>非约束性委派</strong></p>
 <p><strong>约束性委派</strong></p>
@@ -335,7 +335,7 @@
 <p>从网络攻击的角度来看，如果攻击者控制了机器B的机器账号，并且机器B配置了非约束性委派。则攻击者可以诱骗管理员来访问机器B，然后攻击者可以获取管理员的TGT，从而模拟管理员访问任意服务，即获得了管理员权限。</p>
 <p>在非约束行委派中，服务账号可以获取被委派用户的TGT，然后把TGT存储在LSASS进程中，从而服务账号可以使用这个TGT去模拟用户访问任何服务。</p>
 <p>当服务账号或者主机被设置为非约束性委派时，其<code>userAccountControl</code>属性会包含<code>WORKSTATION_TRUSTED_FOR_DELEGATION</code>。我们设置MSSQL这个机器。</p>
-<p><img src="https://i0.hdslb.com/bfs/album/e698c913d416928b7803875cd9d75675cbd745ac.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXiyKM.png" alt="wXiyKM.png"></p>
 <p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6jr7.png" alt="wX6jr7.png"></p>
 <p>当我们控制了机器账号MSSQL，然后诱导管理员来访问机器，就可以获得管理员的TGT，从而访问任何服务。</p>
 <h3 id="2-1-筛选非约束性委派的账号"><a href="#2-1-筛选非约束性委派的账号" class="headerlink" title="2.1 筛选非约束性委派的账号"></a>2.1 筛选非约束性委派的账号</h3><p>域控主机账户是默认开启非约束性委派</p>
@@ -999,7 +999,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /NTLM:768623e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/4377d7c2fc545597.png"></p>
-<p>得到<a href="mailto:&#84;&#71;&#84;&#95;&#x50;&#67;&#x2d;&#x4a;&#x41;&#x43;&#x4b;&#x2d;&#48;&#68;&#x41;&#x59;&#x40;&#48;&#68;&#65;&#89;&#46;&#79;&#x52;&#71;&#95;&#x6b;&#114;&#x62;&#x74;&#x67;&#116;">&#84;&#71;&#84;&#95;&#x50;&#67;&#x2d;&#x4a;&#x41;&#x43;&#x4b;&#x2d;&#48;&#68;&#x41;&#x59;&#x40;&#48;&#68;&#65;&#89;&#46;&#79;&#x52;&#71;&#95;&#x6b;&#114;&#x62;&#x74;&#x67;&#116;</a>~<a href="mailto:&#48;&#100;&#x61;&#x79;&#46;&#x6f;&#114;&#103;&#64;&#48;&#x44;&#65;&#89;&#x2e;&#x4f;&#x52;&#x47;&#x2e;&#107;&#x69;&#x72;&#x62;&#x69;">&#48;&#100;&#x61;&#x79;&#46;&#x6f;&#114;&#103;&#64;&#48;&#x44;&#65;&#89;&#x2e;&#x4f;&#x52;&#x47;&#x2e;&#107;&#x69;&#x72;&#x62;&#x69;</a></p>
+<p>得到<a href="mailto:&#84;&#71;&#84;&#95;&#x50;&#x43;&#45;&#74;&#x41;&#x43;&#75;&#45;&#x30;&#68;&#65;&#89;&#x40;&#48;&#68;&#65;&#x59;&#x2e;&#79;&#82;&#x47;&#x5f;&#107;&#x72;&#98;&#x74;&#x67;&#x74;">&#84;&#71;&#84;&#95;&#x50;&#x43;&#45;&#74;&#x41;&#x43;&#75;&#45;&#x30;&#68;&#65;&#89;&#x40;&#48;&#68;&#65;&#x59;&#x2e;&#79;&#82;&#x47;&#x5f;&#107;&#x72;&#98;&#x74;&#x67;&#x74;</a>~<a href="mailto:&#48;&#x64;&#x61;&#121;&#x2e;&#x6f;&#x72;&#103;&#x40;&#48;&#x44;&#x41;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x2e;&#x6b;&#x69;&#114;&#x62;&#105;">&#48;&#x64;&#x61;&#121;&#x2e;&#x6f;&#x72;&#103;&#x40;&#48;&#x44;&#x41;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x2e;&#x6b;&#x69;&#114;&#x62;&#105;</a></p>
 <h3 id="3-获取ST"><a href="#3-获取ST" class="headerlink" title="3.获取ST"></a>3.获取ST</h3><p>然后我们可以使用这张TGT通过伪造s4u请求以<code>administrator</code>用户身份请求访问<code>OWA2010SP3 CIFS</code>的ST</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
 
@@ -1101,7 +1101,7 @@
 
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/b7b9d716c74d6bda.png"></p>
-<p>可以看到生成了<a href="mailto:&#84;&#71;&#84;&#x5f;&#x6a;&#x61;&#99;&#x6b;&#x40;&#48;&#100;&#x61;&#x79;&#x2e;&#111;&#x72;&#103;&#x2e;&#99;&#99;&#x61;&#x63;&#x68;&#101;">&#84;&#71;&#84;&#x5f;&#x6a;&#x61;&#99;&#x6b;&#x40;&#48;&#100;&#x61;&#x79;&#x2e;&#111;&#x72;&#103;&#x2e;&#99;&#99;&#x61;&#x63;&#x68;&#101;</a></p>
+<p>可以看到生成了<a href="mailto:&#x54;&#71;&#x54;&#x5f;&#106;&#x61;&#x63;&#107;&#x40;&#x30;&#100;&#x61;&#x79;&#46;&#111;&#114;&#x67;&#46;&#x63;&#99;&#97;&#x63;&#104;&#x65;">&#x54;&#71;&#x54;&#x5f;&#106;&#x61;&#x63;&#107;&#x40;&#x30;&#100;&#x61;&#x79;&#46;&#111;&#114;&#x67;&#46;&#x63;&#99;&#97;&#x63;&#104;&#x65;</a></p>
 <p><strong>2.mimikatz导入票据</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
 
