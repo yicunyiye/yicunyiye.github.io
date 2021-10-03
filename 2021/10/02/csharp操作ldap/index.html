@@ -344,7 +344,7 @@
 
 <p>域内很好理解，这里来说下域外。<br>SET_LDAP_USER_PASS()这个方法用来获取url，username，password，然后调用了GetArgsValue类里面的属性。<br>​</p>
 <p>这里我用了NDesk.Options来处理获取的参数。<br>​</p>
-<p>先定义三个list<string></p>
+<p>先定义三个list<string></string></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">List&lt;string&gt; domains = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; users = new List&lt;string&gt;();</span><br><span class="line">List&lt;string&gt; passes = new List&lt;string&gt;();</span><br></pre></td></tr></table></figure>
 
 
@@ -426,7 +426,7 @@
 <p>这里查询域管，我是这样进行处理的，我们先通过ldapsearch来查看返回结果<br>​</p>
 <p><img src="https://cdn.jsdelivr.net/gh/filess/img5@main/2021/10/01/1633088452249-ac636722-4320-4a0d-bef1-3ea3d85ab70d.png"></p>
 <p>然后我获取member的数量然后看里面是否包含user来输出。</p>
-<h2 id=""><a href="#" class="headerlink" title=""></a></h2><h1 id="0x04-AdminSDHolder检测与后门用户添加"><a href="#0x04-AdminSDHolder检测与后门用户添加" class="headerlink" title="0x04 AdminSDHolder检测与后门用户添加"></a>0x04 AdminSDHolder检测与后门用户添加</h1><h2 id="4-1-检测"><a href="#4-1-检测" class="headerlink" title="4.1 检测"></a>4.1 检测</h2><p>AdminSDHolder是对CN=AdminSDHolder,CN=System,DC=redteam,DC=local这个cn拥有完全控制权限的用户，我们前面说到<br>​</p>
+<h2 id><a href="#" class="headerlink" title></a></h2><h1 id="0x04-AdminSDHolder检测与后门用户添加"><a href="#0x04-AdminSDHolder检测与后门用户添加" class="headerlink" title="0x04 AdminSDHolder检测与后门用户添加"></a>0x04 AdminSDHolder检测与后门用户添加</h1><h2 id="4-1-检测"><a href="#4-1-检测" class="headerlink" title="4.1 检测"></a>4.1 检测</h2><p>AdminSDHolder是对CN=AdminSDHolder,CN=System,DC=redteam,DC=local这个cn拥有完全控制权限的用户，我们前面说到<br>​</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">public DirectorySearcher (System.DirectoryServices.DirectoryEntry searchRoot);</span><br></pre></td></tr></table></figure>
 
 <p>这里的searchroot就是查询的根地址我们就需要绑定到CN=AdminSDHolder,CN=System,DC=redteam,DC=local这里来也就是说url为</p>
@@ -642,7 +642,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
